@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ui-service:
+    container_name: ui
+    restart: always
+    build: .
+    ports:
+      - 8080:8080     # original port : destination port

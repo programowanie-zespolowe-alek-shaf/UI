@@ -1,0 +1,42 @@
+
+%common-text-password {
+  input {
+    width: 360px;
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+    border: 0;
+    outline: 0;
+    padding: 10px 12px;
+  }
+}
+
+.input-text {
+  @extend %common-text-password;
+}
+
+.input-password {
+  @extend %common-text-password;
+}
+
+.input-submit {
+  border: none;
+
+}
+
+.input-submit:hover {
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  input {
+    padding: 9px;
+  }
+}
+
+.input-error-message {
+  padding: 10px 6px 25px 6px;
+}
+
+.error {
+}
