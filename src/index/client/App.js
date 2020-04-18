@@ -8,6 +8,7 @@ import Navbar from '../../components/navbar/Navbar';
 import styles from '../../main.scss';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
+import CartContainer from '../../pages/cart/CartContainer';
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 
 const App = (props) => {
@@ -27,7 +28,7 @@ const App = (props) => {
         <div className={styles.container}>
           <Switch>
             <Route exact path={'/'} component={Home} />
-            <PrivateRoute isAuthenticated={user.isAuthenticated} />
+            <PrivateRoute path={'cart'} component={CartContainer} isAuthenticated={user.isAuthenticated} />
             <Route exact path={'*'}  component={NotFound}/>
           </Switch>
         </div>
