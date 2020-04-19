@@ -1,4 +1,4 @@
-
+@import "../../assets/styles/positioning";
 
 %flex-centered {
   display: flex;
@@ -6,82 +6,14 @@
   align-items: center;
 }
 
-%transition-duration {
-  transition-duration: 500ms;
-  background-color: antiquewhite;
-}
-
-.container {
-  background-color: antiquewhite;
-  position: fixed;
+.header {
+  @extend .wrapper;
   display: flex;
-  width: 100%;
-  height: 8vh;
-}
-
-.links-container {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
-  width: 85%;
-  opacity: 0.6;
-}
+  height: 4rem;
+  width: 100%;
 
-.page-label {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  width: 15%;
-  margin-right: 2px;
-  opacity: 1;
-  span {
-    padding: 0.25rem 2rem 0.25rem 2rem;
+  &Logo {
+    margin-right: auto;
   }
-}
-
-.links {
-  display: flex;
-}
-
-.box {
-  transition-property: transform, background;
-  transition-timing-function: ease-in;
-  @extend %transition-duration;
-  margin-right: 7px;
-  width: 13px;
-  height: 13px;
-}
-
-.nav-item {
-  @extend %flex-centered;
-  padding: 0 1rem 0 1rem;
-}
-
-.inactive-link {
-  @extend %flex-centered;
-  margin-left: 7px;
-  text-decoration: none;
-  transition-property: all;
-}
-
-.inactive-link:hover {
-  .box {
-    transform: rotate(45deg);
-  }
-  span {
-    @extend %transition-duration;
-    transition-property: color;
-  }
-}
-
-.activeLink {
-  @extend %flex-centered;
-  .box {
-    transform: rotate(45deg);
-  }
-}
-
-.auth-container {
-
 }
