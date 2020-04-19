@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./main.scss";
+import styles from "./Main.scss";
 
 const Main = () => {
   return <div className={styles.main}>Main Page</div>;

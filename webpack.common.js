@@ -7,6 +7,11 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
   ],
+  resolve: {
+    alias: {
+      styles: path.join(__dirname, 'src/assets/styles')
+    }
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/build/'
