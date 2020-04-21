@@ -6,7 +6,8 @@ const endpoint = (baseUrl) => {
     base: baseUrl,
     signIn: baseUrl + '/auth/signin',
     signUp: baseUrl + '/auth/signup',
-    getUserInfo: baseUrl + '/user/me'
+    cart: baseUrl + '/shoppingCarts/',
+    addToCart:  baseUrl + '/shoppingCarts/items'
   };
 };
 
