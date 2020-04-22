@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { getUserInfoAction } from "../../pages/login/actions/loginActions";
-import PrivateRoute from "../../components/privateRoute/PrivateRoute";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { getUserInfoAction } from '../../pages/login/actions/loginActions';
+import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
-import Navbar from "../../components/navbar/Navbar";
-import Main from "../../pages/main/Main";
-import Category from "../../pages/category/Category";
-import Search from "../../pages/search/Search";
-import Profile from "../../pages/profile/Profile";
-import CartContainer from "../../pages/cart/CartContainer";
-import Book from "../../pages/book/Book";
-import NotFound from "../../pages/notFound/NotFound";
+import Navbar from '../../components/navbar/Navbar';
+import Main from '../../pages/main/Main';
+import Category from '../../pages/category/Category';
+import Search from '../../pages/search/Search';
+import Profile from '../../pages/profile/Profile';
+import CartContainer from '../../pages/cart/CartContainer';
+import Book from '../../pages/book/Book';
+import NotFound from '../../pages/notFound/NotFound';
 
-import LoginContainer from "../../pages/login/LoginContainer";
-import RegisterContainer from "../../pages/register/RegisterContainer";
+import LoginContainer from '../../pages/login/LoginContainer';
+import RegisterContainer from '../../pages/register/RegisterContainer';
 
-import styles from "../../global.scss";
+import styles from '../../global.scss';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,17 +29,17 @@ const App = () => {
   const DefaultContainer = () => {
     return (
       <Switch>
-        <Route exact path={"/"} component={Main} />
-        <Route path={"/book/:bookId"} component={Book} />
-        <Route path={"/category/:categoryId/:pageId?"} component={Category} />
-        <Route path={"/search/:pageId?"} component={Search} />
-        <Route path={"/cart"} component={CartContainer} />
+        <Route exact path={'/'} component={Main} />
+        <Route path={'/book/:bookId'} component={Book} />
+        <Route path={'/category/:categoryId/:pageId?'} component={Category} />
+        <Route path={'/search/:pageId?'} component={Search} />
+        <Route path={'/cart'} component={CartContainer} />
         <PrivateRoute
-          path={"/profile"}
+          path={'/profile'}
           component={Profile}
           isAuthenticated={user.isAuthenticated}
         />
-        <Route exact path={"*"} component={NotFound} />
+        <Route exact path={'*'} component={NotFound} />
       </Switch>
     );
   };
@@ -56,7 +56,7 @@ const App = () => {
       <Navbar />
       <div className={styles.container}>
         <Switch>
-          <Route exact path={"/(login|register)/"} component={AuthContainer} />
+          <Route exact path={'/(login|register)/'} component={AuthContainer} />
           <Route component={DefaultContainer} />
         </Switch>
       </div>

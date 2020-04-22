@@ -1,14 +1,19 @@
-import React from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { getUsersCart } from './slice/cartSlice';
+import styles from './styles/cartContainer.scss';
 
 const CartContainer = (props) => {
-  const store = useSelector((state) => state.cart, shallowEqual);
+  const cartStore = useSelector((state) => state.cart, shallowEqual);
+  // const userStore = useSelector((state) => state.login, shallowEqual);
   const dispatch = useDispatch();
 
-  return <h3>Cart Container</h3>;
-};
+  useEffect(() => { dispatch(getUsersCart(0)); }, []);
 
-CartContainer.propTypes = {};
+  return (
+    <div className={styles.container}>
+    Cart Container
+    </div>);
+};
 
 export default CartContainer;

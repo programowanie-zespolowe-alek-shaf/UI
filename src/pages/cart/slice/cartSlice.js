@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
+import { response } from "../../../global/mock/cart";
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -68,9 +69,10 @@ export const getUsersCart = (userId) => (dispatch) => {
   };
 
   dispatch(requestCart());
-  return getCart(userId).then((response) => {
-    dispatch(receiveCart(response.data));
-  }).catch((error) => { receiveCartError(error); });
+  dispatch(receiveCart(response));
+  // return getCart(userId).then((response) => {
+  //   dispatch(receiveCart(response.data));
+  // }).catch((error) => { receiveCartError(error); });
 };
 
 export const addItemToCart = (item, userId) => (dispatch) => {
