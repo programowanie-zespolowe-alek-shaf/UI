@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
-import { response } from "../../../global/mock/cart";
+import { response, deleteResponse } from '../../../global/mock/cart';
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: { items: [], loading: false, coupon: undefined, error: undefined },
+  initialState: { items: [], loading: false, coupon: undefined, totalCost: 0, error: undefined },
   reducers: {
     requestCart(state, action) {
       state.loading = true;
@@ -14,6 +14,8 @@ const cartSlice = createSlice({
     receiveCart(state, action) {
       state.loading = false;
       state.items = action.payload.items;
+      state.coupon = action.payload.coupon;
+      state.totalCost = action.payload.totalCost;
     },
     receiveCartError(state, action) {
       state.loading = false;
@@ -28,6 +30,8 @@ const cartSlice = createSlice({
     addToCartSuccess(state, action) {
       state.loading = false;
       state.items = action.payload.items;
+      state.coupon = action.payload.coupon;
+      state.totalCost = action.payload.totalCost;
     },
     addToCartError(state, action) {
       state.loading = false;
@@ -41,6 +45,8 @@ const cartSlice = createSlice({
     deleteFromCartSuccess(state, action) {
       state.loading = false;
       state.items = action.payload.items;
+      state.coupon = action.payload.coupon;
+      state.totalCost = action.payload.totalCost;
     },
     deleteFromCartError(state, action) {
       state.loading = false;
@@ -98,9 +104,10 @@ export const deleteFromCart = (itemId, userId) => (dispatch) => {
   };
 
   dispatch(requestDeleteFromCart());
-  return deleteFromCart(itemId, userId).then((response) => {
-    dispatch(deleteFromCartSuccess(response.data));
-  }).catch((error) => { deleteFromCartError(error); });
+  dispatch(deleteFromCartSuccess(deleteResponse));
+  // return deleteFromCart(itemId, userId).then((response) => {
+  //   dispatch(deleteFromCartSuccess(response.data));
+  // }).catch((error) => { deleteFromCartError(error); });
 };
 
 export default reducer;

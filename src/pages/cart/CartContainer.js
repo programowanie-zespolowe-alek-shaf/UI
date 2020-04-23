@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getUsersCart } from './slice/cartSlice';
+import { getUsersCart, deleteFromCart } from './slice/cartSlice';
 import styles from './styles/cartContainer.scss';
+import CartItemList from './components/CartItemList';
+import CartSummary from "./components/CartSummary";
 
 const CartContainer = (props) => {
   const cartStore = useSelector((state) => state.cart, shallowEqual);
@@ -12,7 +14,15 @@ const CartContainer = (props) => {
 
   return (
     <div className={styles.container}>
-    Cart Container
+      <CartItemList
+        loading={cartStore.loading}
+        items={cartStore.items}
+        onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
+      />
+      <CartSummary
+        totalCost={cartStore.totalCost}
+        coupon={cartStore.coupon}
+      />
     </div>);
 };
 

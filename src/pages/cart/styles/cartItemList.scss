@@ -1,0 +1,12 @@
+.container {
+  padding: 1rem;
+  .header {
+    margin-bottom: 1rem;
+    display: block;
+    border-bottom: solid gray 1px;
+  }
+  .items {
+    max-height: 500px;
+    overflow: auto;
+  }
+}
