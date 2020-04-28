@@ -20,7 +20,10 @@ import styles from '../../global.scss';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login, shallowEqual);
+  const isAuthenticated = useSelector(
+    (state) => state.login.isAuthenticated,
+    shallowEqual
+  );
 
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
@@ -37,7 +40,7 @@ const App = () => {
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={user.isAuthenticated}
+          isAuthenticated={isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
@@ -46,8 +49,8 @@ const App = () => {
 
   const AuthContainer = () => (
     <Switch>
-      <Route path="/login" component={LoginContainer} />
-      <Route path="/register" component={RegisterContainer} />
+      <Route path='/login' component={LoginContainer} />
+      <Route path='/register' component={RegisterContainer} />
     </Switch>
   );
 

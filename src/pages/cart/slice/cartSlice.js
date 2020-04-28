@@ -7,7 +7,17 @@ export const initialState = { items: [], loading: false, coupon: undefined, tota
 
 const cartSlice = createSlice({
   name: 'cart',
+<<<<<<< HEAD
   initialState,
+=======
+  initialState: {
+    items: [],
+    loading: false,
+    coupon: undefined,
+    totalCost: 0,
+    error: undefined,
+  },
+>>>>>>> Changed pulling user from state to pulling isAuthenticated from user store (App.js) -> pulling whole user caused unnecesary rerenders
   reducers: {
     requestCart(state, action) {
       state.loading = true;
@@ -39,7 +49,6 @@ const cartSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-
     requestDeleteFromCart(state, action) {
       state.loading = true;
       state.error = undefined;
@@ -54,7 +63,7 @@ const cartSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-  }
+  },
 });
 const { actions, reducer } = cartSlice;
 export const {
@@ -66,11 +75,10 @@ export const {
   addToCartSuccess,
   deleteFromCartSuccess,
   deleteFromCartError,
-  requestDeleteFromCart
+  requestDeleteFromCart,
 } = actions;
 
 export const getUsersCart = (userId) => (dispatch) => {
-
   const getCart = (userId) => {
     return request({ url: `${api.cart}/${userId}`, method: 'get' });
   };
@@ -83,19 +91,25 @@ export const getUsersCart = (userId) => (dispatch) => {
 };
 
 export const addItemToCart = (item, userId) => (dispatch) => {
-
   const addToCart = (item, userId) => {
-    return request({ url: api.addToCart, method: 'post', data: { item, userId } });
+    return request({
+      url: api.addToCart,
+      method: 'post',
+      data: { item, userId },
+    });
   };
 
   dispatch(requestAddToCart());
-  return addToCart(item, userId).then((response) => {
-    dispatch(addToCartSuccess(response.data));
-  }).catch((error) => { addToCartError(error); });
+  return addToCart(item, userId)
+    .then((response) => {
+      dispatch(addToCartSuccess(response.data));
+    })
+    .catch((error) => {
+      addToCartError(error);
+    });
 };
 
 export const deleteFromCart = (itemId, userId) => (dispatch) => {
-
   const deleteFromCart = (itemId, userId) => {
     return request({
       // url: api.addToCart,
