@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
+import response from '../../../global/mock/books/books';
 
 const paginationSlice = createSlice({
   name: 'pagination',
@@ -7,27 +8,27 @@ const paginationSlice = createSlice({
     items: [],
     next: undefined,
     previous: undefined,
-    loading: false,
-    loaded: false,
+    isLoading: false,
+    isLoaded: false,
     error: undefined,
   },
   reducers: {
     fetchPageStart(state) {
-      state.loading = true;
-      state.loaded = false;
+      state.isLoading = true;
+      state.isLoaded = false;
       state.error = undefined;
     },
     fetchPageSuccess(state, action) {
-      state.loading = false;
-      state.loaded = true;
+      state.isLoading = false;
+      state.isLoaded = true;
       state.items = action.payload.items;
       state.next = action.payload.next;
       state.previous = action.payload.previous;
       state.error = undefined;
     },
     fetchPageFailure(state, action) {
-      state.loading = false;
-      state.loaded = false;
+      state.isLoading = false;
+      state.isLoaded = false;
       state.items = [];
       state.error = action.payload;
     },
@@ -39,17 +40,16 @@ export const { fetchPageStart, fetchPageSuccess, fetchPageFailure } = actions;
 
 export const getPage = (baseUrl, pageNumber) => (dispatch) => {
   //CHANGE TO REAL ENDPOINTS IN THE FUTURE
-  baseUrl = '../../../utils/mocks/books/books.json';
-  pageNumber = '';
 
   dispatch(fetchPageStart());
+  dispatch(fetchPageSuccess({ items: response }));
 
-  axios
-    .get(`${baseUrl}/${pageNumber}`)
-    .then((response) => {
-      dispatch(fetchPageSuccess(response));
-    })
-    .catch((error) => dispatch(fetchPageFailure(error.message)));
+  // axios
+  //   .get(`${baseUrl}/${pageNumber}`)
+  //   .then((response) => {
+  //     dispatch(fetchPageSuccess(response));
+  //   })
+  //   .catch((error) => dispatch(fetchPageFailure(error.message)));
 };
 
 export default reducer;
