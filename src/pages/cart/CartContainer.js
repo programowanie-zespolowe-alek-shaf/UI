@@ -3,7 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { getUsersCart, deleteFromCart } from './slice/cartSlice';
 import styles from './styles/cartContainer.scss';
 import CartItemList from './components/CartItemList';
-import CartSummary from "./components/CartSummary";
+import CartSummary from './components/CartSummary';
 
 const CartContainer = (props) => {
   const cartStore = useSelector((state) => state.cart, shallowEqual);
