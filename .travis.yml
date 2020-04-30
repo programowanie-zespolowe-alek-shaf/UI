@@ -1,0 +1,18 @@
+language: node_js
+
+node_js: 14
+
+services:
+  - docker
+
+script:
+  - npm test
+  - |
+    if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]
+    then  
+      docker build -t "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT" .
+      docker tag "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/ui:latest"
+      echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+      docker push "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT"
+      docker push "$DOCKER_HUB_USERNAME/ui:latest"
+    fi
