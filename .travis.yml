@@ -4,10 +4,11 @@
 ## GCLOUD_CREDS
 
 env:
-  - GCLOUD_DIR="$HOME/google-cloud-sdk"
-  - REPO_NAME="ui"
-  - CLUSTER="cluster-1"
-  - CLUSTER_ZONE="us-central1-c"
+  global:
+    - GCLOUD_DIR="$HOME/google-cloud-sdk"
+    - REPO_NAME="ui"
+    - CLUSTER="cluster-1"
+    - CLUSTER_ZONE="us-central1-c"
 
 language: node_js
 
