@@ -35,9 +35,9 @@ script:
       curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
       chmod +x ./kubectl
       # Authenticate gcloud with service token
-      gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS)
+      gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS | base64 -d)
       # Authenticate kubectl
-      gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | jq -r .project_id)
+      gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | base64 -d | jq -r .project_id)
 
       # Deploy service and k8s deployment
       ./kubectl apply -f svc-and-deployment.yaml
