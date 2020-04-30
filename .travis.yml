@@ -24,7 +24,7 @@ script:
   - npm test
   - |
     # Check if not PR and master branch
-    if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]
+    if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]
     then
       ## CI
       # Build Docker image
