@@ -1,0 +1,6 @@
+# This is file used by Github to determine code ownership.
+#
+# Pattern desc:
+# If file matching pattern is modified by PR, following user is required to review it
+
+* @erykjarocki
