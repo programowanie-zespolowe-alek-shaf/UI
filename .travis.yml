@@ -1,3 +1,14 @@
+# Secrets in travis required:
+## DOCKER_HUB_USERNAME
+## DOCKER_HUB_PASSWORD
+## GCLOUD_CREDS
+
+env:
+  - GCLOUD_DIR="$HOME/google-cloud-sdk"
+  - REPO_NAME="ui"
+  - CLUSTER="cluster-1"
+  - CLUSTER_ZONE="us-central1-c"
+
 language: node_js
 
 node_js: 14
@@ -5,14 +16,50 @@ node_js: 14
 services:
   - docker
 
+cache:
+  directories:
+    - "$GCLOUD_DIR"
+
 script:
   - npm test
   - |
+    # Check if not PR and master branch
     if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]
-    then  
-      docker build -t "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT" .
-      docker tag "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/ui:latest"
+    then
+      ## CI
+      # Build Docker image
+      docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" .
+      docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+      # Authenticate in Docker Hub
       echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
-      docker push "$DOCKER_HUB_USERNAME/ui:$TRAVIS_COMMIT"
-      docker push "$DOCKER_HUB_USERNAME/ui:latest"
-    fi
+      # Push image to Docker Hub
+      docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
+      docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+      ## CD
+      # Check if cache does not exists
+      if [ ! -d "$GCLOUD_DIR" ]
+      then
+        # Cleanup
+        rm -rf "$GCLOUD_DIR"
+        # Install gcloud
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        curl https://sdk.cloud.google.com | bash
+        source $GCLOUD_DIR/path.bash.inc
+        # Install kubectl
+        gcloud components install kubectl
+        # Install jq
+        curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 > jq
+        chmod +x ./jq
+        mv ./jq "$GCLOUD_DIR/bin"
+      fi
+      source $GCLOUD_DIR/path.bash.inc
+      # Authenticate gcloud with service token
+      gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS)
+      # Authenticate kubectl
+      gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | jq -r .project_id)
+
+      # Deploy service and k8s deployment
+      kubectl apply -f svc-and-deployment.yaml
+      # Wait till completion; report error in case of timeout
+      # ASSUMPTION!!! deployment.name in YAML file == "$REPO_NAME"
+      kubectl rollout status deployment "$REPO_NAME" --timeout=120s
