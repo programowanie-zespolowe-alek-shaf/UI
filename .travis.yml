@@ -9,27 +9,27 @@ env:
     - CLUSTER="cluster-1"
     - CLUSTER_ZONE="us-central1-c"
 
-language: node_js
+# language: node_js
 
-node_js: 14
+# node_js: 14
 
 services:
   - docker
 
 script:
-  - npm test
+  # - npm test
   - |
     if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]  # Check if not PR and master branch
     then
       ## CI
       # Build Docker image
-      docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" .
-      docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
-      # Authenticate in Docker Hub
-      echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
-      # Push image to Docker Hub
-      docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
-      docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+      # docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" .
+      # docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+      # # Authenticate in Docker Hub
+      # echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+      # # Push image to Docker Hub
+      # docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
+      # docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
       ## CD
       # Install kubectl
       curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
