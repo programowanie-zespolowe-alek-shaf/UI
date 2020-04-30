@@ -62,3 +62,4 @@ script:
       # Wait till completion; report error in case of timeout
       # ASSUMPTION!!! deployment.name in YAML file == "$REPO_NAME"
       kubectl rollout status deployment "$REPO_NAME" --timeout=120s
+    fi
