@@ -32,15 +32,16 @@ script:
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
       ## CD
       # Install kubectl
-      gcloud components install kubectl
+      curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+      chmod +x ./kubectl
       # Authenticate gcloud with service token
       gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS)
       # Authenticate kubectl
       gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | jq -r .project_id)
 
       # Deploy service and k8s deployment
-      kubectl apply -f svc-and-deployment.yaml
+      ./kubectl apply -f svc-and-deployment.yaml
       # Wait till completion; report error in case of timeout
       # ASSUMPTION!!! deployment.name in YAML file == "$REPO_NAME"
-      kubectl rollout status deployment "$REPO_NAME" --timeout=120s
+      ./kubectl rollout status deployment "$REPO_NAME" --timeout=120s
     fi
