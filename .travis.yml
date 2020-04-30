@@ -23,9 +23,6 @@ cache:
 
 script:
   - npm test
-  - env
-  - ls $HOME
-  - ls $GCLOUD_DIR
   - |
     if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]  # Check if not PR and master branch
     then
@@ -39,7 +36,7 @@ script:
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
       ## CD
-      if [ ! -d "$GCLOUD_DIR" ]  # Check if cache does not exists
+      if [ ! -f "$GCLOUD_DIR/path.bash.inc" ]  # Check if cache does not exists
       then
         # Cleanup
         rm -rf "$GCLOUD_DIR"
