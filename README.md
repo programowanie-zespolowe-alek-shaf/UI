@@ -1,4 +1,6 @@
 # Books UI
+### Master
+![Build status](https://travis-ci.org/programowanie-zespolowe-alek-shaf/UI.svg?branch=master)
 
 #### TODO LIST: App.js end
 
