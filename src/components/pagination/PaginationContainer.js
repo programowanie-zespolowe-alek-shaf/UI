@@ -12,13 +12,14 @@ const PaginationContainer = (props) => {
     (state) => state.pagination,
     shallowEqual
   );
-  const pageNumber = props.match.params.pageNumber;
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getPage('/', pageNumber));
   }, []);
+
+  const pageNumber = props.match.params.pageNumber;
+
+  const Pagination =
 
   return (
     <PaginationWithLoading
