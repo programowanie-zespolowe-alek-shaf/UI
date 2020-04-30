@@ -24,8 +24,7 @@ cache:
 script:
   - npm test
   - |
-    # Check if not PR and master branch
-    if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]
+    if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]  # Check if not PR and master branch
     then
       ## CI
       # Build Docker image
@@ -37,8 +36,7 @@ script:
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
       ## CD
-      # Check if cache does not exists
-      if [ ! -d "$GCLOUD_DIR" ]
+      if [ ! -d "$GCLOUD_DIR" ]  # Check if cache does not exists
       then
         # Cleanup
         rm -rf "$GCLOUD_DIR"
