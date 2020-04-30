@@ -23,6 +23,10 @@ cache:
 
 script:
   - npm test
+  - gcloud --version
+  - jq
+  - kubectl version
+  - exit
   - |
     if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]  # Check if not PR and master branch
     then
