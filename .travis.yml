@@ -5,7 +5,6 @@
 
 env:
   global:
-    - GCLOUD_DIR="$HOME/google-cloud-sdk"
     - REPO_NAME="ui"
     - CLUSTER="cluster-1"
     - CLUSTER_ZONE="us-central1-c"
@@ -17,16 +16,8 @@ node_js: 14
 services:
   - docker
 
-cache:
-  directories:
-    - "$GCLOUD_DIR"
-
 script:
   - npm test
-  - gcloud --version
-  - jq
-  - kubectl version
-  - exit
   - |
     if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]  # Check if not PR and master branch
     then
@@ -40,22 +31,8 @@ script:
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
       docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
       ## CD
-      if [ ! -f "$GCLOUD_DIR/path.bash.inc" ]  # Check if cache does not exists
-      then
-        # Cleanup
-        rm -rf "$GCLOUD_DIR"
-        # Install gcloud
-        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
-        curl https://sdk.cloud.google.com | bash
-        source $GCLOUD_DIR/path.bash.inc
-        # Install kubectl
-        gcloud components install kubectl
-        # Install jq
-        curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 > jq
-        chmod +x ./jq
-        mv ./jq "$GCLOUD_DIR/bin"
-      fi
-      source $GCLOUD_DIR/path.bash.inc
+      # Install kubectl
+      gcloud components install kubectl
       # Authenticate gcloud with service token
       gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS)
       # Authenticate kubectl
