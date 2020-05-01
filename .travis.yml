@@ -20,8 +20,8 @@ script:
   ## CI
   # Run UTs
   - npm test || travis_terminate 1
-  # Trigger CD if not PR and master branch
-  - '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] || travis_terminate 1'
+  # Trigger CD if not PR and master branch otherwise finish
+  - '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] || travis_terminate 0'
   # Build Docker image
   - docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" . || travis_terminate 1
   - docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest" || travis_terminate 1
