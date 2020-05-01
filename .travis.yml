@@ -17,27 +17,29 @@ services:
   - docker
 
 script:
-  # - npm test
-  - '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "kubectl-support" ]' # Check if not PR and master branch
   ## CI
+  # Run UTs
+  - npm test || travis_terminate 1
+  # Trigger CD if not PR and master branch
+  - '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] || travis_terminate 1'
   # Build Docker image
-  - docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" .
-  - docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+  - docker build -t "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" . || travis_terminate 1
+  - docker tag "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" "$DOCKER_HUB_USERNAME/$REPO_NAME:latest" || travis_terminate 1
   # # Authenticate in Docker Hub
-  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin || travis_terminate 1
   # # Push image to Docker Hub
-  - docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT"
-  - docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest"
+  - docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:$TRAVIS_COMMIT" || travis_terminate 1
+  - docker push "$DOCKER_HUB_USERNAME/$REPO_NAME:latest" || travis_terminate 1
   ## CD
   # Install kubectl
-  - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-  - chmod +x ./kubectl
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl || travis_terminate 1
+  - chmod +x ./kubectl || travis_terminate 1
   # Authenticate gcloud with service token
-  - gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS | base64 -d)
+  - gcloud auth activate-service-account --key-file <(echo $GCLOUD_CREDS | base64 -d) || travis_terminate 1
   # Authenticate kubectl
-  - gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | base64 -d | jq -r .project_id)
+  - gcloud container clusters get-credentials $CLUSTER --zone $CLUSTER_ZONE --project $(echo $GCLOUD_CREDS | base64 -d | jq -r .project_id) || travis_terminate 1
   # Deploy service and k8s deployment
-  - ./kubectl apply -f svc-and-deployment.yaml
+  - ./kubectl apply -f svc-and-deployment.yaml || travis_terminate 1
   # Wait till completion; report error in case of timeout
   # ASSUMPTION!!! deployment.name in YAML file == "$REPO_NAME"
-  - ./kubectl rollout status deployment "$REPO_NAME" --timeout=120s
+  - ./kubectl rollout status deployment "$REPO_NAME" --timeout=120s || travis_terminate 1
