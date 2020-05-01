@@ -11,7 +11,7 @@ const response = {
         id: 0,
       },
       year: 1888,
-      photoUrl: ['https://ecsmedia.pl/c/ogniem-i-mieczem-w-iext39583640.jpg'],
+      imageUrl: ['https://ecsmedia.pl/c/ogniem-i-mieczem-w-iext39583640.jpg'],
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       status: 'available',
@@ -27,7 +27,7 @@ const response = {
         id: 1,
       },
       year: 1832,
-      photoUrl: ['https://s.znak.com.pl//files/covers/card/f1/T268299.jpg'],
+      imageUrl: ['https://s.znak.com.pl//files/covers/card/f1/T268299.jpg'],
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       status: 'available',
@@ -43,7 +43,7 @@ const response = {
         id: 1,
       },
       year: null,
-      photoUrl: [
+      imageUrl: [
         'https://s.lubimyczytac.pl/upload/books/4803000/4803408/590866-352x500.jpg',
       ],
       description:

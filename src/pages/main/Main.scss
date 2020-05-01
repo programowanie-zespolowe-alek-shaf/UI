@@ -1,0 +1,5 @@
+@import '~global/styles/includes/positioning';
+
+.container {
+  @include flex-row;
+}

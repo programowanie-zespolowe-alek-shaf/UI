@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LastAdded = () => {
-  return <div>Ostatnio dodane</div>;
+  return <div></div>;
 };
 
 export default LastAdded;

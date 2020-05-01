@@ -6,7 +6,6 @@ module.exports = {
   plugins: [new CleanWebpackPlugin()],
   resolve: {
     alias: {
-      styles: path.join(__dirname, 'src/assets/styles'),
       global: path.join(__dirname, 'src/global'),
       components: path.join(__dirname, 'src/components'),
       pages: path.join(__dirname, 'src/pages'),

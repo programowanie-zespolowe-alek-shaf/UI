@@ -1,11 +1,5 @@
-@import '~styles/positioning';
-@import '~styles/variables/layout';
-
-%flex-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import '~~global/styles/includes/positioning';
+@import '~global/styles/variables/layout';
 
 .header {
   @include wrapper-center($site-width);

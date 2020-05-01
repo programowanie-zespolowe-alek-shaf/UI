@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from 'global/theme/theme';
+import theme from 'global/styles/theme/theme';
 
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
@@ -19,7 +19,7 @@ import NotFound from '../../pages/notFound/NotFound';
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
-import styles from '../../global.scss';
+import styles from 'global/styles/global.scss';
 
 const App = () => {
   const dispatch = useDispatch();
