@@ -4,3 +4,5 @@
 stats.json
 package-lock.json
 .idea/*
+junit.xml
+UI-report
