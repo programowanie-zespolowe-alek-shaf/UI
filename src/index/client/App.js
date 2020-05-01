@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from 'global/theme/theme';
+
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
@@ -55,15 +58,21 @@ const App = () => {
   );
 
   return (
-    <div className={styles.app}>
-      <Navbar />
-      <div className={styles.container}>
-        <Switch>
-          <Route exact path={'/(login|register)/'} component={AuthContainer} />
-          <Route component={DefaultContainer} />
-        </Switch>
+    <ThemeProvider theme={theme}>
+      <div className={styles.app}>
+        <Navbar />
+        <div className={styles.container}>
+          <Switch>
+            <Route
+              exact
+              path={'/(login|register)/'}
+              component={AuthContainer}
+            />
+            <Route component={DefaultContainer} />
+          </Switch>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './styles/Main.scss';
 import Sidebar from './components/sidebar/Sidebar';
-import { default as Featured } from './components/FeaturedContainer';
-import { default as LastAdded } from './components/LastAddedContainer';
+import { default as Featured } from './components/featured/FeaturedContainer';
+import { default as LastAdded } from './components/lastAdded/LastAddedContainer';
 
 const Main = () => {
   return (

@@ -1,6 +1,4 @@
-import React from "react";
-
-import styles from "./Category.scss";
+import React from 'react';
 
 const Category = () => {
   return <h3>Category Page</h3>;

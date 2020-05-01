@@ -3,21 +3,17 @@ import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
 import { response, deleteResponse } from '../../../global/mock/cart';
 
-export const initialState = { items: [], loading: false, coupon: undefined, totalCost: 0, error: undefined };
+export const initialState = {
+  items: [],
+  loading: false,
+  coupon: undefined,
+  totalCost: 0,
+  error: undefined,
+};
 
 const cartSlice = createSlice({
   name: 'cart',
-<<<<<<< HEAD
   initialState,
-=======
-  initialState: {
-    items: [],
-    loading: false,
-    coupon: undefined,
-    totalCost: 0,
-    error: undefined,
-  },
->>>>>>> Changed pulling user from state to pulling isAuthenticated from user store (App.js) -> pulling whole user caused unnecesary rerenders
   reducers: {
     requestCart(state, action) {
       state.loading = true;
