@@ -1,0 +1,34 @@
+# UI Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+spec:
+  selector:
+    matchLabels:
+      app: ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: ui
+          image: 553377995899929464339267475442/ui
+          ports:
+            - containerPort: 8080
+---
+# UI Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+spec:
+  type: NodePort
+  selector:
+    app: ui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
