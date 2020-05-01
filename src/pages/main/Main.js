@@ -1,11 +1,19 @@
 import React from 'react';
-import styles from './Main.scss';
-import { default as Pagination } from '../../components/pagination/PaginationContainer';
+import styles from './styles/Main.scss';
+import Sidebar from './components/sidebar/Sidebar';
+import { default as Featured } from './components/FeaturedContainer';
+import { default as LastAdded } from './components/LastAddedContainer';
 
 const Main = () => {
   return (
-    <div className={styles.main}>
-      <Pagination />
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <Sidebar />
+      </div>
+      <div className={styles.content}>
+        <Featured />
+        <LastAdded />
+      </div>
     </div>
   );
 };

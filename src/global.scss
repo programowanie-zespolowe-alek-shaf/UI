@@ -1,9 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
-@import "./assets/styles/positioning";
-
-html {
-  font-size: 62.5%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+@import './assets/styles/positioning';
 
 body,
 html {
@@ -11,7 +7,7 @@ html {
   padding: 0;
   height: 100%;
   overflow-x: hidden;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 h1,
@@ -69,7 +65,7 @@ a {
 }
 
 .container {
-  @extend .wrapper;
+  @include wrapper-center(100rem);
   display: flex;
   flex-flow: column;
   height: 100%;

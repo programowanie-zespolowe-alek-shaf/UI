@@ -1,4 +1,4 @@
-@import "../../assets/styles/positioning";
+@import '../../assets/styles/positioning';
 
 %flex-centered {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .header {
-  @extend .wrapper;
+  @include wrapper-center(100rem);
   display: flex;
   align-items: center;
   height: 4rem;

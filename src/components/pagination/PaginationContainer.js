@@ -19,8 +19,6 @@ const PaginationContainer = (props) => {
 
   const pageNumber = props.match.params.pageNumber;
 
-  const Pagination =
-
   return (
     <PaginationWithLoading
       isLoading={isLoading}

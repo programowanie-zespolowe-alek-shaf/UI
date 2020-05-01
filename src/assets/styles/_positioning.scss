@@ -1,4 +1,63 @@
-.wrapper {
+// FLEXBOX
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row-align($position) {
+  display: flex;
+  flex-direction: row;
+  align-items: $position;
+}
+
+@mixin flex-row-justify($position) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $position;
+}
+
+@mixin flex-column-align($position) {
+  display: flex;
+  flex-direction: column;
+  align-items: $position;
+}
+
+@mixin flex-column-justify($position) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $position;
+}
+
+// WRAPPERS
+@mixin wrapper-center($wrapper-width) {
+  max-width: $wrapper-width;
   margin: 0 auto;
-  max-width: 100rem;
+  width: 100%;
+}
+
+// LIST ELEMENTS
+
+@mixin gutter-x($gutter-width) {
+  &:not(:first-child) {
+    margin-left: $gutter-width;
+  }
+
+  &:not(:last-child) {
+    margin-right: $gutter-width;
+  }
+}
+
+@mixin gutter-y($gutter-width) {
+  &:not(:first-child) {
+    margin-top: $gutter-width;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $gutter-width;
+  }
 }
