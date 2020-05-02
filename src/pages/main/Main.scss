@@ -1,8 +1,5 @@
-.main {
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
-  width: 100%;
+@import '~global/styles/includes/positioning';
+
+.container {
+  @include flex-row;
 }

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from 'global/styles/theme/theme';
+
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
@@ -16,11 +19,14 @@ import NotFound from '../../pages/notFound/NotFound';
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
-import styles from '../../global.scss';
+import styles from 'global/styles/global.scss';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login, shallowEqual);
+  const isAuthenticated = useSelector(
+    (state) => state.login.isAuthenticated,
+    shallowEqual
+  );
 
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
@@ -37,7 +43,7 @@ const App = () => {
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={user.isAuthenticated}
+          isAuthenticated={isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
@@ -46,21 +52,27 @@ const App = () => {
 
   const AuthContainer = () => (
     <Switch>
-      <Route path="/login" component={LoginContainer} />
-      <Route path="/register" component={RegisterContainer} />
+      <Route path='/login' component={LoginContainer} />
+      <Route path='/register' component={RegisterContainer} />
     </Switch>
   );
 
   return (
-    <div className={styles.app}>
-      <Navbar />
-      <div className={styles.container}>
-        <Switch>
-          <Route exact path={'/(login|register)/'} component={AuthContainer} />
-          <Route component={DefaultContainer} />
-        </Switch>
+    <ThemeProvider theme={theme}>
+      <div className={styles.app}>
+        <Navbar />
+        <div className={styles.container}>
+          <Switch>
+            <Route
+              exact
+              path={'/(login|register)/'}
+              component={AuthContainer}
+            />
+            <Route component={DefaultContainer} />
+          </Switch>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

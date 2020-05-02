@@ -10,7 +10,9 @@ const CartContainer = (props) => {
   // const userStore = useSelector((state) => state.login, shallowEqual);
   const dispatch = useDispatch();
 
-  useEffect(() => { dispatch(getUsersCart(0)); }, []);
+  useEffect(() => {
+    dispatch(getUsersCart(0));
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -19,11 +21,9 @@ const CartContainer = (props) => {
         items={cartStore.items}
         onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
       />
-      <CartSummary
-        totalCost={cartStore.totalCost}
-        coupon={cartStore.coupon}
-      />
-    </div>);
+      <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} />
+    </div>
+  );
 };
 
 export default CartContainer;

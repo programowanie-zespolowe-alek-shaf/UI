@@ -7,8 +7,12 @@ const endpoint = (baseUrl) => {
     signIn: baseUrl + '/auth/signin',
     signUp: baseUrl + '/auth/signup',
     cart: baseUrl + '/shoppingCarts/',
-    addToCart:  baseUrl + '/shoppingCarts/items'
+    addToCart: baseUrl + '/shoppingCarts/items',
+    books: baseUrl + '/product-catalog-ms/books',
   };
 };
 
-export const api = process.env.NODE_ENV === 'production' ? endpoint(prodBase) : endpoint(devBase);
+export const api =
+  process.env.NODE_ENV === 'production'
+    ? endpoint(prodBase)
+    : endpoint(devBase);

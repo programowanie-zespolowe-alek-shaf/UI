@@ -1,13 +1,8 @@
-@import "../../assets/styles/positioning";
-
-%flex-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import '~~global/styles/includes/positioning';
+@import '~global/styles/variables/layout';
 
 .header {
-  @extend .wrapper;
+  @include wrapper-center($site-width);
   display: flex;
   align-items: center;
   height: 4rem;
