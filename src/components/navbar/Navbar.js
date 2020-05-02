@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
-import { LOGIN_PAGE, MAIN_PAGE } from "../../global/constants/pages";
-import globalMessages from "../../global/messages/globalMessages";
-import { logoutAction } from "../../pages/login/actions/loginActions";
-import styles from "./navbar.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
+import { LOGIN_PAGE, MAIN_PAGE } from '../../global/constants/pages';
+import globalMessages from '../../global/messages/globalMessages';
+import { logoutAction } from '../../pages/login/actions/loginActions';
+import styles from './navbar.scss';
 
 const Navbar = () => {
   const user = useSelector((store) => store.login, shallowEqual);

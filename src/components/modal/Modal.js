@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/Icon';
 import styles from './modal.scss';
 
-
 const Modal = (props) => {
-
-  const appliedStyles = props.isOpen ? (styles.modalContainer)  : (styles.modalHidden);
+  const appliedStyles = props.isOpen
+    ? styles.modalContainer
+    : styles.modalHidden;
 
   return (
     <div className={appliedStyles}>
       <div className={styles.modal}>
         <div className={styles.header}>
           <div className={styles.icon}>
-            <Icon width={20} height={20} type="close" onClick={props.onClose} />
+            <Icon width={20} height={20} type='close' onClick={props.onClose} />
           </div>
         </div>
         {props.isOpen ? props.children : ''}
       </div>
-    </div>);
+    </div>
+  );
 };
 
 Modal.propTypes = {

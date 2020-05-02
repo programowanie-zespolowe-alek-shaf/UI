@@ -12,6 +12,7 @@ app.use('/build', express.static(path.join(__dirname, '../build'), options));
 
 // send the user index.html file
 app.get('*', (req, res) => {
+  console.log(req);
   res.sendFile(path.resolve(__dirname, '../build/index.html'));
 });
 
