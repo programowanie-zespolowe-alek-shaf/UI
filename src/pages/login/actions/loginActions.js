@@ -55,9 +55,8 @@ const signIn =(body) => {
 
 export const getUserInfo = () => {
   return request({
-    url: api.getUserInfo,
+    url: api.loginTest,
     method: 'get',
-    data: {}
   });
 };
 
@@ -67,28 +66,25 @@ export const getUserInfoAction = (callback) => (dispatch) => {
     dispatch(receiveUserInfo(response.data));
     callback();
   }).catch((error) => {
-    if(error.response) dispatch(receiveUserError(error.response.data.message));
-    else dispatch(receiveUserError(error.toString()));
+    dispatch(receiveUserError(error.response && error.response.data.error));
   });
 };
 
 export const loginAction = (login, password, callback) => (dispatch) => {
   dispatch(loginRequest());
   const body = {
-    [USERNAME_OR_EMAIL]: login,
-    [PASSWORD]: password,
+    username: login,
+    password: password,
   };
   
   return signIn(body)
     .then((res) => {
-      auth.login(res.data.accessToken);
+      auth.login(res.headers.authorization);
       dispatch(loginSuccess());
       dispatch(getUserInfoAction(callback));
-
     })
     .catch((error) => {
-      if(error.response) dispatch(loginError(error.response.data.message || messages.somethingWentWrong));
-      else dispatch(loginError(error.toString()));
+      dispatch(receiveUserError(error.response && error.response.data.error));
     });
 };
 

@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   loading: false,
+  success: false,
   error: undefined,
 };
 
@@ -14,13 +15,14 @@ const registerReducer = (state = initialState, action) => {
   case REGISTER_REQUEST:
     return {
       ...state,
-      loading: true
+      loading: true,
+      error: undefined,
     };
   case REGISTER_SUCCESS:
     return {
       ...state,
       loading: false,
-      error: undefined,
+      success: true,
     };
   case REGISTER_ERROR:
     return {

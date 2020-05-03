@@ -6,22 +6,26 @@ import LoginManager from './manager/LoginManager';
 import { getUserInfoAction, loginAction } from './actions/loginActions';
 import styles from './styles/loginManager.scss';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { EXPLORE_PAGE } from '../../global/constants/pages';
+import { useSelector, shallowEqual } from 'react-redux';
+import messages from './messages/messages';
+import Alert from '@material-ui/lab/Alert';
 
 const LoginContainer = (props) => {
 
   const history = useHistory();
-  const user = useSelector(state => state.login);
+  const user = useSelector(state => state.login, shallowEqual);
+  const register = useSelector(state => state.register, shallowEqual);
 
   useEffect(() => {
-    if(user.isAuthenticated) history.push(EXPLORE_PAGE);
+    if(user.isAuthenticated) history.push('/');
   }, []);
 
+  const notification = register.success && <Alert severity="success">{messages.successfullyCreatedUser}</Alert>;
   const loader = <Loader type="Puff" color="#AC3814" height={32} width={32} visible={props.isLoggingIn} className={styles.loader} />;
 
   return (
     <React.Fragment>
+      {notification}
       {loader}
       <LoginManager onSubmit={props.dispatchLoginAction} loading={props.isLoggingIn} />
     </React.Fragment>
