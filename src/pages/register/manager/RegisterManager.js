@@ -1,165 +1,185 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import Form from "../../../components/form/Form";
-import { LOGIN_PAGE } from "../../../global/constants/pages";
-import globalMessages from "../../../global/messages/globalMessages";
-import messages from "../../register/messages/messages";
-import styles from "../styles/registerManager.scss";
+import PropTypes from 'prop-types';
+import React, { useReducer } from 'react';
+import Form from '../../../components/form/Form';
+import { LOGIN_PAGE } from '../../../global/constants/pages';
+import { useHistory } from 'react-router-dom';
+import globalMessages from '../../../global/messages/globalMessages';
+import messages from '../../register/messages/messages';
+import styles from '../styles/registerManager.scss';
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  userName: { value: '', error: '' },
+  password: { value: '', error: '' },
+  passwordRepeat: { value: '', error: '' },
+  firstName: { value: '', error: '' },
+  lastName: { value: '', error: '' },
+  email: { value: '', error: '' },
+  phone: { value: '', error: '' },
+  address: { value: '', error: '' },
+  disabled: false,
+};
+
+const registerSlice = createSlice({
+  name: 'register',
+  initialState,
+  reducers: {
+    setValue(state, action) {
+      const { field, value } = action.payload;
+      state[field] = { ...state[field], value };
+    },
+    setError(state, action) {
+      const { field, error } = action.payload;
+      state[field] = { ...state[field], error };
+    },
+    setDisabled(state, action) {
+      state.disabled = action.payload;
+    },
+    clearErrors(state,action) {
+      Object.keys(state).forEach((key) => {state[key] = { ...state[key], error: '' };});
+      state.disabled = false;
+    },
+    clearAll(state, action) {
+      return initialState;
+    }
+  }
+});
 
 const RegisterManager = (props) => {
-  // TODO UGLY CHANGE xD
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
-  const [firstnameError, setFirstnameError] = useState("");
-  const [lastnameError, setLastnameError] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordRepeatError, setPasswordRepeatError] = useState("");
-  const [disabled, setDisabled] = useState(false);
+  const actions = registerSlice.actions;
+  const [state, dispatchLocal] = useReducer(registerSlice.reducer, initialState);
+  const history = useHistory();
 
   const inputs = [
     {
-      type: "text",
+      type: 'text',
       placeholder: messages.fistNameSentenceCase,
-      name: "firstname",
-      error: firstnameError,
-      onChange: (event) => onChange(event),
+      name: 'firstName',
+      error: state.firstName.error,
+      onChange: (event) => onChange(event)
     },
     {
-      type: "text",
+      type: 'text',
       placeholder: messages.lastNameSentenceCase,
-      name: "lastname",
-      error: lastnameError,
-      onChange: (event) => onChange(event),
+      name: 'lastName',
+      error: state.lastName.error,
+      onChange: (event) => onChange(event)
     },
     {
-      type: "text",
+      type: 'text',
       placeholder: messages.userNameSentenceCase,
-      name: "username",
-      error: usernameError,
-      onChange: (event) => onChange(event),
+      name: 'userName',
+      error: state.userName.error,
+      onChange: (event) => onChange(event)
     },
     {
-      type: "text",
+      type: 'text',
       placeholder: messages.emailSentenceCase,
-      name: "email",
-      error: emailError,
-      onChange: (event) => onChange(event),
+      name: 'email',
+      error: state.email.error,
+      onChange: (event) => onChange(event)
     },
     {
-      type: "password",
+      type: 'password',
       placeholder: messages.passwordSentenceCase,
-      name: "password",
-      error: passwordError,
-      onChange: (event) => onChange(event),
+      name: 'password',
+      error: state.password.error,
+      onChange: (event) => onChange(event)
     },
-
     {
-      type: "password",
+      type: 'password',
       placeholder: messages.passwordRepeatSentenceCase,
-      name: "passwordRepeat",
-      error: passwordRepeatError,
-      onChange: (event) => onChange(event),
+      name: 'passwordRepeat',
+      error: state.passwordRepeat.error,
+      onChange: (event) => onChange(event)
+    },
+    {
+      type: 'number',
+      placeholder: messages.phoneSentenceCase,
+      name: 'phone',
+      error: state.phone.error,
+      onChange: (event) => onChange(event)
+    },
+    {
+      type: 'text',
+      placeholder: messages.addressSentenceCase,
+      name: 'address',
+      error: state.address.error,
+      onChange: (event) => onChange(event)
     },
   ];
 
   const clearErrors = () => {
-    setFirstnameError("");
-    setLastnameError("");
-    setUsernameError("");
-    setEmailError("");
-    setPasswordError("");
-    setPasswordRepeatError("");
-    setDisabled(false);
+    dispatchLocal(actions.clearErrors());
+    dispatchLocal(actions.setDisabled(false));
   };
 
   const onChange = (event) => {
-    if (event.target.name === "firstname") setFirstname(event.target.value);
-    if (event.target.name === "lastname") setLastname(event.target.value);
-    if (event.target.name === "username") setUsername(event.target.value);
-    if (event.target.name === "email") setEmail(event.target.value);
-    if (event.target.name === "password") setPassword(event.target.value);
-    if (event.target.name === "passwordRepeat")
-      setPasswordRepeat(event.target.value);
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+    dispatchLocal(actions.setValue({ field: inputName, value: inputValue }));
     clearErrors();
   };
 
   const isInputValid = () => {
-    if (firstname === "") {
-      setFirstnameError(messages.firstnameError);
-      setDisabled(true);
-      return false;
-    }
-    if (lastname === "") {
-      setLastnameError(messages.lastnameError);
-      setDisabled(true);
-      return false;
-    }
-    if (username === "") {
-      setUsernameError(messages.usernameError);
-      setDisabled(true);
-      return false;
-    }
-    if (email === "") {
-      setEmailError(messages.emailError);
-      setDisabled(true);
-      return false;
-    }
-    if (password === "") {
-      setPasswordError(messages.passwordError);
-      setDisabled(true);
-      return false;
-    }
-    if (passwordRepeat === "") {
-      setPasswordRepeatError(messages.passwordRepeatError);
-      setDisabled(true);
-      return false;
-    }
-    if (password !== passwordRepeat) {
-      setPasswordRepeatError(messages.passwordsCompareError);
-      setDisabled(true);
-      return false;
-    }
-    return true;
+    let valid = true;
+
+    const standardValidator = (value, field, error) => {
+      if(value.length === 0 || value.length > 30) {
+        dispatchLocal(actions.setError({ field, error }));
+        dispatchLocal(actions.setDisabled(true));
+        valid = false;
+      }
+    };
+    
+    const passwordValidator = () => {
+      if(state.password.value !== state.passwordRepeat.value) {
+        dispatchLocal(actions.setError({ field: 'passwordRepeat', error: messages.passwordErrorSentenceCase }));
+        valid = false;
+      }
+    };
+
+    passwordValidator();
+    const fields = inputs.map(input => input.name);
+    fields.forEach((field) => standardValidator(state[field].value, field, messages.emptyFieldSentenceCase));
+    return valid;
   };
 
   const redirectToSingIn = () => {
     history.push(LOGIN_PAGE);
   };
-
   const onSubmit = (event) => {
     event.preventDefault();
 
+    const payload = {
+      'username': state.userName.value,
+      'password': state.password.value,
+      'firstName': state.firstName.value,
+      'lastName': state.lastName.value,
+      'email': state.email.value,
+      'phone': state.phone.value,
+      'address': state.address.value,
+      'enabled': 'true'
+    };
+
     if (isInputValid()) {
-      props.onSubmit(
-        firstname,
-        lastname,
-        username,
-        email,
-        password,
-        redirectToSingIn
-      );
+      props.onSubmit(payload,redirectToSingIn);
     }
   };
 
   return (
-    <div className={styles.formWrapper || "registerManager__form-wrapper"}>
+    <div className={styles.formWrapper || 'registerManager__form-wrapper'}>
       <Form
         inputs={inputs}
         onSubmit={(event) => onSubmit(event)}
         redirect={{
           message: messages.haveAccount,
           linkText: globalMessages.signInSentenceCase,
-          linkUrl: "/login",
+          linkUrl: '/login',
         }}
         submitText={globalMessages.signUpSentenceCase}
         title={messages.signUnToApp}
-        disabled={disabled || props.loading}
+        disabled={state.disabled || props.loading}
       />
     </div>
   );

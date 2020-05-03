@@ -1,11 +1,12 @@
 const prodBase = 'api';
-const devBase = 'http://localhost:8090/api';
+const devBase = 'http://localhost:8080/api';
 
 const endpoint = (baseUrl) => {
   return {
     base: baseUrl,
-    signIn: baseUrl + '/auth/signin',
-    signUp: baseUrl + '/auth/signup',
+    signIn: baseUrl + '/login-ms/login',
+    loginTest: baseUrl + '/login-ms/test',
+    customersUsers: baseUrl + '/customers-ms/users',
     cart: baseUrl + '/shoppingCarts/',
     addToCart: baseUrl + '/shoppingCarts/items',
     books: baseUrl + '/product-catalog-ms/books',

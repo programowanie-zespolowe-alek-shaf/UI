@@ -1,33 +1,34 @@
-# UI Deployment
+# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui
+  name: __REPO_NAME__
 spec:
   selector:
     matchLabels:
-      app: ui
+      app: __REPO_NAME__
   replicas: 1
   template:
     metadata:
       labels:
-        app: ui
+        app: __REPO_NAME__
     spec:
       containers:
-        - name: ui
-          image: 553377995899929464339267475442/ui
+        - name: __REPO_NAME__
+          image: __DOCKER_HUB_USERNAME__/__REPO_NAME__:__TRAVIS_COMMIT__
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
-# UI Service
+# Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui
+  name: __REPO_NAME__
 spec:
   type: NodePort
   selector:
-    app: ui
+    app: __REPO_NAME__
   ports:
     - protocol: TCP
       port: 80

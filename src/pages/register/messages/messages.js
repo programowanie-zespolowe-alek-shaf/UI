@@ -5,14 +5,11 @@ const messages = {
   emailSentenceCase: 'Email',
   passwordSentenceCase: 'Password',
   passwordRepeatSentenceCase: 'Repeat password',
+  phoneSentenceCase: 'Phone',
+  addressSentenceCase: 'Address',
 
-  firstnameError: 'First name cannot be an empty string.',
-  lastnameError: 'Last name cannot be an empty string.',
-  usernameError: 'User name cannot be an empty string.',
-  emailError: 'Email cannot be an empty string.',
-  passwordError: 'Password cannot be an empty string.',
-  passwordRepeatError: 'Password cannot be an empty string.',
-  passwordsCompareError: 'Different passwords !',
+  emptyFieldSentenceCase: 'Empty field!',
+  passwordErrorSentenceCase: 'Passwords don\'t match',
 
   signUnToApp: 'Sign up',
   somethingWentWrong: 'Sorry! Something went wrong. Please try again!',
