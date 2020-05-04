@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import categories from 'global/constants/categories';
@@ -15,10 +15,14 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import useSearchStyles from './SearchStyles';
 
+//TODO: Input validation
+//PropTypes
+//Tests
+
 const Search = (props) => {
   const classes = useSearchStyles();
-  const [phrase, setPhrase] = React.useState('');
-  const [category, setCategory] = React.useState('');
+  const [phrase, setPhrase] = useState('');
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
     if (phrase !== '') {

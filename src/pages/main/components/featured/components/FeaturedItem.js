@@ -18,8 +18,8 @@ const FeaturedItem = ({ item }) => {
       <ContentContainer flexDirection='row'>
         <CardMedia src={item.imageUrl} component='img'></CardMedia>
         <CardHeader
-          title={<Typography variant='h2'>{item.title}</Typography>}
-          component='h3'
+          title={<Typography variant='h6'>{item.title}</Typography>}
+          component='h6'
           disableTypography
         />
       </ContentContainer>
