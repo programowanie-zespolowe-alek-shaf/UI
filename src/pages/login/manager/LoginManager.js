@@ -1,67 +1,109 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Form from '../../../components/form/Form';
 import messages from '../messages/messages';
 import globalMessages from '../../../global/messages/globalMessages';
-import styles from '../styles/loginManager.scss';
+
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+} from '@material-ui/core';
+
+import useLoginManagerStyles from './LoginManagerStyles';
 
 const LoginManager = (props) => {
+  const classes = useLoginManagerStyles();
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [disabled, setDisabled] = useState(false);
 
-  const inputs = [
-    {
-      type: 'text',
-      placeholder: globalMessages.loginSentenceCase,
-      name: 'login',
-      error: loginError,
-      onChange: (event) => onChange(event)
-    },
-    {
-      type: 'password',
-      placeholder: globalMessages.passwordSentenceCase,
-      name: 'password',
-      error: passwordError,
-      onChange: (event) => onChange(event)
-    },  
-  ];
-
-  const clearErrors = () => { setLoginError(''); setPasswordError(''); setDisabled(false); };
+  const clearErrors = () => {
+    setLoginError('');
+    setPasswordError('');
+  };
 
   const onChange = (event) => {
-    if(event.target.name === 'login') setLogin(event.target.value);
-    if(event.target.name === 'password') setPassword(event.target.value);
+    if (event.target.name === 'login') setLogin(event.target.value);
+    if (event.target.name === 'password') setPassword(event.target.value);
     clearErrors();
   };
 
   const isInputValid = () => {
-    if(login === '') { setLoginError(messages.loginError); setDisabled(true); return false; }
-    if(password === '') { setPasswordError(messages.passwordError); setDisabled(true); return false; }
+    if (login === '') {
+      setLoginError(messages.loginError);
+      return false;
+    }
+    if (password === '') {
+      setPasswordError(messages.passwordError);
+      return false;
+    }
     return true;
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if(isInputValid()) {
+    if (isInputValid()) {
       props.onSubmit(login, password, () => {});
     }
   };
 
   return (
-    <div className={styles.formWrapper || 'loginManager__form-wrapper'}>
-      <Form
-        inputs={inputs}
-        onSubmit={(event) => onSubmit(event) }
-        redirect={{ message: messages.doNotHaveAccount, linkText: globalMessages.signUpSentenceCase, linkUrl: '/register' }}
-        submitText={globalMessages.signInSentenceCase}
-        title={messages.signInToApp}
-        disabled={disabled || props.loading}
-      />
+    <div className={classes.wrapper}>
+      <Typography component='h1' variant='h5' className={classes.title}>
+        {globalMessages.signIn}
+      </Typography>
+      <form onSubmit={onSubmit} className={classes.form}>
+        <TextField
+          variant='outlined'
+          margin='normal'
+          required
+          fullWidth
+          id='login'
+          label={globalMessages.login}
+          name='login'
+          autoComplete='login'
+          autoFocus
+          onChange={onChange}
+          error={loginError !== ''}
+        />
+        <TextField
+          variant='outlined'
+          margin='normal'
+          required
+          fullWidth
+          name='password'
+          label={globalMessages.password}
+          type='password'
+          id='password'
+          autoComplete='current-password'
+          onChange={onChange}
+          error={passwordError !== ''}
+        />
+        <Button
+          type='submit'
+          fullWidth
+          variant='contained'
+          color='primary'
+          disableElevation
+          className={classes.submit}
+        >
+          {props.isLoggingIn ? (
+            <CircularProgress className={classes.spinner} size={28} />
+          ) : (
+            globalMessages.signIn
+          )}
+        </Button>
+        <Box mt={3}>
+          <Typography variant='body1' color='textSecondary' align='center'>
+            {globalMessages.siteName}
+          </Typography>
+        </Box>
+      </form>
     </div>
   );
 };
