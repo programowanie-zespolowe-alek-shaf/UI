@@ -24,6 +24,13 @@ const useLoginStyles = makeStyles((theme) => ({
       backgroundColor: fade('#FFA500', 0.75),
     },
   },
+  dropdownPadding: {
+    padding: theme.spacing(2),
+  },
+  lub: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
 export default useLoginStyles;

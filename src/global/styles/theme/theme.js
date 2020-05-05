@@ -29,12 +29,20 @@ const theme = createMuiTheme({
       fontSize: 10,
     },
     span: {
-      fontSize: 16,
+      fontSize: 14,
     },
     a: {
       fontSize: 16,
     },
-
+    caption: {
+      fontSize: 12,
+    },
+    subtitle1: {
+      fontSize: 16,
+    },
+    subtitle2: {
+      fontSize: 14,
+    },
     // Dla każdej font family te wartości są inne
     // https://material.io/design/typography/the-type-system.html#type-scale
     // Caption : fontSize: 12

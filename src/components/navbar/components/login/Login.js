@@ -1,13 +1,18 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import LogInIcon from './LoginIcon';
-import WithDropdown from 'components/withDropdown/WithDropdown';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
-import { Avatar, Box, MenuItem } from '@material-ui/core';
+import {
+  LOGIN_PAGE,
+  REGISTER_PAGE,
+  PROFILE_PAGE,
+} from 'global/constants/pages';
+
+import LoginDropdown from './LoginDropdown';
+import AvatarDropdown from './AvatarDropdown';
+
+import { Box } from '@material-ui/core';
 
 import useLoginStyles from './LoginStyles';
-
-const LogInIconWithDropdown = WithDropdown(LogInIcon);
 
 const Login = () => {
   const classes = useLoginStyles();
@@ -20,14 +25,9 @@ const Login = () => {
   return (
     <Box className={classes.container}>
       {isAuthenticated ? (
-        <Avatar className={classes.avatar}>
-          {userName.charAt(0).toUpperCase()}
-        </Avatar>
+        <AvatarDropdown userName={userName} />
       ) : (
-        <LogInIconWithDropdown>
-          <MenuItem>Zaloguj się</MenuItem>
-          <MenuItem>Rejestracja</MenuItem>
-        </LogInIconWithDropdown>
+        <LoginDropdown />
       )}
     </Box>
   );
