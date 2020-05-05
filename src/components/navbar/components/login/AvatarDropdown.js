@@ -45,7 +45,7 @@ const AvatarDropdown = () => {
         onClick={handleClick}
       >
         <Avatar className={classes.avatar}>
-          {userName.charAt(0).toUpperCase()}
+          {userName && userName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
       <Menu
