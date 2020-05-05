@@ -37,7 +37,7 @@ const requestUserInfo = () => ({
 
 const receiveUserInfo = (data) => ({
   type: RECEIVE_USER_INFO,
-  userName: data.name
+  userName: data.username
 });
 
 const receiveUserError = (error) => ({
@@ -63,6 +63,7 @@ export const getUserInfo = () => {
 export const getUserInfoAction = (callback) => (dispatch) => {
   dispatch(requestUserInfo());
   return getUserInfo().then((response) => {
+    console.log(response.data);
     dispatch(receiveUserInfo(response.data));
     callback();
   }).catch((error) => {
