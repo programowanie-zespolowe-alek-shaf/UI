@@ -11,8 +11,8 @@ const Main = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <Featured />
-        <LastAdded />
+        {/* <Featured />
+        <LastAdded /> */}
       </div>
     </div>
   );

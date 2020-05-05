@@ -61,7 +61,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <div className={styles.app}>
         <Navbar />
-        <div className={styles.container}>
+        <div>
           <Switch>
             <Route
               exact

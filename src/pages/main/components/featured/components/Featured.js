@@ -13,7 +13,7 @@ const Featured = () => {
   const { items } = useSelector((state) => state.featured, shallowEqual);
   return (
     <React.Fragment>
-      <Title variant='h3' pb={2}>
+      <Title variant='h5' pb={2} mt={3}>
         Polecane
       </Title>
       <Grid container direction='row' spacing={7}>

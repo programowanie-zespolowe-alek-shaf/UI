@@ -35,19 +35,24 @@ const registerSlice = createSlice({
     setDisabled(state, action) {
       state.disabled = action.payload;
     },
-    clearErrors(state,action) {
-      Object.keys(state).forEach((key) => {state[key] = { ...state[key], error: '' };});
+    clearErrors(state, action) {
+      Object.keys(state).forEach((key) => {
+        state[key] = { ...state[key], error: '' };
+      });
       state.disabled = false;
     },
     clearAll(state, action) {
       return initialState;
-    }
-  }
+    },
+  },
 });
 
 const RegisterManager = (props) => {
   const actions = registerSlice.actions;
-  const [state, dispatchLocal] = useReducer(registerSlice.reducer, initialState);
+  const [state, dispatchLocal] = useReducer(
+    registerSlice.reducer,
+    initialState
+  );
   const history = useHistory();
 
   const inputs = [
@@ -56,56 +61,56 @@ const RegisterManager = (props) => {
       placeholder: messages.fistNameSentenceCase,
       name: 'firstName',
       error: state.firstName.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'text',
       placeholder: messages.lastNameSentenceCase,
       name: 'lastName',
       error: state.lastName.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'text',
       placeholder: messages.userNameSentenceCase,
       name: 'userName',
       error: state.userName.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'text',
       placeholder: messages.emailSentenceCase,
       name: 'email',
       error: state.email.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'password',
       placeholder: messages.passwordSentenceCase,
       name: 'password',
       error: state.password.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'password',
       placeholder: messages.passwordRepeatSentenceCase,
       name: 'passwordRepeat',
       error: state.passwordRepeat.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'number',
       placeholder: messages.phoneSentenceCase,
       name: 'phone',
       error: state.phone.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
     {
       type: 'text',
       placeholder: messages.addressSentenceCase,
       name: 'address',
       error: state.address.error,
-      onChange: (event) => onChange(event)
+      onChange: (event) => onChange(event),
     },
   ];
 
@@ -125,23 +130,34 @@ const RegisterManager = (props) => {
     let valid = true;
 
     const standardValidator = (value, field, error) => {
-      if(value.length === 0 || value.length > 30) {
+      if (value.length === 0 || value.length > 30) {
         dispatchLocal(actions.setError({ field, error }));
         dispatchLocal(actions.setDisabled(true));
         valid = false;
       }
     };
-    
+
     const passwordValidator = () => {
-      if(state.password.value !== state.passwordRepeat.value) {
-        dispatchLocal(actions.setError({ field: 'passwordRepeat', error: messages.passwordErrorSentenceCase }));
+      if (state.password.value !== state.passwordRepeat.value) {
+        dispatchLocal(
+          actions.setError({
+            field: 'passwordRepeat',
+            error: messages.passwordErrorSentenceCase,
+          })
+        );
         valid = false;
       }
     };
 
     passwordValidator();
-    const fields = inputs.map(input => input.name);
-    fields.forEach((field) => standardValidator(state[field].value, field, messages.emptyFieldSentenceCase));
+    const fields = inputs.map((input) => input.name);
+    fields.forEach((field) =>
+      standardValidator(
+        state[field].value,
+        field,
+        messages.emptyFieldSentenceCase
+      )
+    );
     return valid;
   };
 
@@ -152,18 +168,18 @@ const RegisterManager = (props) => {
     event.preventDefault();
 
     const payload = {
-      'username': state.userName.value,
-      'password': state.password.value,
-      'firstName': state.firstName.value,
-      'lastName': state.lastName.value,
-      'email': state.email.value,
-      'phone': state.phone.value,
-      'address': state.address.value,
-      'enabled': 'true'
+      username: state.userName.value,
+      password: state.password.value,
+      firstName: state.firstName.value,
+      lastName: state.lastName.value,
+      email: state.email.value,
+      phone: state.phone.value,
+      address: state.address.value,
+      enabled: 'true',
     };
 
     if (isInputValid()) {
-      props.onSubmit(payload,redirectToSingIn);
+      props.onSubmit(payload, redirectToSingIn);
     }
   };
 
