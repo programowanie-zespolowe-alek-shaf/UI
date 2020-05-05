@@ -1,11 +1,12 @@
 const messages = {
-  signInToApp: 'Log in',
-  doNotHaveAccount: 'Do not have account?',
-  loginError: 'Login cannot be an empty string.',
-  passwordError: 'Password cannot be an empty string.',
-  somethingWentWrong: 'Sorry! Something went wrong. Please try again!',
-  loginFailed: 'Login failed',
-  successfullyCreatedUser: 'Account has been created successfully!'
+  signInToApp: 'Zaloguj się',
+  doNotHaveAccount: 'Jesteś tu nowy?',
+  createAnAccount: 'Załóż konto!',
+  loginError: 'Login nie może być pusty',
+  passwordError: 'Hasło nie może być puste',
+  somethingWentWrong: 'Przepraszamy! Coś poszło nie tak.',
+  loginFailed: 'Logowanie nie powiodło się.',
+  successfullyCreatedUser: 'Konto zostało utworzone pomyślnie!',
 };
 
 export default messages;

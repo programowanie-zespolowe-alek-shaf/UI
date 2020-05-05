@@ -8,6 +8,14 @@ import messages from '../../register/messages/messages';
 import styles from '../styles/registerManager.scss';
 import { createSlice } from '@reduxjs/toolkit';
 
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+} from '@material-ui/core';
+
 const initialState = {
   userName: { value: '', error: '' },
   password: { value: '', error: '' },

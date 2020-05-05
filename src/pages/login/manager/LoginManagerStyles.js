@@ -7,7 +7,7 @@ const useLoginManagerStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexFlow: 'column',
     width: '100%',
-    height: '70%',
+    height: '80%',
   },
   title: {
     marginBottom: theme.spacing(1),
@@ -16,7 +16,7 @@ const useLoginManagerStyles = makeStyles((theme) => ({
     maxWidth: 400,
   },
   submit: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
   spinner: {
     color: 'white',

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import messages from '../messages/messages';
 import globalMessages from '../../../global/messages/globalMessages';
+import { REGISTER_PAGE } from 'global/constants/pages';
 
 import {
   Box,
@@ -9,6 +11,7 @@ import {
   TextField,
   Button,
   CircularProgress,
+  Link,
 } from '@material-ui/core';
 
 import useLoginManagerStyles from './LoginManagerStyles';
@@ -26,12 +29,6 @@ const LoginManager = (props) => {
     setPasswordError('');
   };
 
-  const onChange = (event) => {
-    if (event.target.name === 'login') setLogin(event.target.value);
-    if (event.target.name === 'password') setPassword(event.target.value);
-    clearErrors();
-  };
-
   const isInputValid = () => {
     if (login === '') {
       setLoginError(messages.loginError);
@@ -42,6 +39,12 @@ const LoginManager = (props) => {
       return false;
     }
     return true;
+  };
+
+  const onChange = (event) => {
+    if (event.target.name === 'login') setLogin(event.target.value);
+    if (event.target.name === 'password') setPassword(event.target.value);
+    clearErrors();
   };
 
   const onSubmit = (event) => {
@@ -98,8 +101,16 @@ const LoginManager = (props) => {
             globalMessages.signIn
           )}
         </Button>
+        <Box mt={4} display='flex' justifyContent='center'>
+          <Typography display='inline' variant='body1'>
+            {messages.doNotHaveAccount}&nbsp;
+          </Typography>
+          <Link to={REGISTER_PAGE} component={RouterLink} variant='body1'>
+            {messages.createAnAccount}
+          </Link>
+        </Box>
         <Box mt={3}>
-          <Typography variant='body1' color='textSecondary' align='center'>
+          <Typography variant='body2' color='textSecondary' align='center'>
             {globalMessages.siteName}
           </Typography>
         </Box>
