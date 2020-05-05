@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { logoutAction } from '../../../../pages/login/actions/loginActions';
 import { PROFILE_PAGE } from 'global/constants/pages';
 
@@ -45,7 +45,7 @@ const AvatarDropdown = () => {
         onClick={handleClick}
       >
         <Avatar className={classes.avatar}>
-          {userName.charAt(0).toUpperCase()}
+          {userName && userName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
       <Menu
