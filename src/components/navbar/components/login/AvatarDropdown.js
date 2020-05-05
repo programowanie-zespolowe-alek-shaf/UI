@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { logoutAction } from '../../../../pages/login/actions/loginActions';
 import { PROFILE_PAGE } from 'global/constants/pages';
 
