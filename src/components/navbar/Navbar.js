@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -11,16 +11,17 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import Logo from './components/logo/Logo';
 import Search from './components/search/Search';
 import Login from './components/login/Login';
+import { getCategories } from '../../pages/category/slice/categoriesSlice';
 
 const Navbar = () => {
   const user = useSelector((store) => store.login, shallowEqual);
-  // const dispatch = useDispatch();
+  const categories = useSelector((store) => store.categories, shallowEqual);
 
   return (
     <AppBar position='static'>
       <Toolbar>
         <Logo />
-        <Search />
+        <Search items={categories.items} />
         <Login />
         <Cart />
       </Toolbar>

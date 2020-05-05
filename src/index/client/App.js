@@ -20,6 +20,7 @@ import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
 import styles from 'global/styles/global.scss';
+import { getCategories } from '../../pages/category/slice/categoriesSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
+    dispatch(getCategories());
   }, []);
 
   const DefaultContainer = () => {
@@ -61,16 +63,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <div className={styles.app}>
         <Navbar />
-        <div>
-          <Switch>
-            <Route
-              exact
-              path={'/(login|register)/'}
-              component={AuthContainer}
-            />
-            <Route component={DefaultContainer} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route
+            exact
+            path={'/(login|register)/'}
+            component={AuthContainer}
+          />
+          <Route component={DefaultContainer} />
+        </Switch>
       </div>
     </ThemeProvider>
   );

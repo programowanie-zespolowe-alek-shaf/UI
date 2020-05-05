@@ -10,6 +10,7 @@ const endpoint = (baseUrl) => {
     cart: baseUrl + '/shoppingCarts/',
     addToCart: baseUrl + '/shoppingCarts/items',
     books: baseUrl + '/product-catalog-ms/books',
+    categories: baseUrl + '/product-catalog-ms/categories'
   };
 };
 
