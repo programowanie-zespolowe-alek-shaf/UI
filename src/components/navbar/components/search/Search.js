@@ -79,8 +79,8 @@ const Search = (props) => {
             <MenuItem value='' disabled>
               Kategoria
             </MenuItem>
-            {categories.map((category) => (
-              <MenuItem key={uuidv4()} value={category.slug}>
+            {props.items.map((category) => (
+              <MenuItem key={uuidv4()} value={category.id}>
                 {category.name}
               </MenuItem>
             ))}
@@ -90,5 +90,7 @@ const Search = (props) => {
     </div>
   );
 };
+
+
 
 export default withRouter(Search);
