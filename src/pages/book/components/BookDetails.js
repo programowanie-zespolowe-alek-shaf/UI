@@ -13,10 +13,10 @@ function BookDetails(props) {
           <span>Loading: {props.loading}</span>
           <span>Autor: {props.author}</span>
           <span>Rok: {props.year}</span>
-          <span>Cena: {props.price}</span>
           <span>Opis: {props.description}</span>
           <span>Dostępna: {props.available}</span>
           <span>Kategoria: {props.category.name}</span>
+          <span><strong>Cena: {props.price}</strong></span>
         </section>
       </div>
       <div className={styles.deleteButton}>

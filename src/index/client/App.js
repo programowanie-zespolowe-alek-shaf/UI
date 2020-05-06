@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from 'global/styles/theme/theme';
 
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
@@ -10,10 +12,10 @@ import Main from '../../pages/main/Main';
 import Category from '../../pages/category/Category';
 import Search from '../../pages/search/Search';
 import Profile from '../../pages/profile/Profile';
+import CartContainer from '../../pages/cart/CartContainer';
 import NotFound from '../../pages/notFound/NotFound';
 
-import BookContainer from '../../pages/book/BookContainer';
-import CartContainer from '../../pages/cart/CartContainer';
+import BookContainer from '../../pages/book/BookContainer';;
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
