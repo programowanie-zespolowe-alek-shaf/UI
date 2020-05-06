@@ -12,7 +12,6 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
-  CardActions,
   Button,
   Link,
 } from '@material-ui/core';
