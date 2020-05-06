@@ -15,9 +15,6 @@ export const allReducers = combineReducers({
   globalAlert: globalAlertSlice,
   pagination: paginationSlice,
   featured: featuredSlice,
-<<<<<<< HEAD
   categories: categoriesSlice,
-=======
   book: bookSlice
->>>>>>> 21bdb20... book page init
 });
