@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from 'global/styles/theme/theme';
-
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
@@ -12,10 +9,10 @@ import Main from '../../pages/main/Main';
 import Category from '../../pages/category/Category';
 import Search from '../../pages/search/Search';
 import Profile from '../../pages/profile/Profile';
-import CartContainer from '../../pages/cart/CartContainer';
-import Book from '../../pages/book/Book';
 import NotFound from '../../pages/notFound/NotFound';
 
+import BookContainer from '../../pages/book/BookContainer';
+import CartContainer from '../../pages/cart/CartContainer';
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
@@ -25,10 +22,7 @@ import GlobalAlert from '../../components/globalAlert/globalAlert';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state) => state.login.isAuthenticated,
-    shallowEqual
-  );
+  const user = useSelector((state) => state.login, shallowEqual);
 
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
@@ -39,14 +33,14 @@ const App = () => {
     return (
       <Switch>
         <Route exact path={'/'} component={Main} />
-        <Route path={'/book/:bookId'} component={Book} />
+        <Route path={'/book/:bookId'} component={BookContainer} />
         <Route path={'/category/:categoryId/:pageId?'} component={Category} />
         <Route path={'/search/:pageId?'} component={Search} />
         <Route path={'/cart'} component={CartContainer} />
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={isAuthenticated}
+          isAuthenticated={user.isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
