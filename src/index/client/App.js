@@ -21,6 +21,7 @@ import RegisterContainer from '../../pages/register/RegisterContainer';
 
 import styles from 'global/styles/global.scss';
 import { getCategories } from '../../pages/category/slice/categoriesSlice';
+import GlobalAlert from '../../components/globalAlert/globalAlert';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const App = () => {
           <Route component={DefaultContainer} />
         </Switch>
       </div>
+      <GlobalAlert />
     </ThemeProvider>
   );
 };

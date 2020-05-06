@@ -31,7 +31,6 @@ const RegisterManager = (props) => {
   const onChange = (event) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;
-    console.log(inputName, inputValue);
     dispatchLocal(actions.setValue({ field: inputName, value: inputValue }));
     clearErrors();
   };
@@ -91,8 +90,6 @@ const RegisterManager = (props) => {
     }
   };
 
-  console.log('rerender');
-
   return (
     <div className={classes.wrapper}>
       <Typography component='h1' variant='h5' className={classes.title}>
@@ -101,7 +98,6 @@ const RegisterManager = (props) => {
       <form onSubmit={onSubmit} className={classes.form}>
         <Grid container spacing={2}>
           {inputs.map((input, index) => {
-            console.log('Halko');
             return (
               <Grid key={`register-input-${index}`} item {...input.sizes}>
                 <TextField

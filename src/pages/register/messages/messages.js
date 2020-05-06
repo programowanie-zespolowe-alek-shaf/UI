@@ -16,6 +16,7 @@ const messages = {
   haveAnAccount: 'Masz już konto?',
   signIn: 'Zaloguj się!',
   signUpFailed: 'Rejestracja nie powiodła się',
+  signUpSuccess: 'Konto założone pomyślnie! Możesz się zalogować.',
 };
 
 export default messages;
