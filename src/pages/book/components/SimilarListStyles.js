@@ -1,4 +1,4 @@
-8import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 
 const useCartStyles = makeStyles((theme) => ({
   iconButton: {

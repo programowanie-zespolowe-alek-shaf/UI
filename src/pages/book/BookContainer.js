@@ -21,9 +21,8 @@ const BookContainer = (props) => {
       <h3>Book Page</h3>
     <BookDetails {...book}
                    onAdd={(id, item) => dispatch(addToCart(id, item))}/>
-    {console.log('state', state)}
-    <SimilarList id = {book.id} 
-                 category = {book.category}/>
+    {/* <SimilarList id = {book.id} 
+                 category = {book.category}/> */}
     </div>
   );
 };
