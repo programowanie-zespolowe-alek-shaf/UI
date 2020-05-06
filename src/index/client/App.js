@@ -21,6 +21,7 @@ import RegisterContainer from '../../pages/register/RegisterContainer';
 
 import styles from 'global/styles/global.scss';
 import { getCategories } from '../../pages/category/slice/categoriesSlice';
+import GlobalAlert from '../../components/globalAlert/globalAlert';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,8 +55,10 @@ const App = () => {
 
   const AuthContainer = () => (
     <Switch>
-      <Route path='/login' component={LoginContainer} />
-      <Route path='/register' component={RegisterContainer} />
+      <div className={styles.wrapperCenter}>
+        <Route path='/login' component={LoginContainer} />
+        <Route path='/register' component={RegisterContainer} />
+      </div>
     </Switch>
   );
 
@@ -64,14 +67,11 @@ const App = () => {
       <div className={styles.app}>
         <Navbar />
         <Switch>
-          <Route
-            exact
-            path={'/(login|register)/'}
-            component={AuthContainer}
-          />
+          <Route exact path={'/(login|register)/'} component={AuthContainer} />
           <Route component={DefaultContainer} />
         </Switch>
       </div>
+      <GlobalAlert />
     </ThemeProvider>
   );
 };

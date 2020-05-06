@@ -4,10 +4,7 @@
 
 html {
   font-size: 62.5%;
-}
-
-body {
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 body,
@@ -15,7 +12,6 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -78,4 +74,8 @@ a {
   display: flex;
   flex-flow: column;
   height: 100%;
+}
+
+.wrapperCenter {
+  margin: auto;
 }

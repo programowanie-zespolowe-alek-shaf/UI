@@ -1,118 +1,27 @@
-import PropTypes from 'prop-types';
 import React, { useReducer } from 'react';
-import Form from '../../../components/form/Form';
+import PropTypes from 'prop-types';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { LOGIN_PAGE } from '../../../global/constants/pages';
-import { useHistory } from 'react-router-dom';
-import globalMessages from '../../../global/messages/globalMessages';
+import globalMessages from 'global/messages/globalMessages';
 import messages from '../../register/messages/messages';
-import styles from '../styles/registerManager.scss';
-import { createSlice } from '@reduxjs/toolkit';
+import { registerSlice, initialState } from './slice/registerSlice';
+import inputs from './inputs/inputs';
 
-const initialState = {
-  userName: { value: '', error: '' },
-  password: { value: '', error: '' },
-  passwordRepeat: { value: '', error: '' },
-  firstName: { value: '', error: '' },
-  lastName: { value: '', error: '' },
-  email: { value: '', error: '' },
-  phone: { value: '', error: '' },
-  address: { value: '', error: '' },
-  disabled: false,
-};
+import SubmitButton from 'components/submitButton/SubmitButton';
 
-const registerSlice = createSlice({
-  name: 'register',
-  initialState,
-  reducers: {
-    setValue(state, action) {
-      const { field, value } = action.payload;
-      state[field] = { ...state[field], value };
-    },
-    setError(state, action) {
-      const { field, error } = action.payload;
-      state[field] = { ...state[field], error };
-    },
-    setDisabled(state, action) {
-      state.disabled = action.payload;
-    },
-    clearErrors(state, action) {
-      Object.keys(state).forEach((key) => {
-        state[key] = { ...state[key], error: '' };
-      });
-      state.disabled = false;
-    },
-    clearAll(state, action) {
-      return initialState;
-    },
-  },
-});
+import { Typography, TextField, Grid, Box, Link } from '@material-ui/core';
+
+import useRegisterManagerStyles from './RegisterManagerStyles';
 
 const RegisterManager = (props) => {
+  const classes = useRegisterManagerStyles();
+
   const actions = registerSlice.actions;
   const [state, dispatchLocal] = useReducer(
     registerSlice.reducer,
     initialState
   );
   const history = useHistory();
-
-  const inputs = [
-    {
-      type: 'text',
-      placeholder: messages.fistNameSentenceCase,
-      name: 'firstName',
-      error: state.firstName.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'text',
-      placeholder: messages.lastNameSentenceCase,
-      name: 'lastName',
-      error: state.lastName.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'text',
-      placeholder: messages.userNameSentenceCase,
-      name: 'userName',
-      error: state.userName.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'text',
-      placeholder: messages.emailSentenceCase,
-      name: 'email',
-      error: state.email.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'password',
-      placeholder: messages.passwordSentenceCase,
-      name: 'password',
-      error: state.password.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'password',
-      placeholder: messages.passwordRepeatSentenceCase,
-      name: 'passwordRepeat',
-      error: state.passwordRepeat.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'number',
-      placeholder: messages.phoneSentenceCase,
-      name: 'phone',
-      error: state.phone.error,
-      onChange: (event) => onChange(event),
-    },
-    {
-      type: 'text',
-      placeholder: messages.addressSentenceCase,
-      name: 'address',
-      error: state.address.error,
-      onChange: (event) => onChange(event),
-    },
-  ];
 
   const clearErrors = () => {
     dispatchLocal(actions.clearErrors());
@@ -150,25 +59,23 @@ const RegisterManager = (props) => {
     };
 
     passwordValidator();
-    const fields = inputs.map((input) => input.name);
-    fields.forEach((field) =>
-      standardValidator(
-        state[field].value,
-        field,
-        messages.emptyFieldSentenceCase
-      )
-    );
+    const fields = inputs.map((input) => input.input.name);
+    fields.forEach((field) => {
+      standardValidator(state[field].value, field, messages.emptyField);
+    });
+
     return valid;
   };
 
-  const redirectToSingIn = () => {
+  const redirectToSignIn = () => {
     history.push(LOGIN_PAGE);
   };
+
   const onSubmit = (event) => {
     event.preventDefault();
 
     const payload = {
-      username: state.userName.value,
+      username: state.login.value,
       password: state.password.value,
       firstName: state.firstName.value,
       lastName: state.lastName.value,
@@ -179,24 +86,61 @@ const RegisterManager = (props) => {
     };
 
     if (isInputValid()) {
-      props.onSubmit(payload, redirectToSingIn);
+      props.onSubmit(payload, redirectToSignIn);
     }
   };
 
   return (
-    <div className={styles.formWrapper || 'registerManager__form-wrapper'}>
-      <Form
-        inputs={inputs}
-        onSubmit={(event) => onSubmit(event)}
-        redirect={{
-          message: messages.haveAccount,
-          linkText: globalMessages.signInSentenceCase,
-          linkUrl: '/login',
-        }}
-        submitText={globalMessages.signUpSentenceCase}
-        title={messages.signUnToApp}
-        disabled={state.disabled || props.loading}
-      />
+    <div className={classes.wrapper}>
+      <Typography component='h1' variant='h5' className={classes.title}>
+        {messages.signUp}
+      </Typography>
+      <form onSubmit={onSubmit} className={classes.form}>
+        <Grid container spacing={2}>
+          {inputs.map((input, index) => {
+            return (
+              <Grid key={`register-input-${index}`} item {...input.sizes}>
+                <TextField
+                  {...input.input}
+                  variant='outlined'
+                  required
+                  fullWidth
+                  value={state[input.input.name].value}
+                  error={state[input.input.name].error !== ''}
+                  onChange={onChange}
+                  className={classes.input}
+                  disabled={state.disabled}
+                />
+              </Grid>
+            );
+          })}
+          <Grid item xs={12}>
+            <SubmitButton
+              isLoading={props.isRegistering}
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+              disableElevation
+            >
+              {messages.signUp}
+            </SubmitButton>
+          </Grid>
+        </Grid>
+      </form>
+      <Box mt={4} display='flex' justifyContent='center'>
+        <Typography display='inline' variant='body1'>
+          {messages.haveAnAccount}&nbsp;
+        </Typography>
+        <Link to={LOGIN_PAGE} component={RouterLink} variant='body1'>
+          {messages.signIn}
+        </Link>
+      </Box>
+      <Box mt={3}>
+        <Typography variant='body2' color='textSecondary' align='center'>
+          {globalMessages.siteName}
+        </Typography>
+      </Box>
     </div>
   );
 };
