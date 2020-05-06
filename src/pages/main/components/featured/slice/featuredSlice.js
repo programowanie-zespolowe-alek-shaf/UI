@@ -1,15 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
-import { default as response } from 'global/mock/books/featured';
+import { api } from 'global/connection/backend/endpoints';
+import { featured } from 'global/connection/backend/settings';
+import axios from 'axios';
+
+export const initialState = {
+  items: [],
+  isLoading: false,
+  isLoaded: false,
+  error: undefined,
+};
 
 const featuredSlice = createSlice({
   name: 'featured',
-  initialState: {
-    items: [],
-    isLoading: false,
-    isLoaded: false,
-    error: undefined,
-  },
+  initialState,
   reducers: {
     fetchFeaturedStart(state) {
       state.isLoading = true;
@@ -19,7 +22,7 @@ const featuredSlice = createSlice({
     fetchFeaturedSuccess(state, action) {
       state.isLoading = false;
       state.isLoaded = true;
-      state.items = action.payload.items;
+      state.items = action.payload;
       state.error = undefined;
     },
     fetchFeaturedFailure(state, action) {
@@ -31,16 +34,27 @@ const featuredSlice = createSlice({
   },
 });
 
-const { actions, reducer } = featuredSlice;
-export const {
+export const { reducer, actions } = featuredSlice;
+
+const {
   fetchFeaturedStart,
   fetchFeaturedSuccess,
   fetchFeaturedFailure,
 } = actions;
 
-export const getFeatured = () => (dispatch) => {
-  dispatch(fetchFeaturedStart());
-  dispatch(fetchFeaturedSuccess({ items: response.results }));
-};
+export const getFeatured = async (dispatch) => {
+  try {
+    dispatch(fetchFeaturedStart());
+    const { offset, limit } = featured;
 
-export default reducer;
+    const response = await axios.get(
+      `${api.books}?offset=${offset}&limit=${limit}`
+    );
+    const books = await response.data;
+
+    dispatch(fetchFeaturedSuccess(books.list));
+  } catch (error) {
+    const message = error.response.data;
+    dispatch(fetchFeaturedFailure(message));
+  }
+};
