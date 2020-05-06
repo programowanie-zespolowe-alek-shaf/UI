@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+
 import { getUserInfoAction } from '../../pages/login/actions/loginActions';
 import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
