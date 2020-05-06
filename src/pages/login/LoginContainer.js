@@ -4,21 +4,11 @@ import LoginManager from './manager/LoginManager';
 import { loginAction } from './actions/loginActions';
 import { useHistory } from 'react-router-dom';
 import { useSelector, shallowEqual } from 'react-redux';
-import messages from './messages/messages';
-
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
 
 const LoginContainer = () => {
   const history = useHistory();
-  const isAuthenticated = useSelector(
-    (state) => state.login.isAuthenticated,
-    shallowEqual
-  );
-  const isLoggingIn = useSelector(
-    (state) => state.login.isLoggingIn,
-    shallowEqual
-  );
+  const login = useSelector(state => state.login, shallowEqual);
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated, shallowEqual);
 
   useEffect(() => {
     if (isAuthenticated) history.push('/');
@@ -31,7 +21,7 @@ const LoginContainer = () => {
 
   return (
     <React.Fragment>
-      <LoginManager onSubmit={dispatchLoginAction} isLoggingIn={isLoggingIn} />
+      <LoginManager onSubmit={dispatchLoginAction} isLoggingIn={login.isLoggingIn} />
     </React.Fragment>
   );
 };
