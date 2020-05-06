@@ -8,15 +8,15 @@ const useLoginStyles = makeStyles((theme) => ({
     width: theme.spacing(5),
     height: theme.spacing(5),
     padding: 0,
-    backgroundColor: 'white',
+    backgroundColor: '#FFA500',
     cursor: 'pointer',
     overflow: 'visible',
     '&:hover': {
-      backgroundColor: fade('#FFFFFF', 0.75),
+      backgroundColor: fade('#FFA500', 0.75),
     },
   },
   icon: {
-    color: '#606060',
+    color: 'white',
   },
   avatar: {
     backgroundColor: 'orange',

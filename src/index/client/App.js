@@ -54,8 +54,10 @@ const App = () => {
 
   const AuthContainer = () => (
     <Switch>
-      <Route path='/login' component={LoginContainer} />
-      <Route path='/register' component={RegisterContainer} />
+      <div className={styles.wrapperCenter}>
+        <Route path='/login' component={LoginContainer} />
+        <Route path='/register' component={RegisterContainer} />
+      </div>
     </Switch>
   );
 
@@ -64,11 +66,7 @@ const App = () => {
       <div className={styles.app}>
         <Navbar />
         <Switch>
-          <Route
-            exact
-            path={'/(login|register)/'}
-            component={AuthContainer}
-          />
+          <Route exact path={'/(login|register)/'} component={AuthContainer} />
           <Route component={DefaultContainer} />
         </Switch>
       </div>

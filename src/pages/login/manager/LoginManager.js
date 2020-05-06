@@ -5,14 +5,9 @@ import messages from '../messages/messages';
 import globalMessages from '../../../global/messages/globalMessages';
 import { REGISTER_PAGE } from 'global/constants/pages';
 
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  CircularProgress,
-  Link,
-} from '@material-ui/core';
+import SubmitButton from 'components/submitButton/SubmitButton';
+
+import { Box, Typography, TextField, Link } from '@material-ui/core';
 
 import useLoginManagerStyles from './LoginManagerStyles';
 
@@ -64,13 +59,13 @@ const LoginManager = (props) => {
         <TextField
           variant='outlined'
           margin='normal'
+          autoFocus
           required
           fullWidth
           id='login'
           label={globalMessages.login}
           name='login'
           autoComplete='login'
-          autoFocus
           onChange={onChange}
           error={loginError !== ''}
         />
@@ -87,34 +82,31 @@ const LoginManager = (props) => {
           onChange={onChange}
           error={passwordError !== ''}
         />
-        <Button
-          type='submit'
+        <SubmitButton
+          isLoading={props.isLoggingIn}
           fullWidth
           variant='contained'
           color='primary'
           disableElevation
           className={classes.submit}
         >
-          {props.isLoggingIn ? (
-            <CircularProgress className={classes.spinner} size={28} />
-          ) : (
-            globalMessages.signIn
-          )}
-        </Button>
-        <Box mt={4} display='flex' justifyContent='center'>
-          <Typography display='inline' variant='body1'>
-            {messages.doNotHaveAccount}&nbsp;
-          </Typography>
-          <Link to={REGISTER_PAGE} component={RouterLink} variant='body1'>
-            {messages.createAnAccount}
-          </Link>
-        </Box>
-        <Box mt={3}>
-          <Typography variant='body2' color='textSecondary' align='center'>
-            {globalMessages.siteName}
-          </Typography>
-        </Box>
+          {globalMessages.signIn}
+        </SubmitButton>
       </form>
+
+      <Box mt={4} display='flex' justifyContent='center'>
+        <Typography display='inline' variant='body1'>
+          {messages.doNotHaveAccount}&nbsp;
+        </Typography>
+        <Link to={REGISTER_PAGE} component={RouterLink} variant='body1'>
+          {messages.createAnAccount}
+        </Link>
+      </Box>
+      <Box mt={3}>
+        <Typography variant='body2' color='textSecondary' align='center'>
+          {globalMessages.siteName}
+        </Typography>
+      </Box>
     </div>
   );
 };

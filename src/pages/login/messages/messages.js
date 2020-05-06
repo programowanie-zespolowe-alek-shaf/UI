@@ -6,7 +6,7 @@ const messages = {
   passwordError: 'Hasło nie może być puste',
   somethingWentWrong: 'Przepraszamy! Coś poszło nie tak.',
   loginFailed: 'Logowanie nie powiodło się.',
-  successfullyCreatedUser: 'Konto zostało utworzone pomyślnie!',
+  successfullyCreatedUser: 'Konto utworzone pomyślnie. Możesz się zalogować!',
 };
 
 export default messages;

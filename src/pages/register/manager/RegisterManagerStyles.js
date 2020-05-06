@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useLoginManagerStyles = makeStyles((theme) => ({
+const useRegisterManagerStyles = makeStyles((theme) => ({
   wrapper: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    flexFlow: 'column',
     width: '100%',
     marginTop: 50,
     marginBottom: 50,
@@ -15,9 +15,12 @@ const useLoginManagerStyles = makeStyles((theme) => ({
   form: {
     maxWidth: 400,
   },
+  input: {
+    marginTop: theme.spacing(1),
+  },
   submit: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
 }));
 
-export default useLoginManagerStyles;
+export default useRegisterManagerStyles;

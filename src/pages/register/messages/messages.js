@@ -1,20 +1,21 @@
 const messages = {
-  fistNameSentenceCase: 'First name',
-  lastNameSentenceCase: 'Last name',
-  userNameSentenceCase: 'User name',
-  emailSentenceCase: 'Email',
-  passwordSentenceCase: 'Password',
-  passwordRepeatSentenceCase: 'Repeat password',
-  phoneSentenceCase: 'Phone',
-  addressSentenceCase: 'Address',
+  firstName: 'Imię',
+  lastName: 'Nazwisko',
+  login: 'Login',
+  email: 'Adres e-mail',
+  password: 'Hasło',
+  passwordRepeat: 'Powtórz hasło',
+  phone: 'Numer telefonu',
+  address: 'Ulica, Miejscowość, Kod Pocztowy',
 
-  emptyFieldSentenceCase: 'Empty field!',
-  passwordErrorSentenceCase: 'Passwords don\'t match',
+  emptyField: 'Pole nie może być puste!',
+  passwordError: 'Hasła się nie zgadzają',
 
-  signUnToApp: 'Sign up',
+  signUp: 'Załóż konto',
   somethingWentWrong: 'Sorry! Something went wrong. Please try again!',
-  haveAccount: 'Have you account?',
-  registerFailed: 'Sign up failed'
+  haveAnAccount: 'Masz już konto?',
+  signIn: 'Zaloguj się!',
+  signUpFailed: 'Rejestracja nie powiodła się',
 };
 
 export default messages;
