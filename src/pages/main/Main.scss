@@ -3,3 +3,8 @@
 .container {
   @include flex-row;
 }
+
+.content {
+  margin: 3rem;
+  width: 100%;
+}

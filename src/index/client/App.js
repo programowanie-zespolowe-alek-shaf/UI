@@ -15,7 +15,7 @@ import Profile from '../../pages/profile/Profile';
 import CartContainer from '../../pages/cart/CartContainer';
 import NotFound from '../../pages/notFound/NotFound';
 
-import BookContainer from '../../pages/book/BookContainer';;
+import BookContainer from '../../pages/book/BookContainer';
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
@@ -45,7 +45,7 @@ const App = () => {
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={user.isAuthenticated}
+          isAuthenticated={isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>

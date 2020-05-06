@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getFeatured } from './slice/featuredSlice';
+import React, { useEffect, useReducer } from 'react';
 import WithLoading from 'components/withLoading/WithLoading';
+import { initialState, getFeatured, reducer } from './slice/featuredSlice';
 
-import Featured from './components/Featured';
+import Featured from './Featured';
 const FeaturedWithLoading = WithLoading(Featured);
 
 const FeaturedContainer = () => {
-  const { isLoaded, isLoading, error } = useSelector(
-    (state) => state.featured,
-    shallowEqual
-  );
-  const dispatch = useDispatch();
+  const [state, dispatchLocal] = useReducer(reducer, initialState);
+
   useEffect(() => {
-    dispatch(getFeatured());
+    getFeatured(dispatchLocal);
   }, []);
 
   return (
     <FeaturedWithLoading
-      isLoading={isLoading}
-      isLoaded={isLoaded}
-      error={error}
+      isLoading={state.isLoading}
+      isLoaded={state.isLoaded}
+      items={state.items}
+      error={state.error}
     />
   );
 };
