@@ -13,21 +13,19 @@ import Category from '../../pages/category/Category';
 import Search from '../../pages/search/Search';
 import Profile from '../../pages/profile/Profile';
 import CartContainer from '../../pages/cart/CartContainer';
-import Book from '../../pages/book/Book';
 import NotFound from '../../pages/notFound/NotFound';
 
+import BookContainer from '../../pages/book/BookContainer';;
 import LoginContainer from '../../pages/login/LoginContainer';
 import RegisterContainer from '../../pages/register/RegisterContainer';
 
 import styles from 'global/styles/global.scss';
 import { getCategories } from '../../pages/category/slice/categoriesSlice';
+import GlobalAlert from '../../components/globalAlert/globalAlert';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state) => state.login.isAuthenticated,
-    shallowEqual
-  );
+  const user = useSelector((state) => state.login, shallowEqual);
 
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
@@ -38,14 +36,14 @@ const App = () => {
     return (
       <Switch>
         <Route exact path={'/'} component={Main} />
-        <Route path={'/book/:bookId'} component={Book} />
+        <Route path={'/book/:bookId'} component={BookContainer} />
         <Route path={'/category/:categoryId/:pageId?'} component={Category} />
         <Route path={'/search/:pageId?'} component={Search} />
         <Route path={'/cart'} component={CartContainer} />
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={isAuthenticated}
+          isAuthenticated={user.isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
@@ -54,8 +52,10 @@ const App = () => {
 
   const AuthContainer = () => (
     <Switch>
-      <Route path='/login' component={LoginContainer} />
-      <Route path='/register' component={RegisterContainer} />
+      <div className={styles.wrapperCenter}>
+        <Route path='/login' component={LoginContainer} />
+        <Route path='/register' component={RegisterContainer} />
+      </div>
     </Switch>
   );
 
@@ -64,14 +64,11 @@ const App = () => {
       <div className={styles.app}>
         <Navbar />
         <Switch>
-          <Route
-            exact
-            path={'/(login|register)/'}
-            component={AuthContainer}
-          />
+          <Route exact path={'/(login|register)/'} component={AuthContainer} />
           <Route component={DefaultContainer} />
         </Switch>
       </div>
+      <GlobalAlert />
     </ThemeProvider>
   );
 };

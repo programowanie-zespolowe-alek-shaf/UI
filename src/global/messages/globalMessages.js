@@ -1,14 +1,11 @@
 const globalMessages = {
-  signInSentenceCase: 'Sign in',
-  signUpSentenceCase: 'Sign up',
-  loginSentenceCase: 'Login',
-  passwordSentenceCase: 'Password',
-  errorSentenceCase: 'Error',
-  dataMasterServiceSentenceCase: 'Data master service',
-  loginUpperCase: 'LOGIN',
-  logoutUpperCase: 'LOGOUT',
-  registerUpperCase: 'REGISTER',
-  homeUpperCase: 'HOME',
+  siteName: 'BookStore',
+  signIn: 'Zaloguj się',
+  signUp: 'Zarejestruj się',
+  login: 'Login',
+  password: 'Hasło',
+  createAccount: 'Załóż konto',
+  registration: 'Rejestracja',
 };
 
 export default globalMessages;
