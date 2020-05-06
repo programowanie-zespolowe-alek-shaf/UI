@@ -25,8 +25,10 @@ import GlobalAlert from '../../components/globalAlert/globalAlert';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login, shallowEqual);
-
+  const isAuthenticated = useSelector(
+    (state) => state.login.isAuthenticated,
+    shallowEqual
+  );
   useEffect(() => {
     dispatch(getUserInfoAction(() => {}));
     dispatch(getCategories());
