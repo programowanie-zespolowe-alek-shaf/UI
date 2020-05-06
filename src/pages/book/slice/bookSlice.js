@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
-import { response, deleteResponse } from '../../../global/mock/Book';
+import { response, deleteResponse } from '../../../global/mock/book';
 
 export const initialState = {
   loading: false,

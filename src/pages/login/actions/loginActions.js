@@ -1,8 +1,7 @@
 import { api } from '../../../global/connection/backend/endpoints';
-import messages from '../messages/messages';
 import request from '../../../global/connection/backend/request';
-import { USERNAME_OR_EMAIL, PASSWORD } from '../../../global/constants/authentication';
 import auth from '../../../components/auth/auth';
+import { triggerGlobalAlert } from '../../../components/globalAlert/slice/globalAlertSlice';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -85,7 +84,13 @@ export const loginAction = (login, password, callback) => (dispatch) => {
       dispatch(getUserInfoAction(callback));
     })
     .catch((error) => {
-      dispatch(receiveUserError(error.response && error.response.data.error));
+      const errResp = error.response;
+      if(errResp && errResp.status === 401){
+        dispatch(triggerGlobalAlert('error', 'Błędny login lub hasło'));
+        return dispatch(loginError('Błędny login lub hasło'));
+      }
+      dispatch(triggerGlobalAlert('error', 'Serwis niedostępny'));
+      return dispatch(loginError('Serwis niedostępny'));
     });
 };
 
