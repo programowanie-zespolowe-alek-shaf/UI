@@ -4,5 +4,11 @@
     display: block;
     font-size: 2rem;
   }
-  align-self: flex-end;
+  .button {
+    color: gray;
+  }
+  flex-flow: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  display: flex;
 }

@@ -28,7 +28,7 @@ const Featured = ({ items }) => {
   };
 
   return (
-    <Paper className={classes.container}>
+    <React.Fragment>
       <Typography variant='h6' component='h6' className={classes.title}>
         Polecane
       </Typography>
@@ -37,28 +37,39 @@ const Featured = ({ items }) => {
           <Card
             key={`cart-item-${index}`}
             variant='outlined'
-            classes={{ root: classes.featuredCardRoot }}
+            classes={{ root: classes.root }}
           >
-            <CardActionArea classes={{ root: classes.cartItemCardActionArea }}>
+            <CardActionArea classes={{ root: classes.actionArea }}>
               <Link to={`${BOOK_PAGE}/1`} component={RouterLink}>
                 <CardMedia
                   component='img'
                   alt='Contemplative Reptile'
                   image={item.photoUrl}
                   title='Contemplative Reptile'
-                  className={classes.cartItemCardImage}
+                  className={classes.image}
                 />
               </Link>
             </CardActionArea>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Link to={`${BOOK_PAGE}/1`} component={RouterLink}>
                 <Typography variant='h6'>{item.title}</Typography>
               </Link>
+              <Typography variant='subtitle2' className={classes.author}>
+                {item.author}, {item.year}
+              </Typography>
+
+              <Typography variant='subtitle2' className={classes.description}>
+                {item.description}
+              </Typography>
+              <Typography variant='subtitle1' className={classes.price}>
+                {item.price} zł
+              </Typography>
               <Button
                 size='small'
                 variant='contained'
-                color='secondary'
+                color='primary'
                 startIcon={<AddShoppingCartIcon />}
+                classes={{ root: classes.addToCart }}
               >
                 <Typography
                   variant='caption'
@@ -104,7 +115,7 @@ const Featured = ({ items }) => {
           </Card>
         ))}
       </Grid>
-    </Paper>
+    </React.Fragment>
   );
 };
 

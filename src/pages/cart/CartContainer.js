@@ -4,11 +4,17 @@ import { getUsersCart, deleteFromCart } from './slice/cartSlice';
 import styles from './styles/cartContainer.scss';
 import CartItemList from './components/CartItemList';
 import CartSummary from './components/CartSummary';
+import { useHistory } from 'react-router-dom';
 
 const CartContainer = (props) => {
   const cartStore = useSelector((state) => state.cart, shallowEqual);
   // const userStore = useSelector((state) => state.login, shallowEqual);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onNextStep = () => {
+    history.push('/order');
+  };
 
   useEffect(() => {
     dispatch(getUsersCart(0));
@@ -16,12 +22,14 @@ const CartContainer = (props) => {
 
   return (
     <div className={styles.container}>
-      <CartItemList
-        loading={cartStore.loading}
-        items={cartStore.items}
-        onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
-      />
-      <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} />
+      <div className={styles.wrapper}>
+        <CartItemList
+          loading={cartStore.loading}
+          items={cartStore.items}
+          onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
+        />
+        <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} onNext={onNextStep} />
+      </div>
     </div>
   );
 };
