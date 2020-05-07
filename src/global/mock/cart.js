@@ -46,7 +46,7 @@ export const response = {
       'amount': 1
     },
   ],
-  'totalCost': 150.95,
+  'totalCost': 137.97,
   'coupon': '10%'
 };
 
@@ -83,6 +83,6 @@ export  const deleteResponse = {
       'amount': 1
     },
   ],
-  'totalCost': 100.05,
+  'totalCost': 101.98,
   'coupon': '10%'
 };

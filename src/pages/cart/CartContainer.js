@@ -16,12 +16,14 @@ const CartContainer = (props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.wrapper}>
       <CartItemList
         loading={cartStore.loading}
         items={cartStore.items}
         onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
       />
       <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} />
+    </div>
     </div>
   );
 };

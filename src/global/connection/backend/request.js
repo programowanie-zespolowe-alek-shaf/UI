@@ -6,7 +6,6 @@ const request = (body) => {
   const headers = { 'Authorization': token, 'Content-Type': 'application/json' };
 
   const options = { headers, ...body };
-  console.log(options);
 
   return axios(options);
 };

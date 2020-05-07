@@ -22,6 +22,7 @@ import RegisterContainer from '../../pages/register/RegisterContainer';
 import styles from 'global/styles/global.scss';
 import { getCategories } from '../../pages/category/slice/categoriesSlice';
 import GlobalAlert from '../../components/globalAlert/globalAlert';
+import OrderContainer from "../../pages/order/OrderContainer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const App = () => {
         <Route path={'/book/:bookId'} component={BookContainer} />
         <Route path={'/category/:categoryId/:pageId?'} component={Category} />
         <Route path={'/search/:pageId?'} component={Search} />
+        <Route path={'/order'} component={OrderContainer} />
         <Route path={'/cart'} component={CartContainer} />
         <PrivateRoute
           path={'/profile'}
