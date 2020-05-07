@@ -12,37 +12,32 @@ const useFeaturedStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     padding: theme.spacing(1),
   },
-  featuredCardRoot: {
+  root: {
     display: 'flex',
     width: '32%',
   },
-  cartItemCardActionArea: {
+  actionArea: {
     display: 'flex',
     alignItems: 'flexStart',
     width: 'auto',
   },
-  cartItemCardImage: {
+  image: {
     height: 250,
     width: 180,
   },
-  cartItemCardContentRoot: {
-    fontSize: '10',
-    padding: theme.spacing(1),
-  },
-  cartItemCardTitle: {
-    marginBottom: 0,
-  },
-  cartItemCardActions: {
-    marginLeft: 'auto',
-  },
-  cartItemCardDeleteButton: {
-    marginTop: 'auto',
-  },
-  cartTotalPrice: {
+  content: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(-1),
-    marginBottom: theme.spacing(1),
+    flexDirection: 'column',
+    width: '100%',
+  },
+  description: {
+    marginTop: theme.spacing(1),
+  },
+  price: {
+    marginTop: theme.spacing(1),
+  },
+  addToCart: {
+    marginTop: 'auto',
   },
 }));
 
