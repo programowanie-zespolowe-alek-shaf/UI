@@ -62,7 +62,6 @@ export const getUserInfo = () => {
 export const getUserInfoAction = (callback) => (dispatch) => {
   dispatch(requestUserInfo());
   return getUserInfo().then((response) => {
-    console.log(response.data);
     dispatch(receiveUserInfo(response.data));
     callback();
   }).catch((error) => {
