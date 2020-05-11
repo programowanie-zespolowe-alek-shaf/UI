@@ -1,22 +1,8 @@
-const messages = {
-  firstName: 'Imię',
-  lastName: 'Nazwisko',
-  login: 'Login',
-  email: 'Adres e-mail',
-  password: 'Hasło',
-  passwordRepeat: 'Powtórz hasło',
-  phone: 'Numer telefonu',
-  address: 'Ulica, Miejscowość, Kod Pocztowy',
-
-  emptyField: 'Pole nie może być puste!',
-  passwordError: 'Hasła się nie zgadzają',
-
+const REGISTER_MESSAGES = {
   signUp: 'Załóż konto',
-  somethingWentWrong: 'Sorry! Something went wrong. Please try again!',
+  signIn: 'Zaloguj się',
   haveAnAccount: 'Masz już konto?',
-  signIn: 'Zaloguj się!',
-  signUpFailed: 'Rejestracja nie powiodła się',
-  signUpSuccess: 'Konto założone pomyślnie! Możesz się zalogować.',
+  signUpSuccess: 'Konto zostało utworzone pomyślnie!',
 };
 
-export default messages;
+export default REGISTER_MESSAGES;

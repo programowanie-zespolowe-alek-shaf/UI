@@ -1,11 +1,14 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { LOGIN_PAGE } from '../../../global/constants/pages';
 import globalMessages from 'global/messages/globalMessages';
-import messages from '../../register/messages/messages';
 import { registerSlice, initialState } from './slice/registerSlice';
 import inputs from './inputs/inputs';
+import INPUT_NAMES from './inputs/names';
+import INPUT_ERRORS from './inputs/errors';
+import INPUT_REGEXPS from './inputs/regexps';
+import REGISTER_MESSAGES from '../messages/messages.js';
 
 import SubmitButton from 'components/submitButton/SubmitButton';
 
@@ -16,59 +19,87 @@ import useRegisterManagerStyles from './RegisterManagerStyles';
 const RegisterManager = (props) => {
   const classes = useRegisterManagerStyles();
 
+  const history = useHistory();
   const actions = registerSlice.actions;
   const [state, dispatchLocal] = useReducer(
     registerSlice.reducer,
     initialState
   );
-  const history = useHistory();
 
-  const clearErrors = () => {
-    dispatchLocal(actions.clearErrors());
-    dispatchLocal(actions.setDisabled(false));
+  useEffect(() => {
+    const input = state[INPUT_NAMES.passwordRepeat];
+    if (input.tested) {
+      validatePasswordRepeat(input.value);
+    }
+  }, [state[INPUT_NAMES.password]]);
+
+  const redirectToSignIn = () => {
+    history.push(LOGIN_PAGE);
+  };
+
+  const validatePasswordRepeat = (value) => {
+    let isCorrect;
+    if (value === state[INPUT_NAMES.password].value) {
+      isCorrect = true;
+    } else {
+      isCorrect = false;
+    }
+    dispatchLocal(
+      actions.setCorrect({
+        field: INPUT_NAMES.passwordRepeat,
+        correct: isCorrect,
+      })
+    );
+  };
+
+  const validateInput = (inputName, inputValue) => {
+    if (inputName === INPUT_NAMES.passwordRepeat)
+      validatePasswordRepeat(inputValue);
+    else {
+      let isCorrect = INPUT_REGEXPS[inputName].test(inputValue);
+      dispatchLocal(
+        actions.setCorrect({
+          field: inputName,
+          correct: isCorrect,
+        })
+      );
+    }
+  };
+
+  const validateForm = () => {
+    let isCorrect = true;
+    for (let input of inputs) {
+      if (!state[input.input.name].correct) {
+        isCorrect = false;
+        break;
+      }
+    }
+
+    return isCorrect;
   };
 
   const onChange = (event) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;
     dispatchLocal(actions.setValue({ field: inputName, value: inputValue }));
-    clearErrors();
+
+    if (state[inputName].tested) {
+      validateInput(inputName, inputValue);
+    }
   };
 
-  const isInputValid = () => {
-    let valid = true;
+  const onBlur = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
 
-    const standardValidator = (value, field, error) => {
-      if (value.length === 0 || value.length > 30) {
-        dispatchLocal(actions.setError({ field, error }));
-        dispatchLocal(actions.setDisabled(true));
-        valid = false;
-      }
-    };
+    validateInput(inputName, inputValue);
 
-    const passwordValidator = () => {
-      if (state.password.value !== state.passwordRepeat.value) {
-        dispatchLocal(
-          actions.setError({
-            field: 'passwordRepeat',
-            error: messages.passwordErrorSentenceCase,
-          })
-        );
-        valid = false;
-      }
-    };
-
-    passwordValidator();
-    const fields = inputs.map((input) => input.input.name);
-    fields.forEach((field) => {
-      standardValidator(state[field].value, field, messages.emptyField);
-    });
-
-    return valid;
-  };
-
-  const redirectToSignIn = () => {
-    history.push(LOGIN_PAGE);
+    dispatchLocal(
+      actions.setTested({
+        field: inputName,
+        tested: true,
+      })
+    );
   };
 
   const onSubmit = (event) => {
@@ -85,7 +116,11 @@ const RegisterManager = (props) => {
       enabled: 'true',
     };
 
-    if (isInputValid()) {
+    const isFormValid = validateForm();
+
+    console.log(isFormValid);
+
+    if (isFormValid) {
       props.onSubmit(payload, redirectToSignIn);
     }
   };
@@ -93,11 +128,12 @@ const RegisterManager = (props) => {
   return (
     <div className={classes.wrapper}>
       <Typography component='h1' variant='h5' className={classes.title}>
-        {messages.signUp}
+        {REGISTER_MESSAGES.signUp}
       </Typography>
       <form onSubmit={onSubmit} className={classes.form}>
         <Grid container spacing={2}>
           {inputs.map((input, index) => {
+            const inputName = input.input.name;
             return (
               <Grid key={`register-input-${index}`} item {...input.sizes}>
                 <TextField
@@ -105,11 +141,17 @@ const RegisterManager = (props) => {
                   variant='outlined'
                   required
                   fullWidth
-                  value={state[input.input.name].value}
-                  error={state[input.input.name].error !== ''}
+                  value={state[inputName].value}
+                  error={state[inputName].tested && !state[inputName].correct}
                   onChange={onChange}
+                  onBlur={onBlur}
                   className={classes.input}
                   disabled={state.disabled}
+                  helperText={
+                    state[inputName].tested && !state[inputName].correct
+                      ? INPUT_ERRORS[inputName]
+                      : false
+                  }
                 />
               </Grid>
             );
@@ -123,17 +165,17 @@ const RegisterManager = (props) => {
               className={classes.submit}
               disableElevation
             >
-              {messages.signUp}
+              {REGISTER_MESSAGES.signUp}
             </SubmitButton>
           </Grid>
         </Grid>
       </form>
       <Box mt={4} display='flex' justifyContent='center'>
         <Typography display='inline' variant='body1'>
-          {messages.haveAnAccount}&nbsp;
+          {REGISTER_MESSAGES.haveAnAccount}&nbsp;
         </Typography>
         <Link to={LOGIN_PAGE} component={RouterLink} variant='body1'>
-          {messages.signIn}
+          {REGISTER_MESSAGES.signIn}
         </Link>
       </Box>
       <Box mt={3}>
