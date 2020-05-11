@@ -1,14 +1,14 @@
-import messages from '../../messages/messages.js';
+import INPUT_LABELS from './labels';
+import INPUT_NAMES from './names';
 
 const inputs = [
   {
     input: {
       type: 'text',
-      name: 'firstName',
+      name: INPUT_NAMES.firstName,
       autoComplete: 'fname',
       id: 'firstName',
-      label: messages.firstName,
-      autoFocus: true,
+      label: INPUT_LABELS.firstName,
     },
     sizes: {
       xs: 12,
@@ -19,10 +19,10 @@ const inputs = [
     input: {
       sm: 6,
       type: 'text',
-      name: 'lastName',
+      name: INPUT_NAMES.lastName,
       autoComplete: 'lname',
       id: 'lastName',
-      label: messages.lastName,
+      label: INPUT_LABELS.lastName,
     },
     sizes: {
       xs: 12,
@@ -32,10 +32,10 @@ const inputs = [
   {
     input: {
       type: 'text',
-      name: 'login',
+      name: INPUT_NAMES.login,
       autoComplete: 'login',
       id: 'login',
-      label: messages.login,
+      label: INPUT_LABELS.login,
     },
     sizes: {
       xs: 12,
@@ -44,10 +44,10 @@ const inputs = [
   {
     input: {
       type: 'password',
-      name: 'password',
+      name: INPUT_NAMES.password,
       autoComplete: 'current-password',
       id: 'password',
-      label: messages.password,
+      label: INPUT_LABELS.password,
     },
     sizes: {
       xs: 12,
@@ -56,10 +56,10 @@ const inputs = [
   {
     input: {
       type: 'password',
-      name: 'passwordRepeat',
+      name: INPUT_NAMES.passwordRepeat,
       autoComplete: 'current-password',
       id: 'passwordRepeat',
-      label: messages.passwordRepeat,
+      label: INPUT_LABELS.passwordRepeat,
     },
     sizes: {
       xs: 12,
@@ -68,10 +68,10 @@ const inputs = [
   {
     input: {
       type: 'email',
-      name: 'email',
+      name: INPUT_NAMES.email,
       autoComplete: 'email',
       id: 'email',
-      label: messages.email,
+      label: INPUT_LABELS.email,
     },
     sizes: {
       xs: 12,
@@ -80,10 +80,10 @@ const inputs = [
   {
     input: {
       type: 'number',
-      name: 'phone',
+      name: INPUT_NAMES.phone,
       autoComplete: 'phone',
       id: 'phone',
-      label: messages.phone,
+      label: INPUT_LABELS.phone,
     },
     sizes: {
       xs: 12,
@@ -92,10 +92,10 @@ const inputs = [
   {
     input: {
       type: 'text',
-      name: 'address',
+      name: INPUT_NAMES.address,
       autoComplete: 'address',
       id: 'address',
-      label: messages.address,
+      label: INPUT_LABELS.address,
     },
     sizes: {
       xs: 12,

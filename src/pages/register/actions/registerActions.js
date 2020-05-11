@@ -1,6 +1,6 @@
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
-import messages from '../messages/messages';
+import REGISTER_MESSAGES from '../messages/messages';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
@@ -32,9 +32,9 @@ export const registerAction = (payload, callback) => (dispatch) => {
   dispatch(registerRequest());
 
   return signUp(payload)
-    .then((res) => {
+    .then(() => {
       dispatch(registerSuccess());
-      dispatch(triggerGlobalAlert('success', messages.signUpSuccess));
+      dispatch(triggerGlobalAlert('success', REGISTER_MESSAGES.signUpSuccess));
       callback();
     })
     .catch((error) => {

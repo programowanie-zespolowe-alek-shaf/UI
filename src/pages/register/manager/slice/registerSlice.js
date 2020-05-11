@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
-  login: { value: '', error: '' },
-  password: { value: '', error: '' },
-  passwordRepeat: { value: '', error: '' },
-  firstName: { value: '', error: '' },
-  lastName: { value: '', error: '' },
-  email: { value: '', error: '' },
-  phone: { value: '', error: '' },
-  address: { value: '', error: '' },
+  login: { value: '', tested: false, correct: false },
+  password: { value: '', tested: false, correct: false },
+  passwordRepeat: { value: '', tested: false, correct: false },
+  firstName: { value: '', tested: false, correct: false },
+  lastName: { value: '', tested: false, correct: false },
+  email: { value: '', tested: false, correct: false },
+  phone: { value: '', tested: false, correct: false },
+  address: { value: '', tested: false, correct: false },
   disabled: false,
 };
 
@@ -20,18 +20,16 @@ export const registerSlice = createSlice({
       const { field, value } = action.payload;
       state[field] = { ...state[field], value };
     },
-    setError(state, action) {
-      const { field, error } = action.payload;
-      state[field] = { ...state[field], error };
+    setTested(state, action) {
+      const { field, tested } = action.payload;
+      state[field] = { ...state[field], tested };
+    },
+    setCorrect(state, action) {
+      const { field, correct } = action.payload;
+      state[field] = { ...state[field], correct };
     },
     setDisabled(state, action) {
       state.disabled = action.payload;
-    },
-    clearErrors(state) {
-      Object.keys(state).forEach((key) => {
-        state[key] = { ...state[key], error: '' };
-      });
-      state.disabled = false;
     },
     clearAll() {
       return initialState;
