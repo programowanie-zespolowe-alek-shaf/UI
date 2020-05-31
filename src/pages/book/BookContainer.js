@@ -1,26 +1,30 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
+import React, { useEffect, useReducer } from 'react';
 import styles from './styles/BookContainer.scss';
-
+import WithLoading from 'components/withLoading/WithLoading';
 import BookDetails from './components/BookDetails';
 import SimilarList from './components/SimilarList';
-import { getBookById } from './slice/bookSlice';
+import { initialState, getBookById, reducer} from './slice/bookSlice';
 
-const BookContainer = (props) => {
-  const book = useSelector((state) => state.book, shallowEqual);
-  const dispatch = useDispatch();
 
+const DetailsWithLoading = WithLoading(BookDetails);
+const BookContainer = () => {
+  const [state, dispatchLocal] = useReducer(reducer, initialState);
+  
   useEffect(() => {
-    dispatch(getBookById(props.match.params.bookId));
+    console.log('useEffect');
+    getBookById(dispatchLocal);
   }, []);
 
   return (
     <div className={styles.container}>
       <h3>Book Page</h3>
-      <BookDetails
-        {...book}
-        onAdd={(id, item) => dispatch(addToCart(id, item))}
+      <DetailsWithLoading
+        // {...book}
+        book={state.book}
+        isLoading={state.isLoading}
+        isLoaded={state.isLoaded}
+        error={state.error}
+        // onAdd={(id, item) => dispatch(addToCart(id, item))}
       />
       {/* <SimilarList id = {book.id} 
                  category = {book.category}/> */}

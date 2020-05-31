@@ -1,30 +1,81 @@
 import React from 'react';
 import { PropTypes as pt, bool } from 'prop-types';
-import { Button, Input } from '@material-ui/core';
+import {   
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Button,
+  Link, } 
+  from '@material-ui/core';
 import styles from '../styles/BookDetails.scss';
+import useFeaturedStyles from '../../main/components/featured/FeaturedStyles';
 
-function BookDetails(props) {
+
+const BookDetails = ({ book }) => {
+  const classes = useFeaturedStyles();
+
+  const index = 1; // TODO: CHANGE to general case !!!
+  console.log(book);
   return (
     <div className={styles.container}>
       <div className={styles.itemDetails}>
-        <img alt={props.imageURL} src={props.photoUrl} height={200} width={150}  />
+        <img alt={book.imageURL} src={book.photoUrl} height={200} width={150}  />
         <section className={styles.info}>
-          <header className={styles.title}>{props.title}</header>
-          <span>Loading: {props.loading}</span>
-          <span>Autor: {props.author}</span>
-          <span>Rok: {props.year}</span>
-          <span>Opis: {props.description}</span>
-          <span>Dostępna: {props.available}</span>
-          <span>Kategoria: {props.category.name}</span>
-          <span><strong>Cena: {props.price}</strong></span>
+          <header className={styles.title}>{book.title}</header>
+          <span>Loading: {book.loading}</span>
+          <span>Autor: {book.author}</span>
+          <span>Rok: {book.year}</span>
+          <span>Opis: {book.description}</span>
+          <span>Dostępna: {book.available}</span>
+          <span>Kategoria: {book.category.name}</span>
+          <span><strong>Cena: {book.price}</strong></span>
         </section>
+        {/* <Card
+            key={`cart-item-${index}`}
+            variant='outlined'
+            classes={{ root: classes.root }}
+          >
+            <CardActionArea classes={{ root: classes.actionArea }}>
+            </CardActionArea>
+            <CardContent className={classes.content}>
+              <Typography variant='h6'>{book.title} some</Typography>
+              <Typography variant='subtitle2' className={classes.description}>
+                {book.description}
+              </Typography>
+              <Typography variant='subtitle1' className={classes.price}>
+                {book.price} zł
+              </Typography>
+              <Button
+                size='small'
+                variant='contained'
+                color='primary'
+                // startIcon={<AddShoppingCartIcon />}
+                classes={{ root: classes.addToCart }}
+              >
+                <Typography
+                  variant='caption'
+                  onClick={() => handleAddToCart(book.id)}
+                >
+                  Do koszyka
+                </Typography>
+              </Button>
+            </CardContent>
+          </Card>
+         */}
       </div>
       <div className={styles.deleteButton}>
-        <Button onClick={() => props.onAdd(props.id)}>Dodaj do koszyka</Button>
+        <Button 
+        // onClick={() => props.onAdd(props.id)}
+        >
+          Dodaj do koszyka
+          </Button>
       </div>
     </div>
   );
-}
+};
 
 BookDetails.propTypes = {
   loading: bool,
@@ -41,7 +92,6 @@ BookDetails.propTypes = {
   available: pt.bool,
   photoUrl: pt.string,
   onAdd: pt.func,
-
 };
 
 export default BookDetails;

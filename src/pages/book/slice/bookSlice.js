@@ -1,56 +1,68 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
-import { api } from '../../../global/connection/backend/endpoints';
+import { api } from 'global/connection/backend/endpoints';
 import { response, deleteResponse } from '../../../global/mock/book';
+import axios from 'axios';
 
 export const initialState = {
-  loading: false,
-  id: undefined,
-  title: undefined,
-  author: undefined,
-  category: {id: undefined, name: undefined},
-  year: undefined,
-  photoUrl: undefined,
-  description: undefined,
-  available: undefined,
-  price: undefined,
+  isLoading: false,
+  isLoaded: false,
+  // id: undefined,
+  // title: undefined,
+  // author: undefined,
+  // category: {id: undefined, name: undefined},
+  // year: undefined,
+  // photoUrl: undefined,
+  // description: undefined,
+  // available: undefined,
+  // price: undefined,
   error: undefined,
+  book: {},
 };
 
 const bookSlice = createSlice({
-  name: 'Book',
+  name: 'book',
   initialState,
   reducers: {
-    requestBook(state, action) {
-      state.loading = true;
+    fetchBook(state, action) {
+      state.isLoading = true;
+      state.isLoaded = false;
     },
-    receiveBook(state, action) {
-      state.loading = false;
-      state = Object.assign(state, action.payload);
+    fetchBookSuccess(state, action) {
+      state.isLoading = false;
+      state.isLoaded = true;
+      state.book = Object.assign(state.book, action.payload);
+      state.error = undefined;
     },
-    receiveBookError(state, action) {
-      state.loading = false;
+    fetchBookError(state, action) {
+      state.isLoading = false;
+      state.isLoaded = false;
+      state.book = {};
       state.error = action.payload;
     }
   },
 });
-const { actions, reducer } = bookSlice;
-export const {
-  requestBook,
-  receiveBook,
-  receiveBookError
+export const { reducer, actions } = bookSlice;
+const {
+  fetchBook,
+  fetchBookSuccess,
+  fetchBookError
 } = actions;
 
-export const getBookById = (bookId) => (dispatch) => {
-  const getBook = (bookId) => {
-    return request({ url: `${api.books}/${bookId}`, method: 'get' });
-  };
-
-  dispatch(requestBook());
-  dispatch(receiveBook(response));
-  // return getBook(userId).then((response) => {
-  //   dispatch(receiveBook(response.data));
-  // }).catch((error) => { receiveBookError(error); });
+export const getBookById = async (dispatch) => {
+  const bookId = 1;
+  try {
+    dispatch(fetchBook());
+    const response = await axios.get(
+      `${api.books}/${bookId}`
+    );
+    const book = await response.data;
+    dispatch(fetchBookSuccess(book));
+  } catch (error) {
+    const message = error.response.data;
+    dispatch(fetchBookError(message));
+  }
 };
+
 
 export default reducer;

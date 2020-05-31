@@ -40,7 +40,7 @@ const Featured = ({ items }) => {
             classes={{ root: classes.root }}
           >
             <CardActionArea classes={{ root: classes.actionArea }}>
-              <Link to={`${BOOK_PAGE}/1`} component={RouterLink}>
+              <Link to={`${BOOK_PAGE}/${item.id}`} component={RouterLink}>
                 <CardMedia
                   component='img'
                   alt='Contemplative Reptile'
