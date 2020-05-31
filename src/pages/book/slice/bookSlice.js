@@ -49,8 +49,9 @@ const {
   fetchBookError
 } = actions;
 
-export const getBookById = async (dispatch) => {
-  const bookId = 1;
+export const getBookById = async (dispatch, bookId) => {
+  // const bookId = 2;
+  
   try {
     dispatch(fetchBook());
     const response = await axios.get(

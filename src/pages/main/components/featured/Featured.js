@@ -51,7 +51,7 @@ const Featured = ({ items }) => {
               </Link>
             </CardActionArea>
             <CardContent className={classes.content}>
-              <Link to={`${BOOK_PAGE}/1`} component={RouterLink}>
+              <Link to={`${BOOK_PAGE}/${item.id}`} component={RouterLink}>
                 <Typography variant='h6'>{item.title}</Typography>
               </Link>
               <Typography variant='subtitle2' className={classes.author}>

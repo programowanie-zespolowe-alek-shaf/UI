@@ -7,19 +7,18 @@ import { initialState, getBookById, reducer} from './slice/bookSlice';
 
 
 const DetailsWithLoading = WithLoading(BookDetails);
-const BookContainer = () => {
+const BookContainer = (props) => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   
   useEffect(() => {
-    console.log('useEffect');
-    getBookById(dispatchLocal);
+    const bookId = props.match.params.bookId
+    getBookById(dispatchLocal, bookId);
   }, []);
 
   return (
     <div className={styles.container}>
       <h3>Book Page</h3>
       <DetailsWithLoading
-        // {...book}
         book={state.book}
         isLoading={state.isLoading}
         isLoaded={state.isLoaded}
