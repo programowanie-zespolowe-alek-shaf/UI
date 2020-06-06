@@ -16,7 +16,9 @@ function CartItem(props) {
           <span>{props.book.price}</span>
         </section>
       </div>
-      <Input type="number" value={props.quantity} onChange={(e) => props.onUpdate(Number(e.target.value))} />
+      <Input type="number" value={props.quantity} onChange={(e) => {
+        props.onUpdate(Number(e.target.value));
+      }} />
       <div className={styles.deleteButton}>
         <Button
           size='small'

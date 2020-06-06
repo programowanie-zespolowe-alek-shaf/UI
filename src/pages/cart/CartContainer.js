@@ -19,7 +19,7 @@ const CartContainer = () => {
     history.push('/order');
   };
   
-  const onUpdate = (itemId, quantity) => dispatch(updateCartItem(itemId, quantity));
+  const onUpdate = (itemId, bookId, quantity) => dispatch(updateCartItem(itemId, bookId, quantity));
   
   const onDelete =  (itemId) => dispatch(deleteFromCart(itemId));
   if(isEmpty) return (<h2 className={styles.container}>TWÓJ KOSZYK JEST PUSTY</h2>);

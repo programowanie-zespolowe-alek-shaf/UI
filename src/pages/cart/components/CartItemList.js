@@ -11,7 +11,7 @@ function CartItemList(props) {
       key={item.id}
       {...item}
       onDelete={() => props.onDelete(item.id)}
-      onUpdate={(quantity) => props.onUpdate(item.id, quantity)}
+      onUpdate={(quantity) => props.onUpdate(item.id, item.book.id, quantity)}
     />
   ));
 

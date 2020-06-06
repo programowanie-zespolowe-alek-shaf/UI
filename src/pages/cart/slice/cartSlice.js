@@ -75,7 +75,7 @@ const cartSlice = createSlice({
       state.error = action.payload;
     },
     requestUpdateCartItem(state, action) {
-      state.loading = true;
+      // state.loading = true;
     },
     updateCartItemSuccess(state, action) {
       state.loading = false;
@@ -185,14 +185,14 @@ export const createShoppingCart = (userName) => (dispatch, getState) => {
     });
 };
 
-export const updateCartItem = (itemId, quantity) => (dispatch, getState) => {
+export const updateCartItem = (itemId, bookId, quantity) => (dispatch, getState) => {
   const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
-
+  console.log(itemId, bookId, quantity);
   const updateItem = (itemId) => {
     return request({
       url: `${api.shoppingCards}/${cartId}/items/${itemId}`,
       method: 'put',
-      data: { bookId: itemId, quantity }
+      data: { bookId, quantity }
     });
   };
 
