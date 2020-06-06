@@ -6,6 +6,7 @@ import globalAlertSlice from '../components/globalAlert/slice/globalAlertSlice';
 import paginationSlice from '../components/pagination/slice/paginationSlice';
 import categoriesSlice from '../pages/category/slice/categoriesSlice';
 import bookSlice from '../pages/book/slice/bookSlice';
+import customersSlice from '../pages/customers/slice/customersSlice';
 
 export const allReducers = combineReducers({
   login: loginReducer,
@@ -15,4 +16,5 @@ export const allReducers = combineReducers({
   pagination: paginationSlice,
   categories: categoriesSlice,
   book: bookSlice,
+  customer: customersSlice,
 });

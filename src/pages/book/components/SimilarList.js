@@ -5,23 +5,23 @@ import { PropTypes as pt, bool } from 'prop-types';
 import styles from '../styles/BookDetails.scss';
 // import useCartStyles from './CartStyles';
 import {
-    Box,
-    Menu,
-    IconButton,
-    Badge,
-    Button,
-    Link,
-    Card,
-    CardMedia,
-    CardContent,
-    CardActionArea,
-    CardActions,
-    Typography,
-  } from '@material-ui/core';
+  Box,
+  Menu,
+  IconButton,
+  Badge,
+  Button,
+  Link,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActionArea,
+  CardActions,
+  Typography,
+} from '@material-ui/core';
 
 
 function SimilarList(props) {
-    const bookItems = useSelector((state) => state.id, shallowEqual);
+  const bookItems = useSelector((state) => state.id, shallowEqual);
 
   return (
     /* 
@@ -40,69 +40,69 @@ function SimilarList(props) {
       </div>
     </div>
     */
-   <React.Fragment>
-   {console.log('state', state)}
+    <React.Fragment>
+      {console.log('state', state)}
 
-   {bookItems.map((item) => {
-    return (
-      <Card
-        key={uuidv4()}
-        variant='outlined'
-        classes={{ root: classes.cartItemCardRoot }}
-      >
-        <CardActionArea
-          classes={{ root: classes.cartItemCardActionArea }}
-        >
-          <CardMedia
-            component='img'
-            alt='Contemplative Reptile'
-            image={item.photoUrl}
-            title='Contemplative Reptile'
-            className={classes.cartItemCardImage}
-          />
-          <CardContent
-            classes={{ root: classes.cartItemCardContentRoot }}
+      {bookItems.map((item) => {
+        return (
+          <Card
+            key={uuidv4()}
+            variant='outlined'
+            classes={{ root: classes.cartItemCardRoot }}
           >
-            <Typography
-              variant='subtitle1'
-              className={classes.cartItemCardTitle}
+            <CardActionArea
+              classes={{ root: classes.cartItemCardActionArea }}
             >
-              {item.title}
-            </Typography>
-            <Typography variant='caption' component='p'>
-              {item.author}
-            </Typography>
-            <Typography variant='caption' component='p'>
+              <CardMedia
+                component='img'
+                alt='Contemplative Reptile'
+                image={item.photoUrl}
+                title='Contemplative Reptile'
+                className={classes.cartItemCardImage}
+              />
+              <CardContent
+                classes={{ root: classes.cartItemCardContentRoot }}
+              >
+                <Typography
+                  variant='subtitle1'
+                  className={classes.cartItemCardTitle}
+                >
+                  {item.title}
+                </Typography>
+                <Typography variant='caption' component='p'>
+                  {item.author}
+                </Typography>
+                <Typography variant='caption' component='p'>
               Ilość: {item.amount}
-            </Typography>
-            <Typography variant='caption' component='p'>
+                </Typography>
+                <Typography variant='caption' component='p'>
               Cena: {item.price * item.amount} zł
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions classes={{ root: classes.cartItemCardActions }}>
-          <Button
-            size='small'
-            variant='contained'
-            color='secondary'
-            startIcon={<DeleteIcon />}
-            className={classes.cartItemCardDeleteButton}
-          >
-            <Typography
-              variant='caption'
-              onClick={() => handleDelete(item.id)}
-            >
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions classes={{ root: classes.cartItemCardActions }}>
+              <Button
+                size='small'
+                variant='contained'
+                color='secondary'
+                startIcon={<DeleteIcon />}
+                className={classes.cartItemCardDeleteButton}
+              >
+                <Typography
+                  variant='caption'
+                  onClick={() => handleDelete(item.id)}
+                >
               Usuń
-            </Typography>
-          </Button>
-        </CardActions>
-      </Card>
-    );
-  })}
+                </Typography>
+              </Button>
+            </CardActions>
+          </Card>
+        );
+      })}
 
-  </React.Fragment> 
+    </React.Fragment> 
   );
-};
+}
 
 SimilarList.propTypes = {
   id: pt.number,

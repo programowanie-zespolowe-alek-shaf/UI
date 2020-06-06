@@ -7,7 +7,12 @@ import styles from '../styles/cartItemList.scss';
 function CartItemList(props) {
 
   const items = props.items.map((item) => (
-    <CartItem key={item.id} {...item} onDelete={() => props.onDelete(item.id)} />
+    <CartItem
+      key={item.id}
+      {...item}
+      onDelete={() => props.onDelete(item.id)}
+      onUpdate={(quantity) => props.onUpdate(item.id, quantity)}
+    />
   ));
 
   if(props.loading) return <div className={styles.container}><CircularProgress color="secondary" /></div>;

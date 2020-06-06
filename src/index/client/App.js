@@ -31,7 +31,7 @@ const App = () => {
     shallowEqual
   );
   useEffect(() => {
-    dispatch(getUserInfoAction(() => {}));
+    dispatch(getUserInfoAction());
     dispatch(getCategories());
   }, []);
 

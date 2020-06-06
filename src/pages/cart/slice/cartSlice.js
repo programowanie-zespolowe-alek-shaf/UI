@@ -1,15 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
-import { response, deleteResponse } from '../../../global/mock/cart';
+import { updateCustomer } from '../../customers/slice/customersSlice';
 
 export const initialState = {
+  id: undefined,
+  createDate: undefined,
   items: [],
+  count: 0,
   loading: false,
   coupon: undefined,
   totalCost: 0,
   error: undefined,
 };
+
+export const getCartFromStorage = () => localStorage.getItem('lastShoppingCardId');
+export const setCartInStorage = (id) => localStorage.setItem('lastShoppingCardId', id);
+export const deleteCartInStorage = () => localStorage.removeItem('lastShoppingCardId');
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -21,25 +28,22 @@ const cartSlice = createSlice({
     },
     receiveCart(state, action) {
       state.loading = false;
-      state.items = action.payload.items;
-      state.coupon = action.payload.coupon;
-      state.totalCost = action.payload.totalCost;
+      state.id = action.payload.id;
+      state.createDate = action.payload.createDate;
+      state.items = action.payload.items.list;
+      state.count = action.payload.items.count;
     },
     receiveCartError(state, action) {
       state.loading = false;
       state.items = [];
       state.error = action.payload;
     },
-
     requestAddToCart(state, action) {
       state.loading = true;
       state.error = undefined;
     },
     addToCartSuccess(state, action) {
       state.loading = false;
-      state.items = action.payload.items;
-      state.coupon = action.payload.coupon;
-      state.totalCost = action.payload.totalCost;
     },
     addToCartError(state, action) {
       state.loading = false;
@@ -51,14 +55,37 @@ const cartSlice = createSlice({
     },
     deleteFromCartSuccess(state, action) {
       state.loading = false;
-      state.items = action.payload.items;
-      state.coupon = action.payload.coupon;
-      state.totalCost = action.payload.totalCost;
     },
     deleteFromCartError(state, action) {
       state.loading = false;
       state.error = action.payload;
     },
+    requestCreateCart(state, action) {
+      state.loading = true;
+    },
+    createCartSuccess(state, action) {
+      state.loading = false;
+      state.id = action.payload.id;
+      state.createDate = action.payload.createDate;
+      state.items = action.payload.items.list;
+      state.count = action.payload.items.count;
+    },
+    createCartError(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    requestUpdateCartItem(state, action) {
+      state.loading = true;
+    },
+    updateCartItemSuccess(state, action) {
+      state.loading = false;
+    },
+    updateCartItemError(state, action) {
+      state.error = action.payload;
+    },
+    resetCartStore(state, action) {
+      return initialState;
+    }
   },
 });
 const { actions, reducer } = cartSlice;
@@ -72,53 +99,113 @@ export const {
   deleteFromCartSuccess,
   deleteFromCartError,
   requestDeleteFromCart,
+  requestCreateCart,
+  createCartSuccess,
+  createCartError,
+  updateCartItemError,
+  updateCartItemSuccess,
+  requestUpdateCartItem,
+  resetCartStore
 } = actions;
 
-export const getUsersCart = (userId) => (dispatch) => {
-  const getCart = (userId) => {
-    return request({ url: `${api.cart}/${userId}`, method: 'get' });
+export const getUsersCart = (id) => (dispatch) => {
+  const getCart = (id) => {
+    return request({
+      url: `${api.shoppingCards}/${id}`,
+      method: 'get' });
   };
 
   dispatch(requestCart());
-  dispatch(receiveCart(response));
-  // return getCart(userId).then((response) => {
-  //   dispatch(receiveCart(response.data));
-  // }).catch((error) => { receiveCartError(error); });
+  return getCart(id).then((response) => {
+    dispatch(receiveCart(response.data));
+  }).catch((error) => { receiveCartError(error.response && error.response.data.error); });
 };
 
-export const addItemToCart = (item, userId) => (dispatch) => {
-  const addToCart = (item, userId) => {
+export const addItemToCart = (bookId) => (dispatch, getState) => {
+  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
+
+  const addToCart = (cartId) => {
     return request({
-      url: api.addToCart,
+      url: `${api.shoppingCards}/${cartId}/items`,
       method: 'post',
-      data: { item, userId },
+      data: {
+        bookId: bookId,
+        quantity: 1
+      },
     });
   };
 
   dispatch(requestAddToCart());
-  return addToCart(item, userId)
+  return addToCart(cartId)
     .then((response) => {
       dispatch(addToCartSuccess(response.data));
+      dispatch(getUsersCart(cartId));
     })
     .catch((error) => {
-      addToCartError(error);
+      addToCartError(error.response && error.response.data.error);
     });
 };
 
-export const deleteFromCart = (itemId, userId) => (dispatch) => {
-  const deleteFromCart = (itemId, userId) => {
+export const deleteFromCart = (itemId) => (dispatch, getState) => {
+  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
+
+  const deleteFromCart = (itemId) => {
     return request({
-      // url: api.addToCart,
-      // method: 'delete',
-      // data: { userId }
+      url: `${api.shoppingCards}/${cartId}/items/${itemId}`,
+      method: 'delete',
     });
   };
 
   dispatch(requestDeleteFromCart());
-  dispatch(deleteFromCartSuccess(deleteResponse));
-  // return deleteFromCart(itemId, userId).then((response) => {
-  //   dispatch(deleteFromCartSuccess(response.data));
-  // }).catch((error) => { deleteFromCartError(error); });
+  return deleteFromCart(itemId).then((response) => {
+    dispatch(deleteFromCartSuccess(response.data));
+    dispatch(getUsersCart(cartId));
+  }).catch((error) => { deleteFromCartError(error.response && error.response.data.error); });
+};
+
+export const createShoppingCart = (userName) => (dispatch, getState) => {
+  const userDetails = getState().login.details;
+
+  const createCart = () => {
+    return request({
+      url: api.shoppingCards,
+      method: 'post',
+      data: { username: userName }
+    });
+  };
+
+  dispatch(requestCreateCart());
+  return createCart(userName)
+    .then((response) => {
+      dispatch(createCartSuccess(response.data));
+      setCartInStorage(response.data.id);
+    })
+    .catch((error) => {
+      createCartError(error.response && error.response.data.error);
+    });
+};
+
+export const updateCartItem = (itemId, quantity) => (dispatch, getState) => {
+  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
+
+  const updateItem = (itemId) => {
+    return request({
+      url: `${api.shoppingCards}/${cartId}/items/${itemId}`,
+      method: 'put',
+      data: { bookId: itemId, quantity }
+    });
+  };
+
+  dispatch(requestUpdateCartItem());
+  return updateItem(itemId).then((response) => {
+    dispatch(updateCartItemSuccess());
+    dispatch(getUsersCart(cartId));
+  }).catch((error) => { dispatch(updateCartItemError(error.response && error.response.data.error)); });
+};
+
+export const clearCartData = () => dispatch => {
+  dispatch(resetCartStore());
+  deleteCartInStorage();
 };
 
 export default reducer;
