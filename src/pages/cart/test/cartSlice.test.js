@@ -11,7 +11,7 @@ import reducer, {
   initialState,
 } from '../slice/cartSlice';
 
-describe('cart slice', () => {
+describe.skip('cart slice', () => {
   it('should return the initial state on first run', () => {
     expect(reducer(undefined, {}))
       .toEqual(initialState);

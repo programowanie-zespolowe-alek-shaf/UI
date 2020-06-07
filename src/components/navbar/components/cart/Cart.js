@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
-  getUsersCart,
   deleteFromCart,
 } from '../../../../pages/cart/slice/cartSlice';
 import { CART_PAGE } from '../../../../global/constants/pages';
@@ -35,21 +34,6 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items, shallowEqual);
   const totalCost = useSelector((state) => state.cart.totalCost, shallowEqual);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersCart(0));
-  }, []);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleDelete = (id) => {
-    dispatch(deleteFromCart(id));
-  };
 
   return (
     <React.Fragment>
@@ -58,7 +42,7 @@ const Cart = () => {
         className={classes.iconButton}
         aria-controls='simple-menu'
         aria-haspopup='true'
-        onClick={handleClick}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
       >
         <Badge badgeContent={cartItems.length} color='secondary'>
           <LocalMallSharpIcon className={classes.icon} />
@@ -69,7 +53,7 @@ const Cart = () => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={() => setAnchorEl(null)}
         classes={{ list: classes.menuPadding }}
       >
         {cartItems.map((item) => {
@@ -85,7 +69,7 @@ const Cart = () => {
                 <CardMedia
                   component='img'
                   alt='Contemplative Reptile'
-                  image={item.photoUrl}
+                  image={item.book.photoUrl}
                   title='Contemplative Reptile'
                   className={classes.cartItemCardImage}
                 />
@@ -96,16 +80,16 @@ const Cart = () => {
                     variant='subtitle1'
                     className={classes.cartItemCardTitle}
                   >
-                    {item.title}
+                    {item.book.title}
                   </Typography>
                   <Typography variant='caption' component='p'>
-                    {item.author}
+                    {item.book.author}
                   </Typography>
                   <Typography variant='caption' component='p'>
-                    Ilość: {item.amount}
+                    Ilość: {item.quantity}
                   </Typography>
                   <Typography variant='caption' component='p'>
-                    Cena: {item.price * item.amount} zł
+                    Cena: {item.book.price * item.quantity} zł
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -116,10 +100,10 @@ const Cart = () => {
                   color='secondary'
                   startIcon={<DeleteIcon />}
                   className={classes.cartItemCardDeleteButton}
+                  onClick={() => dispatch(deleteFromCart(item.id))}
                 >
                   <Typography
                     variant='caption'
-                    onClick={() => handleDelete(item.id)}
                   >
                     Usuń
                   </Typography>

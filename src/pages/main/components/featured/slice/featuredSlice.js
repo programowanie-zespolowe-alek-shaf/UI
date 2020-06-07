@@ -50,7 +50,7 @@ export const getFeatured = async (dispatch) => {
     const response = await axios.get(
       `${api.books}?offset=${offset}&limit=${limit}`
     );
-    const books = await response.data;
+    const books = response.data;
 
     dispatch(fetchFeaturedSuccess(books.list));
   } catch (error) {
