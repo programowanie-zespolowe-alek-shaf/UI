@@ -3,11 +3,11 @@ import request from '../../../global/connection/backend/request';
 import auth from '../../../components/auth/auth';
 import { triggerGlobalAlert } from '../../../components/globalAlert/slice/globalAlertSlice';
 import {
-  createShoppingCart,
+  createShoppingCart, deleteCartInStorage,
   getCartFromStorage,
-  getUsersCart, setCartInStorage,
+  getUsersCart,
 } from '../../cart/slice/cartSlice';
-import { updateCustomer } from '../../customers/slice/customersSlice';
+import { getUserDetailsAction, clearCustomer } from '../../customers/slice/customersSlice';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -18,24 +18,6 @@ export const LOGOUT_ACTION = 'LOGOUT_ACTION';
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
 export const RECEIVE_USER_INFO_ERROR = 'RECEIVE_USER_INFO_ERROR';
-
-export const REQUEST_USER_DETAILS = 'REQUEST_USER_DETAILS';
-export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS';
-export const RECEIVE_USER_DETAILS_ERROR = 'RECEIVE_USER_DETAILS_ERROR';
-
-const requestUserDetails = () => ({
-  type: REQUEST_USER_DETAILS,
-});
-
-const receiveUserDetails = (data) => ({
-  type: RECEIVE_USER_DETAILS,
-  payload: data
-});
-
-const receiveUserDetailsError = (error) => ({
-  type: RECEIVE_USER_INFO_ERROR,
-  payload: error,
-});
 
 export const logoutRequest = () => ({
   type: LOGOUT_ACTION,
@@ -90,25 +72,6 @@ export const getUserDetails = (userName) => {
   });
 };
 
-/** Fetches user details */
-export const getUserDetailsAction = (userName) => (dispatch) => {
-  const storageCartId = getCartFromStorage();
-  dispatch(requestUserDetails());
-
-  return getUserDetails(userName).then((response) => {
-    dispatch(receiveUserDetails(response.data));
-    dispatch(getUsersCart(storageCartId));
-
-    if (storageCartId !== response.data.id) {
-      const userDetailsWithUpdatedCartId = { ...response.data, lastShoppingCardId: storageCartId };
-      dispatch(updateCustomer(userDetailsWithUpdatedCartId, userName));
-    }
-
-  }).catch((error) => {
-    dispatch(receiveUserDetailsError(error.response && error.response.data.error));
-  });
-};
-
 /** Tests if user is logged in or not, then fetches details */
 export const getUserInfoAction = () => (dispatch) => {
 
@@ -153,8 +116,9 @@ export const loginAction = (login, password, callback) => (dispatch) => {
 };
 
 export const logoutAction = () => (dispatch, getState) => {
-  const cartId = getState().login.details.lastShoppingCardId;
-  setCartInStorage(cartId);
+  deleteCartInStorage();
+  dispatch(clearCustomer());
+  dispatch(createShoppingCart(null));
   dispatch(logoutRequest());
   auth.logout();
 };

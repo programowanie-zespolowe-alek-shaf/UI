@@ -122,7 +122,7 @@ export const getUsersCart = (id) => (dispatch) => {
 };
 
 export const addItemToCart = (bookId) => (dispatch, getState) => {
-  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
+  const cartId = getState().customer.details.lastShoppingCardId || getCartFromStorage();
 
   const addToCart = (cartId) => {
     return request({
@@ -147,7 +147,7 @@ export const addItemToCart = (bookId) => (dispatch, getState) => {
 };
 
 export const deleteFromCart = (itemId) => (dispatch, getState) => {
-  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
+  const cartId = getState().customer.details.lastShoppingCardId || getCartFromStorage();
 
   const deleteFromCart = (itemId) => {
     return request({
@@ -163,9 +163,7 @@ export const deleteFromCart = (itemId) => (dispatch, getState) => {
   }).catch((error) => { deleteFromCartError(error.response && error.response.data.error); });
 };
 
-export const createShoppingCart = (userName) => (dispatch, getState) => {
-  const userDetails = getState().login.details;
-
+export const createShoppingCart = (userName) => (dispatch) => {
   const createCart = () => {
     return request({
       url: api.shoppingCards,
@@ -186,8 +184,8 @@ export const createShoppingCart = (userName) => (dispatch, getState) => {
 };
 
 export const updateCartItem = (itemId, bookId, quantity) => (dispatch, getState) => {
-  const cartId = getState().login.details.lastShoppingCardId || getCartFromStorage();
-  console.log(itemId, bookId, quantity);
+  const cartId = getState().customer.details.lastShoppingCardId || getCartFromStorage();
+
   const updateItem = (itemId) => {
     return request({
       url: `${api.shoppingCards}/${cartId}/items/${itemId}`,
