@@ -3,6 +3,8 @@ import request from '../../../global/connection/backend/request';
 import { api } from 'global/connection/backend/endpoints';
 import { response, deleteResponse } from '../../../global/mock/book';
 import axios from 'axios';
+import {number} from "prop-types";
+
 
 export const initialState = {
   isLoading: false,
@@ -17,7 +19,17 @@ export const initialState = {
   // available: undefined,
   // price: undefined,
   error: undefined,
-  book: {},
+  book:  {
+    id: null,
+    title:  '',
+    author:  '',
+    category:  '',
+    year:  '',
+    photoUrl:  '',
+    description:  '',
+    available:  '',
+    price:  '',
+  },
 };
 
 const bookSlice = createSlice({

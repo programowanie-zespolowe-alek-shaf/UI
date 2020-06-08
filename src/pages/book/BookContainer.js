@@ -11,7 +11,7 @@ const BookContainer = (props) => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   
   useEffect(() => {
-    const bookId = props.match.params.bookId
+    const bookId = props.match.params.bookId;
     getBookById(dispatchLocal, bookId);
   }, []);
 
