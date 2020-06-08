@@ -1,11 +1,5 @@
 import React from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-
-import {
-  LOGIN_PAGE,
-  REGISTER_PAGE,
-  PROFILE_PAGE,
-} from 'global/constants/pages';
+import { useSelector, shallowEqual } from 'react-redux';
 
 import LoginDropdown from './LoginDropdown';
 import AvatarDropdown from './AvatarDropdown';
@@ -23,13 +17,13 @@ const Login = () => {
   const userName = useSelector((state) => state.login.userName, shallowEqual);
 
   return (
-    <Box className={classes.container}>
+    <React.Fragment>
       {isAuthenticated ? (
         <AvatarDropdown userName={userName} />
       ) : (
         <LoginDropdown />
       )}
-    </Box>
+    </React.Fragment>
   );
 };
 
