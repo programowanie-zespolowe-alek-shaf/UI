@@ -14,7 +14,7 @@ const useAdminPanelStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
   },
-  editButton: {
+  linkButton: {
     display: 'flex',
     alignItems: 'center',
   },
