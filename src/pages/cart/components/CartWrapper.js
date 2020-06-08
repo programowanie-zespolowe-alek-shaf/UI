@@ -6,7 +6,8 @@ import styles from '../styles/cartContainer.scss';
 
 function CartWrapper(props) {
   const { cartStore, onNextStep, onDelete, onUpdate } = props;
-
+  const isEmpty = cartStore.items.length === 0;
+  if(isEmpty) return (<h2 className={styles.container}>TWÓJ KOSZYK JEST PUSTY</h2>);
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

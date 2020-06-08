@@ -15,7 +15,6 @@ const FeaturedContainer = () => {
   return (
     <FeaturedWithLoading
       isLoading={state.isLoading}
-      isLoaded={state.isLoaded}
       items={state.items}
       error={state.error}
     />

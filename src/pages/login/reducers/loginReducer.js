@@ -15,7 +15,7 @@ export const initialUser = {
 
 const initialState = {
   isLoggingIn: false,
-  isFetchingUser: false,
+  isFetchingUser: true,
   loginError: undefined,
   userError: undefined,
   ...initialUser,

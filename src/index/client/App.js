@@ -26,8 +26,8 @@ import OrderContainer from '../../pages/order/OrderContainer';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state) => state.login.isAuthenticated,
+  const user = useSelector(
+    (state) => state.login,
     shallowEqual
   );
   useEffect(() => {
@@ -47,7 +47,8 @@ const App = () => {
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          isAuthenticated={isAuthenticated}
+          loading={user.isFetchingUser}
+          isAuthenticated={user.isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>

@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 const PaginationWithLoading = WithLoading(Pagination);
 
 const PaginationContainer = (props) => {
-  const { isLoaded, isLoading, error } = useSelector(
+  const { isLoading, error } = useSelector(
     (state) => state.pagination,
     shallowEqual
   );
@@ -22,7 +22,6 @@ const PaginationContainer = (props) => {
   return (
     <PaginationWithLoading
       isLoading={isLoading}
-      isLoaded={isLoaded}
       error={error}
     />
   );

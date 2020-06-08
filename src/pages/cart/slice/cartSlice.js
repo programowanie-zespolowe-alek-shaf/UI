@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
-import { updateCustomer } from '../../customers/slice/customersSlice';
 
 export const initialState = {
   id: undefined,
   createDate: undefined,
   items: [],
   count: 0,
-  loading: false,
+  loading: true,
   coupon: undefined,
   totalCost: 0,
   error: undefined,
