@@ -1,9 +1,6 @@
 import { makeStyles, fade } from '@material-ui/core/styles';
 
 const useLoginStyles = makeStyles((theme) => ({
-  container: {
-    marginLeft: 'auto',
-  },
   iconButton: {
     width: theme.spacing(5),
     height: theme.spacing(5),
