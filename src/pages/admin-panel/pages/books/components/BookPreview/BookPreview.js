@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { IconButton, TableCell, ButtonGroup } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import useAdminPanelStyles from '../../../../AdminPanelStyles';
+
 const BookPreview = ({ book }) => {
-  console.log(book);
+  const classes = useAdminPanelStyles();
+
   return (
     <React.Fragment>
       <TableCell component='th' scope='row' align='center'>
@@ -24,13 +28,17 @@ const BookPreview = ({ book }) => {
           aria-label='text primary button group'
           size='small'
           disableElevation
-          fullwidth
         >
-          <IconButton color='textprimary'>
-            <EditIcon />
+          <IconButton>
+            <Link
+              to={`/admin/book/${book.id}/edit`}
+              className={classes.editButton}
+            >
+              <EditIcon color='action' />
+            </Link>
           </IconButton>
-          <IconButton color='textsecondary'>
-            <DeleteIcon />
+          <IconButton>
+            <DeleteIcon color='action' />
           </IconButton>
         </ButtonGroup>
       </TableCell>

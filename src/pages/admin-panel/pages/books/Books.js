@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import {
   Typography,
   Box,
@@ -32,15 +34,18 @@ const Books = ({ books }) => {
         <Typography variant='h5' component='h1' className={commonClasses.title}>
           Książki
         </Typography>
-        <Button
-          variant='contained'
-          color='primary'
-          size='small'
-          endIcon={<AddIcon />}
-          className={commonClasses}
-        >
-          Dodaj nową
-        </Button>
+
+        <Link to='books/add'>
+          <Button
+            variant='contained'
+            color='primary'
+            size='small'
+            endIcon={<AddIcon />}
+            className={commonClasses}
+          >
+            Dodaj nową
+          </Button>
+        </Link>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>
@@ -57,7 +62,12 @@ const Books = ({ books }) => {
           </TableHead>
           <TableBody>
             {books.map((book, index) => (
-              <TableRow hover key={`admin-book-${index}`}>
+              <TableRow
+                hover
+                key={`admin-book-${index}`}
+                component={Link}
+                to={`/admin/book/${book.id}`}
+              >
                 <BookPreview book={book} />
               </TableRow>
             ))}

@@ -1,5 +1,5 @@
 import React from 'react';
 
-const User = () => <div>User details</div>;
+const UserContainer = () => <div>User details</div>;
 
-export default User;
+export default UserContainer;
