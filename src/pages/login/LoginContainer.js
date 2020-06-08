@@ -12,7 +12,7 @@ const LoginContainer = () => {
 
   useEffect(() => {
     if (isAuthenticated) history.push('/');
-  }, []);
+  }, [isAuthenticated]);
 
   const dispatch = useDispatch();
   const dispatchLoginAction = (login, password, callback) => {
