@@ -8,6 +8,7 @@ import { CATEGORY_PAGE } from 'global/constants/pages';
 import messages from '../category/messages/messages';
 
 const Main = () => {
+  console.log('Halko!');
   const categories = useSelector((state) => state.categories, shallowEqual);
   return (
     <div className={styles.container}>
