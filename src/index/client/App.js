@@ -27,8 +27,6 @@ import OrderContainer from '../../pages/order/OrderContainer';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login, shallowEqual);
-
   useEffect(() => {
     dispatch(getUserInfoAction());
     dispatch(getCategories());
@@ -46,14 +44,10 @@ const App = () => {
         <PrivateRoute
           path={'/admin'}
           component={AdminPanel}
-          loading={user.isFetchingUser}
-          isAuthenticated={user.isAuthenticated}
         />
         <PrivateRoute
           path={'/profile'}
           component={Profile}
-          loading={user.isFetchingUser}
-          isAuthenticated={user.isAuthenticated}
         />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
