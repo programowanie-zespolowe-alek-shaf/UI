@@ -30,14 +30,14 @@ const BookPreview = ({ book }) => {
           size='small'
         >
           <Button>
-            <Link to={`/admin/book/${book.id}`} className={classes.editButton}>
+            <Link to={`/admin/book/${book.id}`} className={classes.linkButton}>
               <MoreHorizIcon color='action' />
             </Link>
           </Button>
           <Button>
             <Link
               to={`/admin/book/${book.id}/edit`}
-              className={classes.editButton}
+              className={classes.linkButton}
             >
               <EditIcon color='action' />
             </Link>
