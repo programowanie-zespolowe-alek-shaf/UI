@@ -36,7 +36,7 @@ const loginReducer = (state = initialState, action) => {
   case RECEIVE_USER_INFO_ERROR:
     return { ...state, isAuthenticated: false, isFetchingUser: false, userError: action.error };
   case LOGOUT_ACTION:
-    return { ...initialState };
+    return { ...initialState, isFetchingUser: false };
   default:
     return {
       ...state,
