@@ -9,18 +9,15 @@ const paginationSlice = createSlice({
     next: undefined,
     previous: undefined,
     isLoading: false,
-    isLoaded: false,
     error: undefined,
   },
   reducers: {
     fetchPageStart(state) {
       state.isLoading = true;
-      state.isLoaded = false;
       state.error = undefined;
     },
     fetchPageSuccess(state, action) {
       state.isLoading = false;
-      state.isLoaded = true;
       state.items = action.payload.items;
       state.next = action.payload.next;
       state.previous = action.payload.previous;
@@ -28,7 +25,6 @@ const paginationSlice = createSlice({
     },
     fetchPageFailure(state, action) {
       state.isLoading = false;
-      state.isLoaded = false;
       state.items = [];
       state.error = action.payload;
     },

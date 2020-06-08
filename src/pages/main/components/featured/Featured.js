@@ -5,7 +5,6 @@ import { addItemToCart } from 'pages/cart/slice/cartSlice';
 import { BOOK_PAGE } from 'global/constants/pages';
 
 import {
-  Paper,
   Typography,
   Grid,
   Card,
@@ -70,10 +69,10 @@ const Featured = ({ items }) => {
                 color='primary'
                 startIcon={<AddShoppingCartIcon />}
                 classes={{ root: classes.addToCart }}
+                onClick={() => handleAddToCart(item.id)}
               >
                 <Typography
                   variant='caption'
-                  onClick={() => handleAddToCart(item.id)}
                 >
                   Do koszyka
                 </Typography>

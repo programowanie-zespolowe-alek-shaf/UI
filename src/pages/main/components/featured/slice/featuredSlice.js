@@ -6,7 +6,6 @@ import axios from 'axios';
 export const initialState = {
   items: [],
   isLoading: false,
-  isLoaded: false,
   error: undefined,
 };
 
@@ -16,18 +15,15 @@ const featuredSlice = createSlice({
   reducers: {
     fetchFeaturedStart(state) {
       state.isLoading = true;
-      state.isLoaded = false;
       state.error = undefined;
     },
     fetchFeaturedSuccess(state, action) {
       state.isLoading = false;
-      state.isLoaded = true;
       state.items = action.payload;
       state.error = undefined;
     },
     fetchFeaturedFailure(state, action) {
       state.isLoading = false;
-      state.isLoaded = false;
       state.items = [];
       state.error = action.payload;
     },
@@ -50,7 +46,7 @@ export const getFeatured = async (dispatch) => {
     const response = await axios.get(
       `${api.books}?offset=${offset}&limit=${limit}`
     );
-    const books = await response.data;
+    const books = response.data;
 
     dispatch(fetchFeaturedSuccess(books.list));
   } catch (error) {

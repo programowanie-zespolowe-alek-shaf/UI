@@ -1,36 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getUsersCart, deleteFromCart } from './slice/cartSlice';
-import styles from './styles/cartContainer.scss';
-import CartItemList from './components/CartItemList';
-import CartSummary from './components/CartSummary';
+import { deleteFromCart, updateCartItem } from './slice/cartSlice';
 import { useHistory } from 'react-router-dom';
+import WithLoading from '../../components/withLoading/WithLoading';
+import CartWrapper from './components/CartWrapper';
 
-const CartContainer = (props) => {
+
+const CartWrapperWithLoading = WithLoading(CartWrapper);
+
+const CartContainer = () => {
   const cartStore = useSelector((state) => state.cart, shallowEqual);
-  // const userStore = useSelector((state) => state.login, shallowEqual);
-  const dispatch = useDispatch();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onNextStep = () => {
     history.push('/order');
   };
-
-  useEffect(() => {
-    dispatch(getUsersCart(0));
-  }, []);
+  
+  const onUpdate = (itemId, bookId, quantity) => dispatch(updateCartItem(itemId, bookId, quantity));
+  
+  const onDelete =  (itemId) => dispatch(deleteFromCart(itemId));
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <CartItemList
-          loading={cartStore.loading}
-          items={cartStore.items}
-          onDelete={(id, item) => dispatch(deleteFromCart(id, item))}
-        />
-        <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} onNext={onNextStep} />
-      </div>
-    </div>
+    <CartWrapperWithLoading
+      cartStore={cartStore}
+      isLoading={cartStore.loading}
+      onNextStep={onNextStep}
+      onDelete={onDelete}
+      onUpdate={onUpdate}
+    />
   );
 };
 

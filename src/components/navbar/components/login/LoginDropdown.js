@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { LOGIN_PAGE, REGISTER_PAGE } from 'global/constants/pages';
 
 import {
-  MenuItem,
   Menu,
   IconButton,
-  Avatar,
   Typography,
-  Divider,
   ListSubheader,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';

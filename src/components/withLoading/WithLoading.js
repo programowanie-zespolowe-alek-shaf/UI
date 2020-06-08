@@ -6,25 +6,20 @@ import { CircularProgress } from '@material-ui/core';
 import useWithLoadingStyles from './WithLoadingStyles';
 
 const WithLoading = (WrappedComponent) => {
-  const wrapped = ({ isLoading, isLoaded, error, ...otherProps }) => {
+  const wrapped = ({ isLoading, error, ...otherProps }) => {
     const classes = useWithLoadingStyles();
+    
+    if(isLoading) return (<div className={classes.container}>
+      <CircularProgress color='secondary' />
+    </div>);
 
-    if (isLoading) {
-      return (
-        <div className={classes.container}>
-          <CircularProgress color='secondary' />
-        </div>
-      );
-    } else if (isLoaded) {
-      return <WrappedComponent {...otherProps} />;
-    } else {
-      return <div>{error}</div>;
-    }
+    if(error) return <div>{error}</div>;
+
+    return <WrappedComponent {...otherProps} />;
   };
 
   wrapped.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    isLoaded: PropTypes.bool.isRequired,
     error: PropTypes.string,
   };
 

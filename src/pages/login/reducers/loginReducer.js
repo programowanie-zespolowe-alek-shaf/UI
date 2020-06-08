@@ -5,7 +5,7 @@ import {
   LOGOUT_ACTION,
   REQUEST_USER_INFO,
   RECEIVE_USER_INFO,
-  RECEIVE_USER_INFO_ERROR
+  RECEIVE_USER_INFO_ERROR,
 } from '../actions/loginActions';
 
 export const initialUser = {
@@ -15,7 +15,7 @@ export const initialUser = {
 
 const initialState = {
   isLoggingIn: false,
-  isFetchingUser: false,
+  isFetchingUser: true,
   loginError: undefined,
   userError: undefined,
   ...initialUser,
@@ -36,7 +36,7 @@ const loginReducer = (state = initialState, action) => {
   case RECEIVE_USER_INFO_ERROR:
     return { ...state, isAuthenticated: false, isFetchingUser: false, userError: action.error };
   case LOGOUT_ACTION:
-    return { ...initialState };
+    return { ...initialState, isFetchingUser: false };
   default:
     return {
       ...state,
