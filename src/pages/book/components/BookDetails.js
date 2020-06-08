@@ -33,38 +33,6 @@ const BookDetails = ({ book }) => {
           <span>Kategoria: {book.category.name}</span>
           <span><strong>Cena: {book.price}</strong></span>
         </section>
-        {/* <Card
-            key={`cart-item-${index}`}
-            variant='outlined'
-            classes={{ root: classes.root }}
-          >
-            <CardActionArea classes={{ root: classes.actionArea }}>
-            </CardActionArea>
-            <CardContent className={classes.content}>
-              <Typography variant='h6'>{book.title} some</Typography>
-              <Typography variant='subtitle2' className={classes.description}>
-                {book.description}
-              </Typography>
-              <Typography variant='subtitle1' className={classes.price}>
-                {book.price} zł
-              </Typography>
-              <Button
-                size='small'
-                variant='contained'
-                color='primary'
-                // startIcon={<AddShoppingCartIcon />}
-                classes={{ root: classes.addToCart }}
-              >
-                <Typography
-                  variant='caption'
-                  onClick={() => handleAddToCart(book.id)}
-                >
-                  Do koszyka
-                </Typography>
-              </Button>
-            </CardContent>
-          </Card>
-         */}
       </div>
       <div className={styles.deleteButton}>
         <Button 
