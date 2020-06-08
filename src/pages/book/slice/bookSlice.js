@@ -9,15 +9,6 @@ import {number} from "prop-types";
 export const initialState = {
   isLoading: false,
   isLoaded: false,
-  // id: undefined,
-  // title: undefined,
-  // author: undefined,
-  // category: {id: undefined, name: undefined},
-  // year: undefined,
-  // photoUrl: undefined,
-  // description: undefined,
-  // available: undefined,
-  // price: undefined,
   error: undefined,
   book:  {
     id: null,
