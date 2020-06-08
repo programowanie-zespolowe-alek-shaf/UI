@@ -1,4 +1,3 @@
-export const EXPLORE_PAGE = '/explore';
 export const LOGIN_PAGE = '/login';
 export const REGISTER_PAGE = '/register';
 export const MAIN_PAGE = '/';
@@ -7,3 +6,7 @@ export const SEARCH_PAGE = '/search';
 export const CART_PAGE = '/cart';
 export const PROFILE_PAGE = '/profile';
 export const BOOK_PAGE = '/book';
+export const ADMIN_PAGE = '/admin';
+export const ADMIN_PAGE_BOOKS = '/admin/books';
+export const ADMIN_PAGE_ORDERS = '/admin/orders';
+export const ADMIN_PAGE_USERS = '/admin/users';
