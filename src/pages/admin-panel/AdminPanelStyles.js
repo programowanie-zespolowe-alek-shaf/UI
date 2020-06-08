@@ -14,6 +14,10 @@ const useAdminPanelStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
   },
+  editButton: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 export default useAdminPanelStyles;
