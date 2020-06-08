@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { IconButton, TableCell, ButtonGroup } from '@material-ui/core';
+import { TableCell, ButtonGroup, Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
@@ -12,10 +13,10 @@ const BookPreview = ({ book }) => {
 
   return (
     <React.Fragment>
-      <TableCell component='th' scope='row' align='center'>
+      <TableCell scope='row' align='center'>
         {book.id}
       </TableCell>
-      <TableCell component='th' scope='row' align='center'>
+      <TableCell scope='row' align='center'>
         {book.title}
       </TableCell>
       <TableCell align='center'>{book.author}</TableCell>
@@ -27,19 +28,23 @@ const BookPreview = ({ book }) => {
           variant='text'
           aria-label='text primary button group'
           size='small'
-          disableElevation
         >
-          <IconButton>
+          <Button>
+            <Link to={`/admin/book/${book.id}`} className={classes.editButton}>
+              <MoreHorizIcon color='action' />
+            </Link>
+          </Button>
+          <Button>
             <Link
               to={`/admin/book/${book.id}/edit`}
               className={classes.editButton}
             >
               <EditIcon color='action' />
             </Link>
-          </IconButton>
-          <IconButton>
+          </Button>
+          <Button>
             <DeleteIcon color='action' />
-          </IconButton>
+          </Button>
         </ButtonGroup>
       </TableCell>
     </React.Fragment>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import {
   Typography,
@@ -41,7 +41,6 @@ const Books = ({ books }) => {
             color='primary'
             size='small'
             endIcon={<AddIcon />}
-            className={commonClasses}
           >
             Dodaj nową
           </Button>
@@ -62,12 +61,7 @@ const Books = ({ books }) => {
           </TableHead>
           <TableBody>
             {books.map((book, index) => (
-              <TableRow
-                hover
-                key={`admin-book-${index}`}
-                component={Link}
-                to={`/admin/book/${book.id}`}
-              >
+              <TableRow key={`admin-book-${index}`}>
                 <BookPreview book={book} />
               </TableRow>
             ))}
@@ -82,4 +76,4 @@ Books.propTypes = {
   books: PropTypes.array,
 };
 
-export default Books;
+export default withRouter(Books);
