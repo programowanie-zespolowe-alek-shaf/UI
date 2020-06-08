@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { addItemToCart } from '../cart/slice/cartSlice';
 
 import styles from './styles/BookContainer.scss';
 
 import BookDetails from './components/BookDetails';
-import SimilarList from './components/SimilarList';
 import { getBookById } from './slice/bookSlice';
 
 const BookContainer = (props) => {
@@ -20,7 +20,7 @@ const BookContainer = (props) => {
       <h3>Book Page</h3>
       <BookDetails
         {...book}
-        onAdd={(id, item) => dispatch(addToCart(id, item))}
+        onAdd={(itemId) => dispatch(addItemToCart(itemId))}
       />
       {/* <SimilarList id = {book.id} 
                  category = {book.category}/> */}

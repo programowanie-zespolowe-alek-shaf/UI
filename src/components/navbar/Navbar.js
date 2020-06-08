@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import globalMessages from '../../global/messages/globalMessages';
-import { logoutAction } from '../../pages/login/actions/loginActions';
+import { useSelector, shallowEqual } from 'react-redux';
 import Cart from './components/cart/Cart';
 
 import { AppBar, Toolbar } from '@material-ui/core';
 
 import Logo from './components/logo/Logo';
 import Search from './components/search/Search';
+import AdminPanelLink from './components/adminPanelLink/AdminPanelLink';
 import Login from './components/login/Login';
-import { getCategories } from '../../pages/category/slice/categoriesSlice';
 
 const Navbar = () => {
-  const user = useSelector((store) => store.login, shallowEqual);
+  const isAuthenticated = useSelector(
+    (state) => state.login.isAuthenticated,
+    shallowEqual
+  );
   const categories = useSelector((store) => store.categories, shallowEqual);
 
   return (
@@ -22,6 +22,7 @@ const Navbar = () => {
       <Toolbar>
         <Logo />
         <Search items={categories.items} />
+        {isAuthenticated ? <AdminPanelLink /> : null}
         <Login />
         <Cart />
       </Toolbar>

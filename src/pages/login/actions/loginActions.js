@@ -2,6 +2,12 @@ import { api } from '../../../global/connection/backend/endpoints';
 import request from '../../../global/connection/backend/request';
 import auth from '../../../components/auth/auth';
 import { triggerGlobalAlert } from '../../../components/globalAlert/slice/globalAlertSlice';
+import {
+  createShoppingCart, deleteCartInStorage,
+  getCartFromStorage,
+  getUsersCart,
+} from '../../cart/slice/cartSlice';
+import { getUserDetailsAction, clearCustomer } from '../../customers/slice/customersSlice';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -59,12 +65,29 @@ export const getUserInfo = () => {
   });
 };
 
-export const getUserInfoAction = (callback) => (dispatch) => {
+export const getUserDetails = (userName) => {
+  return request({
+    url: `${api.customersUsers}/${userName}`,
+    method: 'get',
+  });
+};
+
+/** Tests if user is logged in or not, then fetches details */
+export const getUserInfoAction = () => (dispatch) => {
+
   dispatch(requestUserInfo());
   return getUserInfo().then((response) => {
     dispatch(receiveUserInfo(response.data));
-    callback();
+    dispatch(getUserDetailsAction(response.data.username));
   }).catch((error) => {
+
+    if(error.response.status === 401) {
+      const cartId = getCartFromStorage();
+      dispatch(receiveUserError(error.response && error.response.data.error))
+      if(cartId) return dispatch(getUsersCart(cartId));
+      dispatch(createShoppingCart(null));
+    }
+
     dispatch(receiveUserError(error.response && error.response.data.error));
   });
 };
@@ -93,8 +116,10 @@ export const loginAction = (login, password, callback) => (dispatch) => {
     });
 };
 
-export const logoutAction = () => (dispatch, callback) => {
+export const logoutAction = () => (dispatch, getState) => {
+  deleteCartInStorage();
+  dispatch(clearCustomer());
+  dispatch(createShoppingCart(null));
   dispatch(logoutRequest());
   auth.logout();
-  callback();
 };

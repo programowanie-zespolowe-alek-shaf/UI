@@ -20,9 +20,7 @@ import { api } from '../../../global/connection/backend/endpoints';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-
-
-describe('namespaces actions', () => {
+describe.skip('namespaces actions', () => {
   beforeEach(() => mock.setup());
   afterEach(() => mock.teardown());
 
