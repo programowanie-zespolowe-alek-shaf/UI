@@ -14,6 +14,7 @@ import Search from '../../pages/search/Search';
 import Profile from '../../pages/profile/Profile';
 import CartContainer from '../../pages/cart/CartContainer';
 import NotFound from '../../pages/notFound/NotFound';
+import AdminPanel from '../../pages/admin-panel/AdminPanel';
 
 import BookContainer from '../../pages/book/BookContainer';
 import LoginContainer from '../../pages/login/LoginContainer';
@@ -26,10 +27,8 @@ import OrderContainer from '../../pages/order/OrderContainer';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector(
-    (state) => state.login,
-    shallowEqual
-  );
+  const user = useSelector((state) => state.login, shallowEqual);
+
   useEffect(() => {
     dispatch(getUserInfoAction());
     dispatch(getCategories());
@@ -44,6 +43,12 @@ const App = () => {
         <Route path={'/search/:pageId?'} component={Search} />
         <Route path={'/order'} component={OrderContainer} />
         <Route path={'/cart'} component={CartContainer} />
+        <PrivateRoute
+          path={'/admin'}
+          component={AdminPanel}
+          loading={user.isFetchingUser}
+          isAuthenticated={user.isAuthenticated}
+        />
         <PrivateRoute
           path={'/profile'}
           component={Profile}

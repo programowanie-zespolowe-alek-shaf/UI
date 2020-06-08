@@ -6,6 +6,7 @@ const globalMessages = {
   password: 'Hasło',
   createAccount: 'Załóż konto',
   registration: 'Rejestracja',
+  adminPage: 'Panel administratora',
 };
 
 export default globalMessages;

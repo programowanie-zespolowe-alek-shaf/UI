@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { List, ListItemText, ListSubheader } from '@material-ui/core';
 import ListItemLink from 'components/listItemLink/listItemLink';
-import { CATEGORY_PAGE } from 'global/constants/pages';
 
 const Sidebar = (props) => {
   return (
@@ -11,7 +10,10 @@ const Sidebar = (props) => {
       <ListSubheader>{props.title}</ListSubheader>
       {props.items.map((item) => {
         return (
-          <ListItemLink key={uuidv4()} to={`${CATEGORY_PAGE}/${item.id}`}>
+          <ListItemLink
+            key={uuidv4()}
+            to={`${props.baseItemUrl}/${item.id || item.slug}`}
+          >
             <ListItemText>{item.name}</ListItemText>
           </ListItemLink>
         );
@@ -22,7 +24,8 @@ const Sidebar = (props) => {
 
 Sidebar.propTypes = {
   title: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.string)
+  baseItemUrl: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Sidebar;
