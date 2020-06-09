@@ -6,20 +6,21 @@ import {
 } from '../../slice/AdminPanelSlice';
 
 import WithLoading from 'components/withLoading/WithLoading';
-import Books from './Books';
 
-const BooksWithLoading = WithLoading(Books);
+import Orders from './Orders';
+
+const OrdersWithLoading = WithLoading(Orders);
 
 const BookContainer = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    getAdminPanelItems(dispatchLocal, 'books');
+    getAdminPanelItems(dispatchLocal, 'orders');
   }, []);
 
   return (
-    <BooksWithLoading
-      books={state.items}
+    <OrdersWithLoading
+      orders={state.items}
       isLoading={state.isLoading}
       isLoaded={state.isLoaded}
       error={state.error}

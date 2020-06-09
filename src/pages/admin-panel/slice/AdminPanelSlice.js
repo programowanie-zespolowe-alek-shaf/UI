@@ -42,14 +42,22 @@ const {
   fetchAdminPanelItemsFailure,
 } = actions;
 
-export const getAdminPanelItems = async (dispatch) => {
+const urlsMap = {
+  'books': `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
+  'users': `${api.customersUsers}`,
+  'orders': `${api.orders}`,
+}
+
+export const getAdminPanelItems = async (dispatch, destination) => {
   try {
     dispatch(fetchAdminPanelItemsStart());
-    const { offset, limit } = adminBooks;
-
+    // const { offset, limit } = adminBooks;
     const response = await axios.get(
-      `${api.books}?offset=${offset}&limit=${limit}`
+      urlsMap[destination]
     );
+
+    console.log(response);
+
     const books = response.data;
 
     dispatch(fetchAdminPanelItemsSuccess(books.list));
