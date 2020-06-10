@@ -1,26 +1,29 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { addItemToCart } from '../cart/slice/cartSlice';
-
+import React, { useEffect, useReducer } from 'react';
 import styles from './styles/BookContainer.scss';
-
+import WithLoading from 'components/withLoading/WithLoading';
 import BookDetails from './components/BookDetails';
-import { getBookById } from './slice/bookSlice';
+import SimilarList from './components/SimilarList';
+import { initialState, getBookById, reducer} from './slice/bookSlice';
 
+
+const DetailsWithLoading = WithLoading(BookDetails);
 const BookContainer = (props) => {
-  const book = useSelector((state) => state.book, shallowEqual);
-  const dispatch = useDispatch();
-
+  const [state, dispatchLocal] = useReducer(reducer, initialState);
+  
   useEffect(() => {
-    dispatch(getBookById(props.match.params.bookId));
+    const bookId = props.match.params.bookId;
+    getBookById(dispatchLocal, bookId);
   }, []);
 
   return (
     <div className={styles.container}>
       <h3>Book Page</h3>
-      <BookDetails
-        {...book}
-        onAdd={(itemId) => dispatch(addItemToCart(itemId))}
+      <DetailsWithLoading
+        book={state.book}
+        isLoading={state.isLoading}
+        isLoaded={state.isLoaded}
+        error={state.error}
+        // onAdd={(id, item) => dispatch(addToCart(id, item))}
       />
       {/* <SimilarList id = {book.id} 
                  category = {book.category}/> */}
