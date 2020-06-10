@@ -21,7 +21,6 @@ const BookContainer = () => {
     <BooksWithLoading
       books={state.items}
       isLoading={state.isLoading}
-      isLoaded={state.isLoaded}
       error={state.error}
     />
   );

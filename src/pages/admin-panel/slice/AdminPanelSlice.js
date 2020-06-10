@@ -6,7 +6,6 @@ import axios from 'axios';
 export const initialState = {
   items: [],
   isLoading: false,
-  isLoaded: false,
   error: undefined,
 };
 
@@ -16,18 +15,15 @@ const adminPanelSlice = createSlice({
   reducers: {
     fetchAdminPanelItemsStart(state) {
       state.isLoading = true;
-      state.isLoaded = false;
       state.error = undefined;
     },
     fetchAdminPanelItemsSuccess(state, action) {
       state.isLoading = false;
-      state.isLoaded = true;
       state.items = action.payload;
       state.error = undefined;
     },
     fetchAdminPanelItemsFailure(state, action) {
       state.isLoading = false;
-      state.isLoaded = false;
       state.items = [];
       state.error = action.payload;
     },
