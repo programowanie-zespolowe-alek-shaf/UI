@@ -39,18 +39,16 @@ const {
 } = actions;
 
 const urlsMap = {
-  'books': `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
-  'users': `${api.customersUsers}`,
-  'orders': `${api.orders}`,
-}
+  books: `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
+  users: `${api.customersUsers}?offset=0&limit=10`,
+  orders: `${api.orders}?offset=0&limit=10`,
+};
 
 export const getAdminPanelItems = async (dispatch, destination) => {
   try {
     dispatch(fetchAdminPanelItemsStart());
     // const { offset, limit } = adminBooks;
-    const response = await axios.get(
-      urlsMap[destination]
-    );
+    const response = await axios.get(urlsMap[destination]);
 
     console.log(response);
 
