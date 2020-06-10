@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'global/connection/backend/endpoints';
 import { adminBooks } from 'global/connection/backend/settings';
-import axios from 'axios';
+import request from 'global/connection/backend/request';
 
 export const initialState = {
   items: [],
@@ -40,21 +40,28 @@ const {
 
 const urlsMap = {
   books: `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
-  users: `${api.customersUsers}?offset=0&limit=10`,
+  users: `${api.customersUsers}?offset=0&limit=100`,
   orders: `${api.orders}?offset=0&limit=10`,
 };
 
 export const getAdminPanelItems = async (dispatch, destination) => {
   try {
     dispatch(fetchAdminPanelItemsStart());
-    // const { offset, limit } = adminBooks;
-    const response = await axios.get(urlsMap[destination]);
+
+    const response = await request({
+      url: urlsMap[destination],
+      method: 'get',
+    });
+
+    const items = response.data;
 
     console.log(response);
 
-    const books = response.data;
-
-    dispatch(fetchAdminPanelItemsSuccess(books.list));
+    if (destination === 'orders') {
+      dispatch(fetchAdminPanelItemsSuccess(items));
+    } else {
+      dispatch(fetchAdminPanelItemsSuccess(items.list));
+    }
   } catch (error) {
     const message = error.response.data;
     dispatch(fetchAdminPanelItemsFailure(message));

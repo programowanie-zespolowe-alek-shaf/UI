@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link, withRouter} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
 import {
@@ -13,20 +13,21 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import BookPreview from "../books/components/BookPreview/BookPreview";
+  Typography,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import UserPreview from './components/UserPreview/UserPreview';
 
-const Users = ({users}) => {
+const Users = ({ users }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
     <Box display='flex' flexDirection='column'>
-      <Box display='flex'
-           flexDirection='row'
-           alignItems='center'
-           className={commonClasses.header}
+      <Box
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
+        className={commonClasses.header}
       >
         <Typography variant='h5' component='h1' className={commonClasses.title}>
           Użytkownicy
@@ -37,7 +38,7 @@ const Users = ({users}) => {
             variant='contained'
             color='primary'
             size='small'
-            endIcon={<AddIcon/>}
+            endIcon={<AddIcon />}
           >
             Dodaj nowego
           </Button>
@@ -47,26 +48,30 @@ const Users = ({users}) => {
         <Table aria-label='simple table'>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Numer użytkownika</TableCell>
-              <TableCell align='center'>e-mail</TableCell>
-              <TableCell align='center'>Rola</TableCell>
-              <TableCell align='center'>Data utworzenia konta</TableCell>
-              <TableCell align='center'>Oprawa</TableCell>
-              <TableCell align='center'>Cena</TableCell>
+              <TableCell align='center'>Login</TableCell>
+              <TableCell align='center'>Imię</TableCell>
+              <TableCell align='center'>Nazwisko</TableCell>
+              <TableCell align='center'>Adres e-mail</TableCell>
+              <TableCell align='center'>Numer telefonu</TableCell>
+              <TableCell align='center'>Uprawnienia</TableCell>
               <TableCell align='center'>Akcje</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((book, index) => (
-                <TableRow key={`admin-book-${index}`}>
-                  <BookPreview book={book} />
-                </TableRow>
+            {users.map((user, index) => (
+              <TableRow key={`admin-user-${index}`}>
+                <UserPreview user={user} />
+              </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
   );
+};
+
+Users.propTypes = {
+  books: PropTypes.array,
 };
 
 export default withRouter(Users);
