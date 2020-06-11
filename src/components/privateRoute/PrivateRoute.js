@@ -28,12 +28,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               } else {
                 return <Redirect to={MAIN_PAGE} />;
               }
-            } else {
-              dispatch(triggerGlobalAlert('error', customer.error));
             }
           } else {
-            return <Component {...props} />;
+            triggerGlobalAlert('error', customer.error.message);
           }
+        } else {
+          return <Component {...props} />;
         }
         return <Redirect to={LOGIN_PAGE} />;
       }}
