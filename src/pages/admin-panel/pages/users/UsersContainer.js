@@ -6,7 +6,6 @@ import {
 } from '../../slice/AdminPanelSlice';
 
 import WithLoading from 'components/withLoading/WithLoading';
-import Books from '../books/Books';
 
 import Users from './Users';
 
