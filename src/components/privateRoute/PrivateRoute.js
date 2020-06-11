@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { LOGIN_PAGE, MAIN_PAGE } from '../../global/constants/pages';
 import LoadingPage from '../../pages/loading/LoadingPage';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { triggerGlobalAlert } from '../globalAlert/slice/globalAlertSlice';
+import { shallowEqual, useSelector } from 'react-redux';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.login, shallowEqual);
-  const dispatch = useDispatch();
 
   const { adminNeeded } = rest;
 
@@ -24,17 +22,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (user.isFetchingUser) return <LoadingPage />;
         if (user.isAuthenticated) {
           if (adminNeeded) {
-            console.log('Dupa');
-            if (customerDetails.loading) return <LoadingPage />;
             if (customerDetails.roles.includes('ROLE_ADMIN')) {
               return <Component {...props} />;
             } else {
-              dispatch(triggerGlobalAlert('error', 'Dostęp zabroniony!'));
               return <Redirect to={MAIN_PAGE} />;
             }
-          } else {
-            return <Component {...props} />;
           }
+          return <Component {...props} />;
         }
         return <Redirect to={LOGIN_PAGE} />;
       }}
