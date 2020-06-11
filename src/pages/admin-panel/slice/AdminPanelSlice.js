@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'global/connection/backend/endpoints';
 import { adminBooks } from 'global/connection/backend/settings';
-import axios from 'axios';
+import request from 'global/connection/backend/request';
 
 export const initialState = {
   items: [],
   isLoading: false,
-  isLoaded: false,
   error: undefined,
 };
 
@@ -16,18 +15,15 @@ const adminPanelSlice = createSlice({
   reducers: {
     fetchAdminPanelItemsStart(state) {
       state.isLoading = true;
-      state.isLoaded = false;
       state.error = undefined;
     },
     fetchAdminPanelItemsSuccess(state, action) {
       state.isLoading = false;
-      state.isLoaded = true;
       state.items = action.payload;
       state.error = undefined;
     },
     fetchAdminPanelItemsFailure(state, action) {
       state.isLoading = false;
-      state.isLoaded = false;
       state.items = [];
       state.error = action.payload;
     },
@@ -42,17 +38,30 @@ const {
   fetchAdminPanelItemsFailure,
 } = actions;
 
-export const getAdminPanelItems = async (dispatch) => {
+const urlsMap = {
+  books: `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
+  users: `${api.customersUsers}?offset=0&limit=100`,
+  orders: `${api.orders}?offset=0&limit=10`,
+};
+
+export const getAdminPanelItems = async (dispatch, destination) => {
   try {
     dispatch(fetchAdminPanelItemsStart());
-    const { offset, limit } = adminBooks;
 
-    const response = await axios.get(
-      `${api.books}?offset=${offset}&limit=${limit}`
-    );
-    const books = response.data;
+    const response = await request({
+      url: urlsMap[destination],
+      method: 'get',
+    });
 
-    dispatch(fetchAdminPanelItemsSuccess(books.list));
+    const items = response.data;
+
+    console.log(response);
+
+    if (destination === 'orders') {
+      dispatch(fetchAdminPanelItemsSuccess(items));
+    } else {
+      dispatch(fetchAdminPanelItemsSuccess(items.list));
+    }
   } catch (error) {
     const message = error.response.data;
     dispatch(fetchAdminPanelItemsFailure(message));

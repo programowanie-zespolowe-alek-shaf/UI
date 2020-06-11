@@ -50,7 +50,7 @@ const Books = ({ books }) => {
         <Table aria-label='simple table'>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Id</TableCell>
+              <TableCell align='center'>ID</TableCell>
               <TableCell align='center'>Tytuł</TableCell>
               <TableCell align='center'>Autor</TableCell>
               <TableCell align='center'>Data dodania</TableCell>

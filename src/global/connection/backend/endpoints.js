@@ -1,4 +1,4 @@
-const prodBase = 'api';
+const prodBase = '/api';
 const devBase = 'http://34.107.227.129/api';
 
 const endpoint = (baseUrl) => {
@@ -9,7 +9,8 @@ const endpoint = (baseUrl) => {
     customersUsers: baseUrl + '/customers-ms/users',
     shoppingCards: baseUrl + '/shopping-card-ms/shoppingCards',
     books: baseUrl + '/product-catalog-ms/books',
-    categories: baseUrl + '/product-catalog-ms/categories'
+    categories: baseUrl + '/product-catalog-ms/categories',
+    orders: baseUrl + '/order-management-ms/orders',
   };
 };
 
