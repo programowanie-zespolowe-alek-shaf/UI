@@ -30,7 +30,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               }
             }
           } else {
-            triggerGlobalAlert('error', customer.error.message);
+            dispatch(triggerGlobalAlert('error', customer.error.message));
           }
         } else {
           return <Component {...props} />;
@@ -48,3 +48,4 @@ PrivateRoute.propTypes = {
 };
 
 export default PrivateRoute;
+
