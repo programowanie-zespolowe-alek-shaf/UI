@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { LOGIN_PAGE, MAIN_PAGE } from '../../global/constants/pages';
 import LoadingPage from '../../pages/loading/LoadingPage';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.login, shallowEqual);
+  const customer = useSelector((state) => state.customer, shallowEqual);
+  const dispatch = useDispatch();
 
   const { adminNeeded } = rest;
-
-  const customerDetails = useSelector(
-    (state) => state.customer.details,
-    shallowEqual
-  );
 
   return (
     <Route
@@ -22,13 +20,20 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (user.isFetchingUser) return <LoadingPage />;
         if (user.isAuthenticated) {
           if (adminNeeded) {
-            if (customerDetails.roles.includes('ROLE_ADMIN')) {
-              return <Component {...props} />;
+            if (customer.loading || !customer.checked) {
+              return <LoadingPage />;
+            } else if (!customer.error) {
+              if (customer.details.roles.includes('ROLE_ADMIN')) {
+                return <Component {...props} />;
+              } else {
+                return <Redirect to={MAIN_PAGE} />;
+              }
             } else {
-              return <Redirect to={MAIN_PAGE} />;
+              dispatch(triggerGlobalAlert('error', customer.error));
             }
+          } else {
+            return <Component {...props} />;
           }
-          return <Component {...props} />;
         }
         return <Redirect to={LOGIN_PAGE} />;
       }}
