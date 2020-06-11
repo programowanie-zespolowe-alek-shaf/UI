@@ -41,14 +41,8 @@ const App = () => {
         <Route path={'/search/:pageId?'} component={Search} />
         <Route path={'/order'} component={OrderContainer} />
         <Route path={'/cart'} component={CartContainer} />
-        <PrivateRoute
-          path={'/admin'}
-          component={AdminPanel}
-        />
-        <PrivateRoute
-          path={'/profile'}
-          component={Profile}
-        />
+        <PrivateRoute adminNeeded path={'/admin'} component={AdminPanel} />
+        <PrivateRoute path={'/profile'} component={Profile} />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
     );

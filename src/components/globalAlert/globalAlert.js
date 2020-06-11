@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { discardGlobalAlert } from './slice/globalAlertSlice';
 
@@ -21,7 +21,7 @@ const GlobalAlert = () => {
   return (
     <Snackbar
       open={alert.isActive}
-      autoHideDuration={6000}
+      autoHideDuration={4000}
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'bottom',

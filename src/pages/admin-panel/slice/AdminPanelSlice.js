@@ -55,8 +55,6 @@ export const getAdminPanelItems = async (dispatch, destination) => {
 
     const items = response.data;
 
-    console.log(response);
-
     if (destination === 'orders') {
       dispatch(fetchAdminPanelItemsSuccess(items));
     } else {
