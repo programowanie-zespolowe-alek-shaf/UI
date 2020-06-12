@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'global/connection/backend/endpoints';
-import { adminBooks } from 'global/connection/backend/settings';
+// import { adminBooks } from 'global/connection/backend/settings';
 import request from 'global/connection/backend/request';
 
 export const initialState = {
