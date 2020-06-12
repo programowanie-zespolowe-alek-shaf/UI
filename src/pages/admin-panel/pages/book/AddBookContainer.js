@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import Form from './form/Form';
+import Form from '../../../../components/form/Form';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 import { Box } from '@material-ui/core';
 
