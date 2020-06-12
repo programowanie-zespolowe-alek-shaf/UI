@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import { LOGIN_PAGE, MAIN_PAGE } from '../../global/constants/pages';
+import { LOGIN_PAGE } from '../../global/constants/pages';
 import LoadingPage from '../../pages/loading/LoadingPage';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
+import AdminRequired from '../../pages/admin-panel/pages/adminRequired/AdminRequired';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.login, shallowEqual);
@@ -12,29 +13,28 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const dispatch = useDispatch();
 
   const { adminNeeded } = rest;
+  const isAdmin = customer.details.isAdmin;
+  
+  const renderAdminContent = (props) => {
+
+    if (isAdmin) {
+      return <Component {...props} />;
+    }
+
+    dispatch(triggerGlobalAlert('error', 'Wymagana rola administratora'));
+    return <AdminRequired />;
+  };
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (user.isFetchingUser) return <LoadingPage />;
-        if (user.isAuthenticated) {
-          if (adminNeeded) {
-            if (customer.loading || !customer.checked) {
-              return <LoadingPage />;
-            } else if (!customer.error) {
-              if (customer.details.roles.includes('ROLE_ADMIN')) {
-                return <Component {...props} />;
-              } else {
-                return <Redirect to={MAIN_PAGE} />;
-              }
-            }
-          } else {
-            dispatch(triggerGlobalAlert('error', customer.error.message));
-          }
-        } else {
+        if(user.isAuthenticated) {
+          if (customer.loading) return <LoadingPage />;
+          if (adminNeeded) return renderAdminContent(props);
           return <Component {...props} />;
         }
+        if(user.isFetchingUser) return <LoadingPage />;
         return <Redirect to={LOGIN_PAGE} />;
       }}
     />

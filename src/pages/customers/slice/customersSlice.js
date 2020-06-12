@@ -4,6 +4,11 @@ import { api } from '../../../global/connection/backend/endpoints';
 import { getCartFromStorage, getUsersCart } from '../../cart/slice/cartSlice';
 import { getUserDetails } from '../../login/actions/loginActions';
 
+export const userRoles = {
+  admin: 'ROLE_ADMIN',
+  user: 'ROLE_USER'
+};
+
 const initialDetails = {
   address: undefined,
   email: undefined,
@@ -14,10 +19,12 @@ const initialDetails = {
   phone: undefined,
   roles: [],
   username: undefined,
+  isAdmin: false,
+  updating: false,
 };
 
 export const initialState = {
-  loading: false,
+  loading: true,
   checked: false,
   error: null,
   details: {
@@ -25,42 +32,39 @@ export const initialState = {
   },
 };
 
+const isAdmin = (roles) => roles.includes(userRoles.admin);
 const customersSlice = createSlice({
   name: 'customers',
   initialState,
   reducers: {
     requestUpdateCustomer(state, action) {
-      state.loading = true;
-      state.checked = false;
       state.error = null;
+      state.upading = true;
     },
     updateCustomerSuccess(state, action) {
-      state.loading = false;
-      state.checked = true;
+      state.upading = false;
       state.details = action.payload;
+      state.details.isAdmin = isAdmin(action.payload.roles);
     },
     updateCustomerError(state, action) {
-      state.loading = false;
-      state.checked = true;
+      state.upading = false;
       state.error = action.payload;
     },
     requestCustomerDetails(state, action) {
       state.loading = true;
-      state.checked = false;
       state.error = null;
     },
     receiveCustomerDetails(state, action) {
       state.loading = false;
-      state.checked = true;
       state.details = action.payload;
+      state.details.isAdmin = isAdmin(action.payload.roles);
     },
     receiveCustomerDetailsError(state, action) {
       state.loading = false;
-      state.checked = true;
       state.error = action.payload;
     },
     clearCustomer(state, action) {
-      return initialState;
+      return { ...initialState, loading: false };
     },
   },
 });
