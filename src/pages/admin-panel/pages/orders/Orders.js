@@ -22,7 +22,7 @@ const Orders = ({ orders }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
-    <Box display='flex' flexDirection='column'>
+    <Box display='flex' flexDirection='column' width={'100%'}>
       <Box
         display='flex'
         flexDirection='row'

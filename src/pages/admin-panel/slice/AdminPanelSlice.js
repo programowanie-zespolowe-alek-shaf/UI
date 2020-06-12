@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'global/connection/backend/endpoints';
-import { adminBooks } from 'global/connection/backend/settings';
+// import { adminBooks } from 'global/connection/backend/settings';
 import request from 'global/connection/backend/request';
 
 export const initialState = {
@@ -39,9 +39,9 @@ const {
 } = actions;
 
 const urlsMap = {
-  books: `${api.books}?offset=${adminBooks.offset}&limit=${adminBooks.limit}`,
-  users: `${api.customersUsers}?offset=0&limit=100`,
-  orders: `${api.orders}?offset=0&limit=10`,
+  books: `${api.books}?offset=0&limit=1000`,
+  users: `${api.customersUsers}?offset=0&limit=1000`,
+  orders: `${api.orders}?offset=0&limit=1000`,
 };
 
 export const getAdminPanelItems = async (dispatch, destination) => {
