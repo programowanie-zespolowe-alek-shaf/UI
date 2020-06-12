@@ -1,8 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import Form from './form/Form';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
+import { Box } from '@material-ui/core';
+
 import {
   initialState,
   reducer,
@@ -13,70 +15,42 @@ import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
 
 const addBookContainer = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
+  const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (state.error) {
-      dispatch(triggerGlobalAlert('error', state.error));
+      dispatch(triggerGlobalAlert('error', `Wystąpił błąd: ${state.error}`));
     }
   }, [state.error]);
 
-  //Redirect to bookList on book add success
-  const redirectToBookList = () => {
+  useEffect(() => {
+    addBookInputs['category'].options = categories.items;
+  }, [categories]);
+
+  const onSuccess = () => {
+    dispatch(
+      triggerGlobalAlert('success', 'Książka została dodana pomyślnie!')
+    );
     history.push(ADMIN_PAGE_BOOKS);
   };
 
   const onAddBook = (bookData) => {
-    addAdminPanelItem(dispatchLocal, 'book', bookData, redirectToBookList);
+    addAdminPanelItem(dispatchLocal, 'book', bookData, onSuccess);
   };
 
   return (
-    <Form
-      title='Dodaj książkę'
-      onSubmit={onAddBook}
-      submitButtonText='Dodaj książkę'
-      isMakingRequest={state.isAdding}
-      inputs={addBookInputs}
-    />
+    <Box maxWidth={500}>
+      <Form
+        title='Dodaj książkę'
+        onSubmit={onAddBook}
+        submitButtonText='Dodaj książkę'
+        isMakingRequest={state.isAdding}
+        inputs={addBookInputs}
+      />
+    </Box>
   );
 };
 
 export default addBookContainer;
-
-// import React, { useEffect } from 'react';
-// import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-// import RegisterManager from './form/RegisterManager';
-// import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
-
-// import { registerAction } from './actions/registerActions';
-
-// const RegisterContainer = () => {
-//   const error = useSelector((state) => state.register.error, shallowEqual);
-//   const dispatch = useDispatch();
-//   const isRegistering = useSelector(
-//     (state) => state.register.loading,
-//     shallowEqual
-//   );
-
-//   useEffect(() => {
-//     if (error) {
-//       dispatch(triggerGlobalAlert('error', error));
-//     }
-//   }, [error]);
-
-//   const dispatchRegisterAction = (payload, callback) => {
-//     dispatch(registerAction(payload, callback));
-//   };
-
-//   return (
-//     <React.Fragment>
-//       <RegisterManager
-//         onSubmit={dispatchRegisterAction}
-//         isRegistering={isRegistering}
-//       />
-//     </React.Fragment>
-//   );
-// };
-
-// export default RegisterContainer;

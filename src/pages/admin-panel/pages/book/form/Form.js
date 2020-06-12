@@ -1,12 +1,44 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { reducer, actions, initialState } from './slice/formSlice';
-import { Typography, TextField, Grid, Box, Link } from '@material-ui/core';
+import {
+  Typography,
+  TextField,
+  Grid,
+  Box,
+  FormControlLabel,
+  Checkbox,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@material-ui/core';
 import SubmitButton from 'components/submitButton/SubmitButton';
+import { toArray } from 'global/utils/utils';
+import useFormStyles from './FormStyles';
+
+const setValue = (inputName, inputValue, dispatch) => {
+  dispatch(actions.setValue({ field: inputName, value: inputValue }));
+};
+
+const setTested = (inputName, dispatch) => {
+  dispatch(actions.setTested({ field: inputName, tested: true }));
+};
+
+const setCorrect = (inputName, inputValue, regexp, dispatch) => {
+  const isCorrect = regexp.test(inputValue);
+  dispatch(
+    actions.setCorrect({
+      field: inputName,
+      correct: isCorrect,
+    })
+  );
+};
 
 const Form = (props) => {
-  const [state, dispatchLocal] = useReducer(
+  const classes = useFormStyles();
+  const [state, dispatch] = useReducer(
     reducer,
-    initialState(props.inputs)
+    initialState(toArray(props.inputs))
   );
 
   console.log(state);
@@ -14,16 +46,33 @@ const Form = (props) => {
   const onChange = (event) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;
-    dispatchLocal(actions.setValue({ field: inputName, value: inputValue }));
 
-    // if (state[inputName].tested) {
-    //   validateInput(inputName, inputValue);
-    // }
+    setValue(inputName, inputValue, dispatch);
+    setCorrect(inputName, inputValue, props.inputs[inputName].regexp, dispatch);
+  };
+
+  const onChangeCheckbox = (event) => {
+    const inputName = event.target.name;
+    const { checked } = event.target;
+
+    setValue(inputName, checked, dispatch);
+  };
+
+  const onBlur = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+
+    setCorrect(inputName, inputValue, props.inputs[inputName].regexp, dispatch);
+    setTested(inputName, dispatch);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.onSubmit({ title: 'Ksionzka' });
+    const payload = {};
+    toArray(props.inputs).forEach((input) => {
+      payload[input.name] = state[input.name].value;
+    });
+    props.onSubmit(payload);
   };
 
   return (
@@ -33,12 +82,12 @@ const Form = (props) => {
       justifyContent='center'
       alignItems='center'
     >
-      <Typography variant='h6' gutterBottom>
+      <Typography variant='h6' className={classes.title}>
         {props.title}
       </Typography>
       <form onSubmit={onSubmit}>
         <Grid container spacing={2}>
-          {props.inputs.map((input, index) => {
+          {toArray(props.inputs).map((input, index) => {
             if (input.type === 'text' || input.type === 'number') {
               return (
                 <Grid key={`admin-add-book-input-${index}`} item xs={12}>
@@ -48,19 +97,76 @@ const Form = (props) => {
                     id={input.id}
                     label={input.label}
                     variant='outlined'
+                    value={state[input.name].value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={
+                      state[input.name].tested && !state[input.name].correct
+                    }
+                    disabled={state.disabled}
+                    helperText={
+                      state[input.name].tested && !state[input.name].correct
+                        ? props.inputs[input.name].helperText
+                        : false
+                    }
                     required
                     fullWidth
-                    onChange={onChange}
-                    // value={state[inputName].value}
-                    // error={state[inputName].tested && !state[inputName].correct}
-                    // onBlur={onBlur}
-                    // className={classes.input}
-                    // disabled={state.disabled}
-                    // helperText={
-                    // state[inputName].tested && !state[inputName].correct
-                    // ? INPUT_ERRORS[inputName]
-                    // : false
                   />
+                </Grid>
+              );
+            } else if (input.type === 'checkbox') {
+              return (
+                <Grid key={`admin-add-book-checkbox-${index}`} item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={onChangeCheckbox} name={input.name} />
+                    }
+                    label={input.label}
+                  />
+                </Grid>
+              );
+            } else if (input.type === 'select') {
+              console.log(input.name);
+              return (
+                <Grid key={`admin-add-book-select-${index}`} item xs={12}>
+                  <FormControl className={classes.select}>
+                    <InputLabel id={`select-${index}`}>
+                      {input.label}
+                    </InputLabel>
+                    <Select
+                      labelId={`select-${index}`}
+                      name={input.name}
+                      id={input.id}
+                      value={state[input.name].value}
+                      onChange={onChange}
+                      error={
+                        state[input.name].tested && !state[input.name].correct
+                      }
+                      onBlur={onBlur}
+                    >
+                      {input.options.map((option, index) => {
+                        if (input.isOptionObject) {
+                          return (
+                            <MenuItem
+                              key={`select-${input.name}-option-${index}`}
+                              value={{ id: option.id, name: option.name }}
+                            >
+                              {option.name}
+                            </MenuItem>
+                          );
+                        } else {
+                          return (
+                            <MenuItem
+                              key={`select-${input.name}-option-${index}`}
+                              value={option}
+                            >
+                              {option}
+                            </MenuItem>
+                          );
+                        }
+                      })}
+                    </Select>
+                  </FormControl>
                 </Grid>
               );
             } else {

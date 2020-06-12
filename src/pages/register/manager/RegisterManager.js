@@ -118,8 +118,6 @@ const RegisterManager = (props) => {
 
     const isFormValid = validateForm();
 
-    console.log(isFormValid);
-
     if (isFormValid) {
       props.onSubmit(payload, redirectToSignIn);
     }

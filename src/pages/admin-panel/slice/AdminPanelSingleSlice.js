@@ -69,7 +69,7 @@ export const addAdminPanelItem = async (
   try {
     console.log('ACtion fired!');
     dispatch(addAdminPanelItemStart());
-    const response = await request({
+    await request({
       url: `${urlsMap[destination]}`,
       method: 'post',
       data: {
@@ -77,7 +77,7 @@ export const addAdminPanelItem = async (
       },
     });
     dispatch(addAdminPanelItemSuccess());
-    // callback();
+    callback();
   } catch (error) {
     dispatch(addAdminPanelItemFailure(error.response.data.error));
   }

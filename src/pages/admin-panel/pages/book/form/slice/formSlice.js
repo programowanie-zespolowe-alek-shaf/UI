@@ -4,11 +4,19 @@ export const initialState = (inputs) => {
   let initialState = { disabled: false };
 
   inputs.forEach((input) => {
-    initialState[input.name] = {
-      value: '',
-      tested: false,
-      correct: false,
-    };
+    if (input.type === 'checkbox') {
+      initialState[input.name] = {
+        value: input.checked,
+        tested: false,
+        correct: true,
+      };
+    } else {
+      initialState[input.name] = {
+        value: '',
+        tested: false,
+        correct: false,
+      };
+    }
   });
 
   return initialState;
