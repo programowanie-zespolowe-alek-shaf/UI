@@ -11,8 +11,6 @@ import useAdminPanelStyles from '../../../../AdminPanelStyles';
 const OrderPreview = ({ order }) => {
   const classes = useAdminPanelStyles();
 
-  console.log(order);
-
   return (
     <React.Fragment>
       <TableCell align='center'>{order.id}</TableCell>

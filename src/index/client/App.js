@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from 'global/styles/theme/theme';
@@ -41,14 +41,8 @@ const App = () => {
         <Route path={'/search/:pageId?'} component={Search} />
         <Route path={'/order'} component={OrderContainer} />
         <Route path={'/cart'} component={CartContainer} />
-        <PrivateRoute
-          path={'/admin'}
-          component={AdminPanel}
-        />
-        <PrivateRoute
-          path={'/profile'}
-          component={Profile}
-        />
+        <PrivateRoute adminNeeded path={'/admin'} component={AdminPanel} />
+        <PrivateRoute path={'/profile'} component={Profile} />
         <Route exact path={'*'} component={NotFound} />
       </Switch>
     );

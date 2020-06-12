@@ -18,10 +18,9 @@ import { Box } from '@material-ui/core';
 import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
 import { default as Book } from './pages/book/BookContainer';
-import {default as Users } from './pages/users/UsersContainer';
+import { default as Users } from './pages/users/UsersContainer';
 import { default as User } from './pages/user/UserContainer';
 import Orders from './pages/orders/OrdersContainer';
-// import Users from './pages/users/Users';
 
 import useAdminPanelStyles from './AdminPanelStyles';
 

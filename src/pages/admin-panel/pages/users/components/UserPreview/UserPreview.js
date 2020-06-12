@@ -11,8 +11,6 @@ import useAdminPanelStyles from '../../../../AdminPanelStyles';
 const UserPreview = ({ user }) => {
   const classes = useAdminPanelStyles();
 
-  console.log(user);
-
   return (
     <React.Fragment>
       <TableCell align='center'>{user.username}</TableCell>

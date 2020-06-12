@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, shallowEqual } from 'react-redux';
 import Cart from './components/cart/Cart';
@@ -15,6 +15,11 @@ const Navbar = () => {
     (state) => state.login.isAuthenticated,
     shallowEqual
   );
+  const customerDetails = useSelector(
+    (state) => state.customer.details,
+    shallowEqual
+  );
+
   const categories = useSelector((store) => store.categories, shallowEqual);
 
   return (
@@ -22,7 +27,9 @@ const Navbar = () => {
       <Toolbar>
         <Logo />
         <Search items={categories.items} />
-        {isAuthenticated ? <AdminPanelLink /> : null}
+        {isAuthenticated && customerDetails.roles.includes('ROLE_ADMIN') ? (
+          <AdminPanelLink />
+        ) : null}
         <Login />
         <Cart />
       </Toolbar>
