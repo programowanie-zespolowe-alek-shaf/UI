@@ -13,7 +13,6 @@ const BookDetailsContainer = (props) => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   
   useEffect(() => {
-    // console.log(props.match.params);
     const bookId = props.match.params.id;
     getBookById(dispatchLocal, bookId);
   }, []);
@@ -21,6 +20,8 @@ const BookDetailsContainer = (props) => {
   return (
     <div className={styles.container}>
       <h3>Book Page</h3>
+      <span>Id książki: {props.match.params.id}</span>
+
       <DetailsWithLoading
         book={state.book}
         isLoading={state.isLoading}
