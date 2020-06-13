@@ -8,7 +8,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
-const BookPreview = ({ book }) => {
+const BookPreview = ({ book, onDelete }) => {
   const classes = useAdminPanelStyles();
 
   return (
@@ -43,7 +43,10 @@ const BookPreview = ({ book }) => {
             </Link>
           </Button>
           <Button>
-            <DeleteIcon color='action' />
+            <DeleteIcon
+              color='action'
+              onClick={() => onDelete(book.id, book.title)}
+            />
           </Button>
         </ButtonGroup>
       </TableCell>
@@ -53,6 +56,7 @@ const BookPreview = ({ book }) => {
 
 BookPreview.propTypes = {
   book: PropTypes.object,
+  onDelete: PropTypes.func,
 };
 
 export default BookPreview;

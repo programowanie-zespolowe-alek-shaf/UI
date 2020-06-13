@@ -29,7 +29,7 @@ const AdminPanel = () => {
   const classes = useAdminPanelStyles();
 
   return (
-    <Box className={classes.container}>
+    <Box className={classes.container} mb={4}>
       <Sidebar
         title={sidebar.title}
         items={sidebar.items}

@@ -126,7 +126,6 @@ const Form = (props) => {
                 </Grid>
               );
             } else if (input.type === 'select') {
-              console.log(input.name);
               return (
                 <Grid key={`admin-add-book-select-${index}`} item xs={12}>
                   <FormControl className={classes.select}>
@@ -145,25 +144,14 @@ const Form = (props) => {
                       onBlur={onBlur}
                     >
                       {input.options.map((option, index) => {
-                        if (input.isOptionObject) {
-                          return (
-                            <MenuItem
-                              key={`select-${input.name}-option-${index}`}
-                              value={{ id: option.id, name: option.name }}
-                            >
-                              {option.name}
-                            </MenuItem>
-                          );
-                        } else {
-                          return (
-                            <MenuItem
-                              key={`select-${input.name}-option-${index}`}
-                              value={option}
-                            >
-                              {option}
-                            </MenuItem>
-                          );
-                        }
+                        return (
+                          <MenuItem
+                            key={`select-${input.name}-option-${index}`}
+                            value={option.value}
+                          >
+                            {option.name}
+                          </MenuItem>
+                        );
                       })}
                     </Select>
                   </FormControl>

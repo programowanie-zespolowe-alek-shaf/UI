@@ -8,7 +8,7 @@ import { Box } from '@material-ui/core';
 import {
   initialState,
   reducer,
-  addAdminPanelItem,
+  addItem,
 } from '../../slice/AdminPanelSingleSlice';
 import addBookInputs from './inputs/addBookInputs';
 import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
@@ -26,7 +26,11 @@ const addBookContainer = () => {
   }, [state.error]);
 
   useEffect(() => {
-    addBookInputs['category'].options = categories.items;
+    const categoryOptions = categories.items.map((item) => {
+      return { name: item.name, value: item.id };
+    });
+    addBookInputs['category'].options = categoryOptions;
+    console.log(addBookInputs);
   }, [categories]);
 
   const onSuccess = () => {
@@ -37,7 +41,7 @@ const addBookContainer = () => {
   };
 
   const onAddBook = (bookData) => {
-    addAdminPanelItem(dispatchLocal, 'book', bookData, onSuccess);
+    addItem(dispatchLocal, 'book', bookData, onSuccess);
   };
 
   return (
