@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 import { reducer, actions, initialState } from './slice/formSlice';
 import {
   Typography,
@@ -176,6 +177,14 @@ const Form = (props) => {
       </form>
     </Box>
   );
+};
+
+Form.propTypes = {
+  title: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  submitButtonText: PropTypes.string.isRequired,
+  isMakingRequest: PropTypes.bool.isRequired,
+  inputs: PropTypes.obj,
 };
 
 export default Form;
