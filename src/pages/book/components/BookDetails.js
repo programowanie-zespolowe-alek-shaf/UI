@@ -16,9 +16,6 @@ import useFeaturedStyles from '../../main/components/featured/FeaturedStyles';
 
 const BookDetails = ({ book }) => {
   const classes = useFeaturedStyles();
-
-  const index = 1; // TODO: CHANGE to general case !!!
-  console.log(book);
   return (
     <div className={styles.container}>
       <div className={styles.itemDetails}>

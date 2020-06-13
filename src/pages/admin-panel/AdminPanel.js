@@ -19,9 +19,10 @@ import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
 import AddBook from './pages/book/pages/addBook/AddBook';
 import EditBook from './pages/book/pages/editBook/EditBook';
-import BookDetails from './pages/book/pages/bookDetails/BookDetails';
 import { default as Users } from './pages/users/UsersContainer';
 import { default as User } from './pages/user/UserContainer';
+import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
+
 import Orders from './pages/orders/OrdersContainer';
 
 import useAdminPanelStyles from './AdminPanelStyles';
