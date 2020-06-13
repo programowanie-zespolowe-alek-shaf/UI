@@ -21,13 +21,6 @@ const BookDetails = ({book}) => {
             <span><strong>Cena: {book.price}</strong></span>
           </section>
         </div>
-        <div className={styles.deleteButton}>
-          <Button
-              // onClick={() => props.onAdd(props.id)}
-          >
-            Dodaj do koszyka
-          </Button>
-        </div>
       </div>
   );
 };
