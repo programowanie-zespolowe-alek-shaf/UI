@@ -55,9 +55,9 @@ const addBookInputs = {
     regexp: /^(?!\s*$).+/,
     helperText: 'Cena jest wymagana',
   },
-  category: {
+  categoryId: {
     type: 'select',
-    name: 'category',
+    name: 'categoryId',
     id: 'category',
     label: 'Kategoria',
     options: [],

@@ -29,7 +29,7 @@ const addBookContainer = () => {
     const categoryOptions = categories.items.map((item) => {
       return { name: item.name, value: item.id };
     });
-    addBookInputs['category'].options = categoryOptions;
+    addBookInputs['categoryId'].options = categoryOptions;
     console.log(addBookInputs);
   }, [categories]);
 
