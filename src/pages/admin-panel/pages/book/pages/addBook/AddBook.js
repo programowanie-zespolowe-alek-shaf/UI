@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import Form from '../../../../components/form/Form';
+import Form from '../../../../../../components/form/Form';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 import { Box } from '@material-ui/core';
 
@@ -9,11 +9,11 @@ import {
   initialState,
   reducer,
   addItem,
-} from '../../slice/AdminPanelSingleSlice';
-import addBookInputs from './inputs/addBookInputs';
+} from '../../../../slice/AdminPanelSingleSlice';
+import addBookInputs from '../../inputs/addBookInputs';
 import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
 
-const addBookContainer = () => {
+const AddBook = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
@@ -57,4 +57,4 @@ const addBookContainer = () => {
   );
 };
 
-export default addBookContainer;
+export default AddBook;
