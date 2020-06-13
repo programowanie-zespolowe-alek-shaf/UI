@@ -10,8 +10,10 @@ import {
   reducer,
   addItem,
 } from '../../../../slice/AdminPanelSingleSlice';
-import addBookInputs from '../../inputs/addBookInputs';
+import bookInputs from '../../inputs/bookInputs';
 import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
+
+const inputs = bookInputs();
 
 const AddBook = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
@@ -21,7 +23,12 @@ const AddBook = () => {
 
   useEffect(() => {
     if (state.error) {
-      dispatch(triggerGlobalAlert('error', `Wystąpił błąd: ${state.error}`));
+      dispatch(
+        triggerGlobalAlert(
+          'error',
+          `Podczas dodawania książki wystąpił błąd: ${state.error}`
+        )
+      );
     }
   }, [state.error]);
 
@@ -29,8 +36,7 @@ const AddBook = () => {
     const categoryOptions = categories.items.map((item) => {
       return { name: item.name, value: item.id };
     });
-    addBookInputs['categoryId'].options = categoryOptions;
-    console.log(addBookInputs);
+    inputs['categoryId'].options = categoryOptions;
   }, [categories]);
 
   const onSuccess = () => {
@@ -50,8 +56,8 @@ const AddBook = () => {
         title='Dodaj książkę'
         onSubmit={onAddBook}
         submitButtonText='Dodaj książkę'
-        isMakingRequest={state.isAdding}
-        inputs={addBookInputs}
+        isMakingRequest={state.isLoading}
+        inputs={inputs}
       />
     </Box>
   );

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { reducer, actions, initialState } from './slice/formSlice';
 import {
@@ -37,11 +37,20 @@ const setCorrect = (inputName, inputValue, regexp, dispatch) => {
 
 const Form = (props) => {
   const classes = useFormStyles();
+  const inputs = toArray(props.inputs);
+
   const [state, dispatch] = useReducer(
     reducer,
     initialState(toArray(props.inputs))
   );
 
+  useEffect(() => {
+    inputs.forEach((input) => {
+      if (input.type !== 'checkbox') {
+        setCorrect(input.name, state[input.name].value, input.regexp, dispatch);
+      }
+    });
+  }, []);
   console.log(state);
 
   const onChange = (event) => {
@@ -69,11 +78,21 @@ const Form = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const payload = {};
-    toArray(props.inputs).forEach((input) => {
-      payload[input.name] = state[input.name].value;
+    let isFormValid = true;
+    inputs.forEach((input) => {
+      if (!state[input.name].correct) {
+        setTested(input.name, dispatch);
+        isFormValid = false;
+      }
     });
-    props.onSubmit(payload);
+
+    if (isFormValid) {
+      const payload = {};
+      inputs.forEach((input) => {
+        payload[input.name] = state[input.name].value;
+      });
+      props.onSubmit(payload);
+    }
   };
 
   return (
@@ -88,7 +107,7 @@ const Form = (props) => {
       </Typography>
       <form onSubmit={onSubmit}>
         <Grid container spacing={2}>
-          {toArray(props.inputs).map((input, index) => {
+          {inputs.map((input, index) => {
             if (input.type === 'text' || input.type === 'number') {
               return (
                 <Grid key={`admin-add-book-input-${index}`} item xs={12}>
@@ -120,7 +139,11 @@ const Form = (props) => {
                 <Grid key={`admin-add-book-checkbox-${index}`} item xs={12}>
                   <FormControlLabel
                     control={
-                      <Checkbox onChange={onChangeCheckbox} name={input.name} />
+                      <Checkbox
+                        onChange={onChangeCheckbox}
+                        name={input.name}
+                        checked={state[input.name].value}
+                      />
                     }
                     label={input.label}
                   />
@@ -184,7 +207,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   submitButtonText: PropTypes.string.isRequired,
   isMakingRequest: PropTypes.bool.isRequired,
-  inputs: PropTypes.obj,
+  inputs: PropTypes.object,
 };
 
 export default Form;

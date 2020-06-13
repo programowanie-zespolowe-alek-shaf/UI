@@ -25,7 +25,7 @@ const Sidebar = (props) => {
 Sidebar.propTypes = {
   title: PropTypes.string,
   baseItemUrl: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.array,
 };
 
 export default Sidebar;

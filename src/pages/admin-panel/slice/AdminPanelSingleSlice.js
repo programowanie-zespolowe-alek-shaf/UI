@@ -6,8 +6,10 @@ export const initialState = {
   item: null,
   isLoading: false,
   isAdding: false,
+  isEditing: false,
   isDeleting: false,
   error: undefined,
+  editingError: undefined,
 };
 
 const adminPanelSingleSlice = createSlice({
@@ -19,8 +21,12 @@ const adminPanelSingleSlice = createSlice({
       state.error = undefined;
     },
     addItemStart(state) {
-      state.isAdding = true;
+      state.isLoading = true;
       state.error = undefined;
+    },
+    editItemStart(state) {
+      state.isEditing = true;
+      state.editingError = undefined;
     },
     deleteItemStart(state) {
       state.isDeleting = true;
@@ -35,6 +41,10 @@ const adminPanelSingleSlice = createSlice({
       state.isAdding = false;
       state.error = undefined;
     },
+    editItemSuccess(state) {
+      state.isEditing = false;
+      state.editingError = undefined;
+    },
     deleteItemSuccess(state) {
       state.isDeleting = false;
       state.error = undefined;
@@ -47,6 +57,10 @@ const adminPanelSingleSlice = createSlice({
     addItemFailure(state, action) {
       state.isAdding = false;
       state.error = action.payload;
+    },
+    editItemFailure(state, action) {
+      state.isEditing = false;
+      state.editingError = action.payload;
     },
     deleteItemFailure(state, action) {
       state.isDeleting = false;
@@ -64,6 +78,9 @@ const {
   addItemStart,
   addItemSuccess,
   addItemFailure,
+  editItemStart,
+  editItemSuccess,
+  editItemFailure,
   deleteItemStart,
   deleteItemSuccess,
   deleteItemFailure,
@@ -108,6 +125,24 @@ export const addItem = async (dispatch, destination, data, callback) => {
   } catch (error) {
     const message = error.response.data.error;
     dispatch(addItemFailure(message));
+  }
+};
+
+export const editItem = async (dispatch, destination, id, data, callback) => {
+  try {
+    dispatch(editItemStart);
+    await request({
+      url: `${urlsMap[destination]}/${id}`,
+      method: 'put',
+      data: {
+        ...data,
+      },
+    });
+    dispatch(editItemSuccess);
+    callback();
+  } catch (error) {
+    const message = error.response.data.error;
+    dispatch(editItemFailure(message));
   }
 };
 
