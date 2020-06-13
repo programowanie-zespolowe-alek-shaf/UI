@@ -6,13 +6,13 @@ export const initialState = (inputs) => {
   inputs.forEach((input) => {
     if (input.type === 'checkbox') {
       initialState[input.name] = {
-        value: input.checked,
+        value: input.defaultValue || false,
         tested: false,
         correct: true,
       };
     } else {
       initialState[input.name] = {
-        value: '',
+        value: input.defaultValue || '',
         tested: false,
         correct: false,
       };

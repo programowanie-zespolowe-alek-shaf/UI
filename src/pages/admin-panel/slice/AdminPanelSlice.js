@@ -61,7 +61,7 @@ export const getAdminPanelItems = async (dispatch, destination) => {
       dispatch(fetchAdminPanelItemsSuccess(items.list));
     }
   } catch (error) {
-    const message = error.response.data;
+    const message = error.response.data.error;
     dispatch(fetchAdminPanelItemsFailure(message));
   }
 };

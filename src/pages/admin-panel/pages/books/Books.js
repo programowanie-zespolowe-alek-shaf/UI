@@ -20,7 +20,7 @@ import BookPreview from './components/BookPreview/BookPreview';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
 
-const Books = ({ books }) => {
+const Books = ({ books, onBookDelete }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -62,7 +62,7 @@ const Books = ({ books }) => {
           <TableBody>
             {books.map((book, index) => (
               <TableRow key={`admin-book-${index}`}>
-                <BookPreview book={book} />
+                <BookPreview book={book} onDelete={onBookDelete} />
               </TableRow>
             ))}
           </TableBody>
@@ -74,6 +74,7 @@ const Books = ({ books }) => {
 
 Books.propTypes = {
   books: PropTypes.array,
+  onBookDelete: PropTypes.func,
 };
 
 export default withRouter(Books);
