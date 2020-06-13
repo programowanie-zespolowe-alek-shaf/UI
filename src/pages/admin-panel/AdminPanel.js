@@ -18,6 +18,7 @@ import { Box } from '@material-ui/core';
 import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
 import { default as Book } from './pages/book/BookContainer';
+import { default as AddBook } from './pages/book/AddBookContainer';
 import { default as Users } from './pages/users/UsersContainer';
 import { default as User } from './pages/user/UserContainer';
 import Orders from './pages/orders/OrdersContainer';
@@ -44,7 +45,7 @@ const AdminPanel = () => {
           <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
           <Route exact path={ADMIN_PAGE_BOOK} component={Book} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={Book} />
-          <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={Book} />
+          <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
           <Route exact path={ADMIN_PAGE_USER} component={User} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={User} />
           <Route exact path={ADMIN_PAGE_USERS} component={Users} />
