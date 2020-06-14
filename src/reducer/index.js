@@ -7,6 +7,7 @@ import paginationSlice from '../components/pagination/slice/paginationSlice';
 import categoriesSlice from '../pages/category/slice/categoriesSlice';
 import bookSlice from '../pages/book/slice/bookSlice';
 import customersSlice from '../pages/customers/slice/customersSlice';
+import routeSlice from '../reducer/routeSlice';
 
 export const allReducers = combineReducers({
   login: loginReducer,
@@ -17,4 +18,5 @@ export const allReducers = combineReducers({
   categories: categoriesSlice,
   book: bookSlice,
   customer: customersSlice,
+  route: routeSlice,
 });
