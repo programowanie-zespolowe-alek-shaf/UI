@@ -25,6 +25,8 @@ const adminPanelOrderDetailsSlice = createSlice({
     fetchOrder(state, action) {
       state.isLoading = true;
       state.isLoaded = false;
+      state.error = undefined;
+
     },
     fetchOrderSuccess(state, action) {
       state.isLoading = false;
@@ -32,7 +34,7 @@ const adminPanelOrderDetailsSlice = createSlice({
       state.order = Object.assign(state.order, action.payload);
       state.error = undefined;
     },
-    fetchBookError(state, action) {
+    fetchOrderError(state, action) {
       state.isLoading = false;
       state.isLoaded = false;
       state.order = {};

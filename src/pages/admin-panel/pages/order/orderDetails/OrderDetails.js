@@ -3,6 +3,7 @@ import useFeaturedStyles from "../../../../main/components/featured/FeaturedStyl
 import styles from "./styles/OrderDetails.scss";
 import {Button} from "@material-ui/core";
 import {bool, PropTypes as pt} from "prop-types";
+import BookDetails from "../../book/pages/bookDetails/BookDetails";
 
 const OrderDetails = ({order}) => {
   const classes = useFeaturedStyles();
@@ -20,9 +21,10 @@ const OrderDetails = ({order}) => {
   );
 };
 
-OrderDetails.propTypes = {
-
-};
+// OrderDetails.propTypes = {
+//   loading: bool,
+//   error
+// };
 
 
 export default OrderDetails;
