@@ -17,8 +17,9 @@ import { Box } from '@material-ui/core';
 
 import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
-import { default as Book } from './pages/book/BookContainer';
-import { default as AddBook } from './pages/book/AddBookContainer';
+import AddBook from './pages/book/pages/addBook/AddBook';
+import EditBook from './pages/book/pages/editBook/EditBook';
+import BookDetails from './pages/book/pages/bookDetails/BookDetails';
 import { default as Users } from './pages/users/UsersContainer';
 import { default as User } from './pages/user/UserContainer';
 import Orders from './pages/orders/OrdersContainer';
@@ -29,7 +30,7 @@ const AdminPanel = () => {
   const classes = useAdminPanelStyles();
 
   return (
-    <Box className={classes.container}>
+    <Box className={classes.container} mb={4}>
       <Sidebar
         title={sidebar.title}
         items={sidebar.items}
@@ -43,8 +44,8 @@ const AdminPanel = () => {
             component={Orders}
           />
           <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
-          <Route exact path={ADMIN_PAGE_BOOK} component={Book} />
-          <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={Book} />
+          <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
+          <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
           <Route exact path={ADMIN_PAGE_USER} component={User} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={User} />

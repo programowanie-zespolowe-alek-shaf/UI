@@ -39,7 +39,7 @@ const App = () => {
         <Route path={'/book/:bookId'} component={BookContainer} />
         <Route path={'/category/:categoryId/:pageId?'} component={Category} />
         <Route path={'/search/:pageId?'} component={Search} />
-        <Route path={'/order'} component={OrderContainer} />
+        <PrivateRoute path={'/order'} component={OrderContainer} />
         <Route path={'/cart'} component={CartContainer} />
         <PrivateRoute adminNeeded path={'/admin'} component={AdminPanel} />
         <PrivateRoute path={'/profile'} component={Profile} />

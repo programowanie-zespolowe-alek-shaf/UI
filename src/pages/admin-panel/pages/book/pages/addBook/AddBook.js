@@ -1,19 +1,21 @@
 import React, { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import Form from '../../../../components/form/Form';
+import Form from '../../../../../../components/form/Form';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 import { Box } from '@material-ui/core';
 
 import {
   initialState,
   reducer,
-  addAdminPanelItem,
-} from '../../slice/AdminPanelSingleSlice';
-import addBookInputs from './inputs/addBookInputs';
+  addItem,
+} from '../../../../slice/AdminPanelSingleSlice';
+import bookInputs from '../../inputs/bookInputs';
 import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
 
-const addBookContainer = () => {
+const inputs = bookInputs();
+
+const AddBook = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
@@ -21,12 +23,20 @@ const addBookContainer = () => {
 
   useEffect(() => {
     if (state.error) {
-      dispatch(triggerGlobalAlert('error', `Wystąpił błąd: ${state.error}`));
+      dispatch(
+        triggerGlobalAlert(
+          'error',
+          `Podczas dodawania książki wystąpił błąd: ${state.error}`
+        )
+      );
     }
   }, [state.error]);
 
   useEffect(() => {
-    addBookInputs['category'].options = categories.items;
+    const categoryOptions = categories.items.map((item) => {
+      return { name: item.name, value: item.id };
+    });
+    inputs['categoryId'].options = categoryOptions;
   }, [categories]);
 
   const onSuccess = () => {
@@ -37,7 +47,7 @@ const addBookContainer = () => {
   };
 
   const onAddBook = (bookData) => {
-    addAdminPanelItem(dispatchLocal, 'book', bookData, onSuccess);
+    addItem(dispatchLocal, 'book', bookData, onSuccess);
   };
 
   return (
@@ -46,11 +56,11 @@ const addBookContainer = () => {
         title='Dodaj książkę'
         onSubmit={onAddBook}
         submitButtonText='Dodaj książkę'
-        isMakingRequest={state.isAdding}
-        inputs={addBookInputs}
+        isMakingRequest={state.isLoading}
+        inputs={inputs}
       />
     </Box>
   );
 };
 
-export default addBookContainer;
+export default AddBook;

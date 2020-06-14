@@ -8,10 +8,11 @@ import { useSelector, shallowEqual } from 'react-redux';
 const LoginContainer = () => {
   const history = useHistory();
   const login = useSelector(state => state.login, shallowEqual);
+  const lastRoute = useSelector(state => state.route.lastRoute, shallowEqual);
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated, shallowEqual);
 
   useEffect(() => {
-    if (isAuthenticated) history.push('/');
+    if (isAuthenticated) history.push(lastRoute);
   }, [isAuthenticated]);
 
   const dispatch = useDispatch();
