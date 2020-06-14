@@ -1,14 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, shallowEqual } from 'react-redux';
+import OrderData from './components/OrderData';
+import styles from './styles/orderStyles.scss';
+import { customerDataInputs } from './orderDataInputs';
+import StripeCheckoutButton from './components/StripeCheckoutButton';
 
-function OrderContainer(props) {
+function OrderContainer() {
+  const customer = useSelector((state) => state.customer.details, shallowEqual);
+  const initInputs = {
+    firstName: customer.firstName,
+    lastName: customer.lastName,
+    phone: customer.phone,
+    address: customer.address,
+    email: customer.email,
+  };
+
+  const inputs = customerDataInputs(initInputs);
+
+  const openPayment = () => {};
+
   return (
-    <div>Order</div>
+    <div className={styles.container}>
+      <OrderData
+        inputs={inputs}
+        customer={customer}
+        goToPayment={openPayment}
+      />
+      <StripeCheckoutButton price={20} />
+    </div>
   );
 }
 
-OrderContainer.propTypes = {
-
-};
+OrderContainer.propTypes = {};
 
 export default OrderContainer;

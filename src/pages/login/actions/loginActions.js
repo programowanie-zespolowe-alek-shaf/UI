@@ -83,7 +83,7 @@ export const getUserInfoAction = () => (dispatch) => {
 
     if(error.response.status === 401) {
       const cartId = getCartFromStorage();
-      dispatch(receiveUserError(error.response && error.response.data.error))
+      dispatch(receiveUserError(error.response && error.response.data.error));
       if(cartId) return dispatch(getUsersCart(cartId));
       dispatch(createShoppingCart(null));
     }
