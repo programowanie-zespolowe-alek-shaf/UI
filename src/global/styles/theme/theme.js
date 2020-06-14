@@ -43,12 +43,6 @@ const theme = createMuiTheme({
     subtitle2: {
       fontSize: 14,
     },
-    // Dla każdej font family te wartości są inne
-    // https://material.io/design/typography/the-type-system.html#type-scale
-    // Caption : fontSize: 12
-    // Overline: fontSize: 12
-    // SubTitle1: fontSize: 16
-    // SubTitle2: fontSize 14
   },
 });
 export default theme;
