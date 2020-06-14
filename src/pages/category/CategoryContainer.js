@@ -44,8 +44,6 @@ const CategoryContainer = () => {
     }
   }, [categories.items, categoryId]);
 
-  console.log(pageId);
-
   return (
     <MainLayout key='category'>
       <CategoryWithLoading
