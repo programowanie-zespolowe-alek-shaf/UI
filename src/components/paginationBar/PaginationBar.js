@@ -19,7 +19,7 @@ const PaginationBar = ({ page, pagesCount, baseUrl }) => {
   if (pagesCount > 1) {
     return (
       <Pagination
-        page={page}
+        page={page ? page : 1}
         size={'large'}
         classes={{ root: classes.root }}
         count={pagesCount}

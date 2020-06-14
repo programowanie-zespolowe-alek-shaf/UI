@@ -9,6 +9,7 @@ import {
   Link,
   Typography,
   Button,
+  Box,
 } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { BOOK_PAGE } from 'global/constants/pages';
@@ -39,30 +40,34 @@ const BookCard = (props) => {
           />
         </Link>
       </CardActionArea>
-      <CardContent className={classes.content}>
+      <CardContent classes={{ root: classes.content }}>
         <Link to={`${BOOK_PAGE}/${id}`} component={RouterLink}>
-          <Typography variant='h6'>{title}</Typography>
+          <Typography variant='h6' className={classes.title}>
+            {title}
+          </Typography>
         </Link>
         <Typography variant='subtitle2' className={classes.author}>
           {author}, {year}
         </Typography>
 
-        <Typography variant='subtitle2' className={classes.description}>
+        <Typography variant='caption' className={classes.description}>
           {description}
         </Typography>
-        <Typography variant='subtitle1' className={classes.price}>
-          {price} zł
-        </Typography>
-        <Button
-          size='small'
-          variant='contained'
-          color='primary'
-          startIcon={<AddShoppingCartIcon />}
-          classes={{ root: classes.addToCart }}
-          onClick={() => handleAddToCart(id)}
-        >
-          <Typography variant='caption'>Do koszyka</Typography>
-        </Button>
+        <Box display='flex' justifyContent='space-between' mt={'auto'}>
+          <Typography variant='subtitle1' className={classes.price}>
+            {price} zł
+          </Typography>
+          <Button
+            size='small'
+            variant='contained'
+            color='primary'
+            startIcon={<AddShoppingCartIcon />}
+            classes={{ root: classes.addToCart }}
+            onClick={() => handleAddToCart(id)}
+          >
+            <Typography variant='caption'>Do koszyka</Typography>
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );

@@ -2,6 +2,15 @@ import { makeStyles } from '@material-ui/styles';
 const useBookCardStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    height: 220,
+    padding: 10,
+  },
+  title: {
+    lineHeight: '1.3',
+    marginBottom: 5,
+  },
+  author: {
+    marginBottom: 8,
   },
   actionArea: {
     display: 'flex',
@@ -9,19 +18,24 @@ const useBookCardStyles = makeStyles((theme) => ({
     width: 'auto',
   },
   image: {
-    height: 250,
-    width: 180,
+    height: 200,
+    width: 130,
+    objectFit: 'cover',
   },
   content: {
     display: 'flex',
     flexDirection: 'column',
-    height: '220px',
     width: '100%',
+    paddingRight: 20,
+    paddingLeft: 20,
+    '&:last-child': {
+      paddingBottom: 10,
+    },
   },
   description: {
     overflow: 'hidden',
-    marginTop: theme.spacing(0.3),
-    marginBottom: theme.spacing(1),
+    textOverflow: 'ellipsis',
+    marginBottom: theme.spacing(2),
   },
   price: {
     marginTop: 'auto',

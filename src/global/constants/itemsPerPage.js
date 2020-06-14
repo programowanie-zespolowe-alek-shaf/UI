@@ -1,5 +1,5 @@
 const itemsPerPage = {
-  CATEGORY: 6,
+  CATEGORY: 9,
 };
 
 export default itemsPerPage;

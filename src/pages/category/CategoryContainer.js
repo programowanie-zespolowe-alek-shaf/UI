@@ -46,6 +46,17 @@ const CategoryContainer = () => {
     }
   }, [categories.items, categoryId]);
 
+  useEffect(() => {
+    if (!state.loading && !state.error) {
+      if (
+        pageId > Math.ceil(state.count / itemsPerPage.CATEGORY) ||
+        pageId <= 0
+      ) {
+        history.push(`${CATEGORY_PAGE}/${categoryId}`);
+      }
+    }
+  }, [state.loading]);
+
   return (
     <MainLayout key='category'>
       <CategoryWithLoading
@@ -54,8 +65,6 @@ const CategoryContainer = () => {
         books={state.books}
         error={state.error}
         name={categoryName}
-        id={parseInt(categoryId)}
-        pageId={parseInt(pageId)}
       />
       <PaginationBar
         pagesCount={Math.ceil(state.count / itemsPerPage.CATEGORY)}
