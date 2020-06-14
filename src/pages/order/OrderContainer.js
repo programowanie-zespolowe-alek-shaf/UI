@@ -3,23 +3,21 @@ import { useSelector, shallowEqual } from 'react-redux';
 import OrderData from './components/OrderData';
 import styles from './styles/orderStyles.scss';
 import { customerDataInputs } from './orderDataInputs';
+import StripeCheckoutButton from './components/StripeCheckoutButton';
 
 function OrderContainer() {
-  
-  const customer = useSelector(state => state.customer.details, shallowEqual);
+  const customer = useSelector((state) => state.customer.details, shallowEqual);
   const initInputs = {
     firstName: customer.firstName,
     lastName: customer.lastName,
-    phone: customer.phone, 
+    phone: customer.phone,
     address: customer.address,
     email: customer.email,
   };
 
   const inputs = customerDataInputs(initInputs);
 
-  const openPayment = () => {
-
-  };
+  const openPayment = () => {};
 
   return (
     <div className={styles.container}>
@@ -28,12 +26,11 @@ function OrderContainer() {
         customer={customer}
         goToPayment={openPayment}
       />
+      <StripeCheckoutButton price={20} />
     </div>
   );
 }
 
-OrderContainer.propTypes = {
-
-};
+OrderContainer.propTypes = {};
 
 export default OrderContainer;
