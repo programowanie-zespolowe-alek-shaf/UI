@@ -12,6 +12,7 @@ import {
   ADMIN_PAGE_USER_EDIT,
   ADMIN_PAGE_USERS,
   ADMIN_PAGE_USERS_ADD,
+  ADMIN_PAGE_ORDER,
 } from 'global/constants/pages';
 import { Box } from '@material-ui/core';
 
@@ -24,6 +25,7 @@ import { default as User } from './pages/user/UserContainer';
 import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
 
 import Orders from './pages/orders/OrdersContainer';
+import Order from './pages/order/orderDetails/OrderDetailsContainer';
 
 import useAdminPanelStyles from './AdminPanelStyles';
 
@@ -39,11 +41,9 @@ const AdminPanel = () => {
       />
       <Box className={classes.content}>
         <Switch>
-          <Route
-            exact
-            path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]}
-            component={Orders}
-          />
+          <Route exact path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]} component={Orders}/>
+          <Route exact path={ADMIN_PAGE_ORDER} component={Order} />
+
           <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />

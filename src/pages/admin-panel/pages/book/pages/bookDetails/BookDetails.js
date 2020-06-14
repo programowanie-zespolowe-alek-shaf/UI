@@ -1,8 +1,6 @@
 import React from 'react';
 import useFeaturedStyles from "../../../../../main/components/featured/FeaturedStyles";
 import styles from "../../../../../book/styles/BookDetails.scss";
-import {Button} from "@material-ui/core";
-import {bool, PropTypes as pt} from "prop-types";
 
 const BookDetails = ({book}) => {
   const classes = useFeaturedStyles();
@@ -23,23 +21,6 @@ const BookDetails = ({book}) => {
         </div>
       </div>
   );
-};
-
-BookDetails.propTypes = {
-  loading: bool,
-  id: pt.number,
-  title: pt.string,
-  category: pt.shape({
-    id: pt.number,
-    name: pt.string
-  }),
-  author: pt.string,
-  description: pt.string,
-  amount: pt.number,
-  price: pt.number,
-  available: pt.bool,
-  photoUrl: pt.string,
-  onAdd: pt.func,
 };
 
 
