@@ -38,8 +38,7 @@ Category.propTypes = {
   count: PropTypes.number.isRequired,
   books: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  pageId: PropTypes.number.isRequired,
 };
 
 export default Category;
+
