@@ -4,6 +4,7 @@ import { api } from 'global/connection/backend/endpoints';
 import { response, deleteResponse } from '../../../global/mock/book';
 import axios from 'axios';
 import {number} from "prop-types";
+import {fetchUser, fetchUserError, fetchUserSuccess} from "../../profile/slice/ProfileDetailsSlice";
 
 
 export const initialState = {
@@ -43,26 +44,20 @@ const adminPanelOrderDetailsSlice = createSlice({
   },
 });
 export const { reducer, actions } = adminPanelOrderDetailsSlice;
-const {
+export const {
   fetchOrder,
   fetchOrderSuccess,
   fetchOrderError
 } = actions;
 
 export const getOrderById = async (dispatch, orderId) => {
-  try {
-    dispatch(fetchOrder());
-    const response = await axios.get(
-      `${api.orders}/${orderId}`
-    );
-    const order = await response.data;
-    console.log(order);
-    dispatch(fetchOrderSuccess(order));
-  } catch (error) {
-    const message = error.response.data;
-    dispatch(fetchOrderError(message));
-  }
+  dispatch(fetchOrder());
+  const response = request({
+    url: `${api.orders}/${orderId}`,
+    method: 'get',
+  }).then((response) => {
+    dispatch(fetchOrderSuccess(response.data));
+  }).catch((error) => {
+    dispatch(fetchOrderError(error.response && error.response.data.error));
+  });
 };
-
-
-export default reducer;
