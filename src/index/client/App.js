@@ -9,7 +9,7 @@ import PrivateRoute from '../../components/privateRoute/PrivateRoute';
 
 import Navbar from '../../components/navbar/Navbar';
 import Main from '../../pages/main/Main';
-import Category from '../../pages/category/Category';
+import { default as Category } from '../../pages/category/CategoryContainer';
 import Search from '../../pages/search/Search';
 import Profile from '../../pages/profile/Profile';
 import CartContainer from '../../pages/cart/CartContainer';

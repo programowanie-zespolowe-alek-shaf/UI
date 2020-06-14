@@ -30,16 +30,20 @@ const { actions, reducer } = categoriesSlice;
 export const {
   requestCategories,
   receiveCategories,
-  receiveCategoriesError
+  receiveCategoriesError,
 } = actions;
 
 export const getCategories = () => (dispatch) => {
   dispatch(requestCategories());
-  request({ url: api.categories, method: 'get', }).then((response) => {
-    dispatch(receiveCategories(response.data));
-  }).catch((error) => {
-    dispatch(receiveCategoriesError(error.response && error.response.data.error));
-  });
+  request({ url: api.categories, method: 'get' })
+    .then((response) => {
+      dispatch(receiveCategories(response.data));
+    })
+    .catch((error) => {
+      dispatch(
+        receiveCategoriesError(error.response && error.response.data.error)
+      );
+    });
 };
 
 export default reducer;
