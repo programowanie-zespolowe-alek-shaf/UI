@@ -10,8 +10,6 @@ import {
 } from './slice/categorySlice.js';
 import { MAIN_PAGE } from 'global/constants/pages';
 import MainLayout from 'components/mainLayout/MainLayout';
-import { Pagination, PaginationItem } from '@material-ui/lab';
-import { Link } from 'react-router-dom';
 import { CATEGORY_PAGE } from 'global/constants/pages';
 import itemsPerPage from 'global/constants/itemsPerPage';
 import PaginationBar from 'components/paginationBar/PaginationBar';
@@ -35,12 +33,16 @@ const CategoryContainer = () => {
   }, [categoryId, pageId]);
 
   useEffect(() => {
-    const category = categories.items.find((category) => {
-      return category.id === parseInt(categoryId);
-    });
+    if (categories.items.length > 0) {
+      const category = categories.items.find((category) => {
+        return category.id === parseInt(categoryId);
+      });
 
-    if (category) {
-      setCategoryName(category.name);
+      if (category) {
+        setCategoryName(category.name);
+      } else {
+        history.push(MAIN_PAGE);
+      }
     }
   }, [categories.items, categoryId]);
 
