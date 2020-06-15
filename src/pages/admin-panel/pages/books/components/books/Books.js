@@ -24,8 +24,6 @@ import useAdminPanelStyles from '../../../../AdminPanelStyles';
 const Books = ({ items, onBookDelete }) => {
   const commonClasses = useAdminPanelStyles();
 
-  console.log('Books items', items);
-
   return (
     <Box display='flex' flexDirection='column' width={'100%'}>
       <Box
