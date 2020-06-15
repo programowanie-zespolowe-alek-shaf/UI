@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import BookPreview from '../bookPreview/BookPreview';
+import BookPreview from '../BookPreview/BookPreview';
 
 import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
