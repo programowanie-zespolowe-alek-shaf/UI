@@ -12,16 +12,20 @@ import {
   ADMIN_PAGE_USER_EDIT,
   ADMIN_PAGE_USERS,
   ADMIN_PAGE_ORDER,
+  ADMIN_PAGE_CATEGORIES,
+  ADMIN_PAGE_CATEGORY_ADD,
 } from 'global/constants/pages';
 import { Box } from '@material-ui/core';
 
 import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
 import AddBook from './pages/book/pages/addBook/AddBook';
+import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
 import EditBook from './pages/book/pages/editBook/EditBook';
 import { default as Users } from './pages/users/UsersContainer';
 import { default as UserDetails } from './pages/user/userDetails/UserDetailsContainer';
-import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
+import { default as Categories } from './pages/categories/CategoriesContainer';
+import AddCategory from './pages/category/addCategory/AddCategory';
 
 import Orders from './pages/orders/OrdersContainer';
 import Order from './pages/order/orderDetails/OrderDetailsContainer';
@@ -69,6 +73,12 @@ const AdminPanel = () => {
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_CATEGORIES}/:pageId?`}
+            component={Categories}
+          />
+          <Route exact path={ADMIN_PAGE_CATEGORY_ADD} component={AddCategory} />
           <Route
             exact
             path={`${ADMIN_PAGE_USERS}/:pageId?`}

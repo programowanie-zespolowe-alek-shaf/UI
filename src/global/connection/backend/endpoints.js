@@ -11,6 +11,7 @@ const endpoint = (baseUrl) => {
     books: baseUrl + '/product-catalog-ms/books',
     categories: baseUrl + '/product-catalog-ms/categories',
     orders: baseUrl + '/order-management-ms/orders',
+    coupons: baseUrl + '/payment-ms/coupon',
   };
 };
 

@@ -90,6 +90,7 @@ const urlsMap = {
   book: api.books,
   user: api.customersUsers,
   order: api.orders,
+  category: api.categories,
 };
 
 export const getItem = async (dispatch, destination, id) => {

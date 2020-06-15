@@ -1,23 +1,34 @@
 import React, { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Form from 'components/form/Form';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 import { Box } from '@material-ui/core';
-
 import {
   initialState,
   reducer,
   addItem,
-} from '../../../../slice/AdminPanelSingleSlice';
-import bookInputs from '../../inputs/bookInputs';
-import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
+} from '../../../slice/AdminPanelSingleSlice';
+import { ADMIN_PAGE_CATEGORIES } from 'global/constants/pages';
 
-const inputs = bookInputs();
+const categoryInputs = () => {
+  return {
+    name: {
+      type: 'text',
+      name: 'name',
+      id: 'name',
+      label: 'Nazwa',
+      defaultValue: false,
+      regexp: /^(?!\s*$).+/,
+      helperText: 'Nazwa jest wymagana',
+    },
+  };
+};
 
-const AddBook = () => {
+const inputs = categoryInputs();
+
+const AddCategory = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
-  const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -32,30 +43,24 @@ const AddBook = () => {
     }
   }, [state.error]);
 
-  useEffect(() => {
-    const categoryOptions = categories.items.map((item) => {
-      return { name: item.name, value: item.id };
-    });
-    inputs['categoryId'].options = categoryOptions;
-  }, [categories]);
-
   const onSuccess = () => {
     dispatch(
       triggerGlobalAlert('success', 'Książka została dodana pomyślnie!')
     );
-    history.push(ADMIN_PAGE_BOOKS);
+    history.push(ADMIN_PAGE_CATEGORIES);
   };
 
-  const onAddBook = (bookData) => {
-    addItem(dispatchLocal, 'book', bookData, onSuccess);
+  const onAddBook = (categoryData) => {
+    console.log(categoryData);
+    addItem(dispatchLocal, 'category', categoryData, onSuccess);
   };
 
   return (
     <Box maxWidth={500}>
       <Form
-        title='Dodaj książkę'
+        title='Dodaj kategorię'
         onSubmit={onAddBook}
-        submitButtonText='Dodaj książkę'
+        submitButtonText='Dodaj kategorię'
         isMakingRequest={state.isLoading}
         inputs={inputs}
       />
@@ -63,4 +68,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default AddCategory;
