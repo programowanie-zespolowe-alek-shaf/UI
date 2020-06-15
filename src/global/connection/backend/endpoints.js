@@ -1,5 +1,5 @@
 const prodBase = '/api';
-const devBase = 'http://34.107.227.129/api';
+const devBase = 'http://34.120.101.190/api';
 
 const endpoint = (baseUrl) => {
   return {
