@@ -1,102 +1,23 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  initialState as listInitialState,
-  reducer as listReducer,
-  getAdminPanelItems,
-} from '../../slice/AdminPanelSlice';
-import {
-  reducer as singleReducer,
-  initialState as singleInitialState,
-  deleteItem,
-} from '../../slice/AdminPanelSingleSlice';
-import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
+import React from 'react';
+import { api } from 'global/connection/backend/endpoints';
+import itemsPerPage from 'global/constants/itemsPerPage';
+import { ADMIN_PAGE_BOOKS } from 'global/constants/pages';
 
-import WithLoading from 'components/withLoading/WithLoading';
-import Books from './Books';
-import ConfirmationModal from 'components/confirmationModal/ConfirmationModal';
+import BooksManager from './components/manager/BooksManager';
+import WithPagination from 'components/withPagination/WithPagination';
 
-const BooksWithLoading = WithLoading(Books);
+const BooksManagerWithPagination = WithPagination(BooksManager);
 
-const BookContainer = () => {
-  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-  const [deletedBookTitle, setDeletedBookTitle] = useState(undefined);
-  const [deletedBookId, setDeletedBookId] = useState(undefined);
-  const dispatch = useDispatch();
-  const [listState, listDispatchLocal] = useReducer(
-    listReducer,
-    listInitialState
-  );
-  const [singleState, singleDispatchLocal] = useReducer(
-    singleReducer,
-    singleInitialState
-  );
-
-  useEffect(() => {
-    getAdminPanelItems(listDispatchLocal, 'books');
-  }, []);
-
-  useEffect(() => {
-    if (singleState.error) {
-      dispatch(
-        triggerGlobalAlert(
-          'error',
-          `Wystąpił błąd podczas usuwania książki "${deletedBookTitle}:" ${singleState.error}`
-        )
-      );
-    }
-    if (listState.error) {
-      dispatch(
-        triggerGlobalAlert(
-          'error',
-          `Wystąpił błąd podczas wczytywania listy książek: ${singleState.error}`
-        )
-      );
-    }
-  }, [singleState.error, listState.error]);
-
-  const onBookDelete = (bookId, bookTitle) => {
-    setDeletedBookTitle(bookTitle);
-    setDeletedBookId(bookId);
-    setIsConfirmDeleteOpen(true);
-  };
-
-  const deleteBook = (bookId) => {
-    const onSuccess = () => {
-      dispatch(
-        triggerGlobalAlert(
-          'success',
-          `Książka "${deletedBookTitle}" została usunięta pomyślnie!`
-        )
-      );
-      getAdminPanelItems(listDispatchLocal, 'books');
-    };
-
-    deleteItem(singleDispatchLocal, 'book', bookId, onSuccess);
-    setIsConfirmDeleteOpen(false);
-    setDeletedBookTitle(undefined);
-    setDeletedBookId(undefined);
-  };
-
+const BooksContainer = () => {
+  const fetchBaseUrl = `${api.books}?`;
+  const clientBaseUrl = `${ADMIN_PAGE_BOOKS}`;
   return (
-    <React.Fragment>
-      <ConfirmationModal
-        isOpen={isConfirmDeleteOpen}
-        setOpen={setIsConfirmDeleteOpen}
-        title={'Potwierdź operację usunięcia'}
-        text={`Czy na pewno chcesz usunąć książkę "${deletedBookTitle}"?`}
-        aggreeText={'Usuń'}
-        cancelText={'Anuluj'}
-        aggreeCallback={() => deleteBook(deletedBookId)}
-      />
-      <BooksWithLoading
-        books={listState.items}
-        isLoading={listState.isLoading}
-        error={listState.error}
-        onBookDelete={onBookDelete}
-      />
-    </React.Fragment>
+    <BooksManagerWithPagination
+      itemsPerPage={itemsPerPage.ADMIN_LIST}
+      fetchBaseUrl={fetchBaseUrl}
+      clientBaseUrl={clientBaseUrl}
+    />
   );
 };
 
-export default BookContainer;
+export default BooksContainer;

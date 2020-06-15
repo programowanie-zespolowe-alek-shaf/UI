@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { sidebar } from 'global/constants/adminPanel';
 import {
   ADMIN_PAGE,
@@ -11,7 +11,6 @@ import {
   ADMIN_PAGE_USER,
   ADMIN_PAGE_USER_EDIT,
   ADMIN_PAGE_USERS,
-  ADMIN_PAGE_USERS_ADD,
   ADMIN_PAGE_ORDER,
 } from 'global/constants/pages';
 import { Box } from '@material-ui/core';
@@ -31,6 +30,15 @@ import useAdminPanelStyles from './AdminPanelStyles';
 
 const AdminPanel = () => {
   const classes = useAdminPanelStyles();
+  const location = useLocation();
+  const history = useHistory();
+
+  if (
+    location.pathname === ADMIN_PAGE ||
+    location.pathname === `${ADMIN_PAGE}/`
+  ) {
+    history.push(ADMIN_PAGE_ORDERS);
+  }
 
   return (
     <Box className={classes.container} mb={4}>
@@ -41,16 +49,31 @@ const AdminPanel = () => {
       />
       <Box className={classes.content}>
         <Switch>
-          <Route exact path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]} component={Orders}/>
-          <Route exact path={ADMIN_PAGE_ORDER} component={Order} />
-          <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
+          <Route
+            exact
+            path={[`${ADMIN_PAGE}`, `${ADMIN_PAGE_ORDERS}/:pageId?`]}
+            component={Orders}
+          />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_ORDER}/:pageId?`}
+            component={Order}
+          />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_BOOKS}/:pageId?`}
+            component={Books}
+          />
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
-          <Route exact path={ADMIN_PAGE_USERS} component={Users} />
-          <Route exact path={ADMIN_PAGE_USERS_ADD} component={UserDetails} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_USERS}/:pageId?`}
+            component={Users}
+          />
         </Switch>
       </Box>
     </Box>

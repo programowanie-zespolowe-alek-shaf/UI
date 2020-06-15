@@ -13,7 +13,7 @@ const usePaginationStyles = makeStyles(() => ({
   },
 }));
 
-const PaginationBar = ({ page, pagesCount, baseUrl }) => {
+const PaginationBar = ({ page, pagesCount, baseUrl, afterBaseUrl }) => {
   const classes = usePaginationStyles();
 
   if (pagesCount > 1) {
@@ -26,7 +26,7 @@ const PaginationBar = ({ page, pagesCount, baseUrl }) => {
         renderItem={(item) => (
           <PaginationItem
             component={Link}
-            to={`${baseUrl}/${item.page}`}
+            to={`${baseUrl}/${item.page}${afterBaseUrl ? afterBaseUrl : ''}`}
             {...item}
           />
         )}
@@ -41,6 +41,7 @@ PaginationBar.propTypes = {
   page: PropTypes.number.isRequired,
   pagesCount: PropTypes.number.isRequired,
   baseUrl: PropTypes.string.isRequired,
+  afterBaseUrl: PropTypes.string,
 };
 
 export default PaginationBar;

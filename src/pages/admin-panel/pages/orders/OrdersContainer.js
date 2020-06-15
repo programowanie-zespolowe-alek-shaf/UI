@@ -1,31 +1,25 @@
-import React, { useEffect, useReducer } from 'react';
-import {
-  initialState,
-  reducer,
-  getAdminPanelItems,
-} from '../../slice/AdminPanelSlice';
+import React from 'react';
+import { api } from 'global/connection/backend/endpoints';
+import itemsPerPage from 'global/constants/itemsPerPage';
+import { ADMIN_PAGE_ORDERS } from 'global/constants/pages';
 
-import WithLoading from 'components/withLoading/WithLoading';
+import WithPagination from 'components/withPagination/WithPagination';
 
 import Orders from './Orders';
 
-const OrdersWithLoading = WithLoading(Orders);
+const OrdersWithPagination = WithPagination(Orders);
 
-const BookContainer = () => {
-  const [state, dispatchLocal] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    getAdminPanelItems(dispatchLocal, 'orders');
-  }, []);
+const OrdersContainer = () => {
+  const fetchBaseUrl = `${api.orders}?`;
+  const clientBaseUrl = `${ADMIN_PAGE_ORDERS}`;
 
   return (
-    <OrdersWithLoading
-      orders={state.items}
-      isLoading={state.isLoading}
-      isLoaded={state.isLoaded}
-      error={state.error}
+    <OrdersWithPagination
+      fetchBaseUrl={fetchBaseUrl}
+      clientBaseUrl={clientBaseUrl}
+      itemsPerPage={itemsPerPage.ADMIN_LIST}
     />
   );
 };
 
-export default BookContainer;
+export default OrdersContainer;
