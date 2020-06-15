@@ -6,7 +6,7 @@ import BookCard from 'components/bookCard/BookCard';
 import { Typography } from '@material-ui/core';
 import useCategoryStyles from './CategoryStyles';
 
-const Category = ({ books, name }) => {
+const Category = ({ items, name }) => {
   const classes = useCategoryStyles();
 
   return (
@@ -15,7 +15,7 @@ const Category = ({ books, name }) => {
         {name}
       </Typography>
       <Grid>
-        {books.map((book, index) => {
+        {items.map((book, index) => {
           return (
             <BookCard
               key={`book-card-main-${index}`}
@@ -35,10 +35,7 @@ const Category = ({ books, name }) => {
 };
 
 Category.propTypes = {
-  count: PropTypes.number.isRequired,
-  books: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
 };
 
 export default Category;
-
