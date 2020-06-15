@@ -32,17 +32,6 @@ const Users = ({ users }) => {
         <Typography variant='h5' component='h1' className={commonClasses.title}>
           Użytkownicy
         </Typography>
-
-        <Link to='users/add'>
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            endIcon={<AddIcon />}
-          >
-            Dodaj nowego
-          </Button>
-        </Link>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>

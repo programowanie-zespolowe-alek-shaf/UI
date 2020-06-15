@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
 import {
   Box,
-  Button,
   Paper,
   Table,
   TableBody,
@@ -15,7 +14,6 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import OrderPreview from './components/OrderPreview/OrderPreview';
 
 const Orders = ({ orders }) => {
@@ -32,17 +30,6 @@ const Orders = ({ orders }) => {
         <Typography variant='h5' component='h1' className={commonClasses.title}>
           Zamówienia
         </Typography>
-
-        <Link to='orders/add'>
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            endIcon={<AddIcon />}
-          >
-            Dodaj nowe
-          </Button>
-        </Link>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>

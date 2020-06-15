@@ -41,7 +41,11 @@ const AdminPanel = () => {
       />
       <Box className={classes.content}>
         <Switch>
-          <Route exact path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]} component={Orders}/>
+          <Route
+            exact
+            path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]}
+            component={Orders}
+          />
           <Route exact path={ADMIN_PAGE_ORDER} component={Order} />
           <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
@@ -50,7 +54,6 @@ const AdminPanel = () => {
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USERS} component={Users} />
-          <Route exact path={ADMIN_PAGE_USERS_ADD} component={UserDetails} />
         </Switch>
       </Box>
     </Box>
