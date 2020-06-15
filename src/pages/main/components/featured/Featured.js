@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Typography, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import BookCard from 'components/bookCard/BookCard';
+import Grid from 'components/grid/Grid';
 
 import useFeaturedStyles from './FeaturedStyles';
 
@@ -13,7 +14,7 @@ const Featured = ({ items }) => {
       <Typography variant='h6' component='h6' className={classes.title}>
         Polecane
       </Typography>
-      <Grid container justify='center' spacing={3} className={classes.grid}>
+      <Grid>
         {items.map((item, index) => (
           <BookCard
             key={`book-card-main-${index}`}

@@ -13,7 +13,7 @@ const paginationSlice = createSlice({
   name: 'pagination',
   initialState,
   reducers: {
-    getPaginationPageStart(state, action) {
+    getPaginationPageStart(state) {
       state.items = [];
       state.count = 0;
       state.loading = true;
