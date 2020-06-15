@@ -11,7 +11,6 @@ import {
   ADMIN_PAGE_USER,
   ADMIN_PAGE_USER_EDIT,
   ADMIN_PAGE_USERS,
-  ADMIN_PAGE_USERS_ADD,
   ADMIN_PAGE_ORDER,
 } from 'global/constants/pages';
 import { Box } from '@material-ui/core';
@@ -43,17 +42,29 @@ const AdminPanel = () => {
         <Switch>
           <Route
             exact
-            path={[ADMIN_PAGE, ADMIN_PAGE_ORDERS]}
+            path={[`${ADMIN_PAGE}/:pageId`, `${ADMIN_PAGE_ORDERS}/:pageId?`]}
             component={Orders}
           />
-          <Route exact path={ADMIN_PAGE_ORDER} component={Order} />
-          <Route exact path={ADMIN_PAGE_BOOKS} component={Books} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_ORDER}/:pageId?`}
+            component={Order}
+          />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_BOOKS}/:pageId?`}
+            component={Books}
+          />
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
-          <Route exact path={ADMIN_PAGE_USERS} component={Users} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_USERS}/:pageId?`}
+            component={Users}
+          />
         </Switch>
       </Box>
     </Box>

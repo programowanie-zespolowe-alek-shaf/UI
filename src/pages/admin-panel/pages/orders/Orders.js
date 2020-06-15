@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
@@ -16,7 +15,7 @@ import {
 } from '@material-ui/core';
 import OrderPreview from './components/OrderPreview/OrderPreview';
 
-const Orders = ({ orders }) => {
+const Orders = ({ items }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -44,7 +43,7 @@ const Orders = ({ orders }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order, index) => (
+            {items.map((order, index) => (
               <TableRow key={`admin-order-${index}`}>
                 <OrderPreview order={order} />
               </TableRow>
@@ -54,10 +53,6 @@ const Orders = ({ orders }) => {
       </TableContainer>
     </Box>
   );
-};
-
-Orders.propTypes = {
-  books: PropTypes.array,
 };
 
 export default withRouter(Orders);

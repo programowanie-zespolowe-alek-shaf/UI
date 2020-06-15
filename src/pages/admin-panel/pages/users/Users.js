@@ -18,7 +18,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import UserPreview from './components/UserPreview/UserPreview';
 
-const Users = ({ users }) => {
+const Users = ({ items }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -47,7 +47,7 @@ const Users = ({ users }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
+            {items.map((user, index) => (
               <TableRow key={`admin-user-${index}`}>
                 <UserPreview user={user} />
               </TableRow>
@@ -57,10 +57,6 @@ const Users = ({ users }) => {
       </TableContainer>
     </Box>
   );
-};
-
-Users.propTypes = {
-  books: PropTypes.array,
 };
 
 export default withRouter(Users);

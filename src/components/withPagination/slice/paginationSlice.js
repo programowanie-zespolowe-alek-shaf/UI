@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
+import { api } from 'global/connection/backend/endpoints';
 
 export const initialState = {
   items: [],
@@ -54,11 +55,16 @@ export const getPaginationPage = async (
       url: `${baseUrl}offset=${offset}&limit=${limit}`,
     });
     const data = response.data;
+    const pageData = {};
 
-    const pageData = {
-      items: data.list,
-      count: data.count,
-    };
+    if (baseUrl === `${api.orders}?`) {
+      pageData.items = data;
+      pageData.count = data.length;
+    } else {
+      pageData.items = data.list;
+      pageData.count = data.count;
+    }
+
     dispatch(getPaginationPageSuccess(pageData));
   } catch (error) {
     const message = error.response.data.error;
