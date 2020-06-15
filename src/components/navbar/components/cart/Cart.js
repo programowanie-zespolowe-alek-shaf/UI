@@ -31,6 +31,7 @@ import useCartStyles from './CartStyles';
 const Cart = () => {
   const classes = useCartStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const cartCount = useSelector((state) => state.cart.count, shallowEqual);
   const cartItems = useSelector((state) => state.cart.items, shallowEqual);
   const totalCost = useSelector((state) => state.cart.totalCost, shallowEqual);
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Cart = () => {
         aria-haspopup='true'
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
-        <Badge badgeContent={cartItems.length} color='secondary'>
+        <Badge badgeContent={cartCount} color='secondary'>
           <LocalMallSharpIcon className={classes.icon} />
         </Badge>
       </IconButton>
