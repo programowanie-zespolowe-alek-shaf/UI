@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useAdminPanelStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     margin: theme.spacing(3),
     width: '100%',
   },

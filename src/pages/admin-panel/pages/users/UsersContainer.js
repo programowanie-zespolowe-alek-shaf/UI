@@ -1,31 +1,25 @@
-import React, { useEffect, useReducer } from 'react';
-import {
-  initialState,
-  reducer,
-  getAdminPanelItems,
-} from '../../slice/AdminPanelSlice';
+import React, { useEffect } from 'react';
+import { api } from 'global/connection/backend/endpoints';
+import itemsPerPage from 'global/constants/itemsPerPage';
+import { ADMIN_PAGE_USERS } from 'global/constants/pages';
 
-import WithLoading from 'components/withLoading/WithLoading';
+import WithPagination from 'components/withPagination/WithPagination';
 
 import Users from './Users';
 
-const UsersWithLoading = WithLoading(Users);
+const UsersWithPagination = WithPagination(Users);
 
-const BookContainer = () => {
-  const [state, dispatchLocal] = useReducer(reducer, initialState);
+const fetchBaseUrl = `${api.customersUsers}?`;
+const clientBaseUrl = `${ADMIN_PAGE_USERS}`;
 
-  useEffect(() => {
-    getAdminPanelItems(dispatchLocal, 'users');
-  }, []);
-
+const UsersContainer = () => {
   return (
-    <UsersWithLoading
-      users={state.items}
-      isLoading={state.isLoading}
-      isLoaded={state.isLoaded}
-      error={state.error}
+    <UsersWithPagination
+      fetchBaseUrl={fetchBaseUrl}
+      clientBaseUrl={clientBaseUrl}
+      itemsPerPage={itemsPerPage.ADMIN_LIST}
     />
   );
 };
 
-export default BookContainer;
+export default UsersContainer;

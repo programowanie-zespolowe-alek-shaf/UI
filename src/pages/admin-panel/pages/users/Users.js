@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
 import {
   Box,
-  Button,
   Paper,
   Table,
   TableBody,
@@ -15,10 +13,9 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import UserPreview from './components/UserPreview/UserPreview';
 
-const Users = ({ users }) => {
+const Users = ({ items }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -32,17 +29,6 @@ const Users = ({ users }) => {
         <Typography variant='h5' component='h1' className={commonClasses.title}>
           Użytkownicy
         </Typography>
-
-        <Link to='users/add'>
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            endIcon={<AddIcon />}
-          >
-            Dodaj nowego
-          </Button>
-        </Link>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>
@@ -58,7 +44,7 @@ const Users = ({ users }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
+            {items.map((user, index) => (
               <TableRow key={`admin-user-${index}`}>
                 <UserPreview user={user} />
               </TableRow>
@@ -68,10 +54,6 @@ const Users = ({ users }) => {
       </TableContainer>
     </Box>
   );
-};
-
-Users.propTypes = {
-  books: PropTypes.array,
 };
 
 export default withRouter(Users);

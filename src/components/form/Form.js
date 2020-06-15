@@ -51,7 +51,6 @@ const Form = (props) => {
       }
     });
   }, []);
-  console.log(state);
 
   const onChange = (event) => {
     const inputName = event.target.name;
