@@ -13,6 +13,7 @@ const OrderDetails = ({order}) => {
           <section className={styles.info}>
             <header className={styles.title}>Szczegóły zamówienia</header>
             <span>Id koszyka: {order.shoppingCardId}</span>
+            <span>Adres: {order.address}</span>
             <span>Data dostawy: {order.shipDate}</span>
             <span>Status: {order.status}</span>
           </section>

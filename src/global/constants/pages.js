@@ -17,3 +17,4 @@ export const ADMIN_PAGE_USERS = '/admin/users';
 export const ADMIN_PAGE_USERS_ADD = '/admin/users/add';
 export const ADMIN_PAGE_ORDERS = '/admin/orders';
 export const ADMIN_PAGE_ORDER = '/admin/order/:id';
+export const ADMIN_PAGE_ORDER_EDIT = '/admin/order/:id/edit';

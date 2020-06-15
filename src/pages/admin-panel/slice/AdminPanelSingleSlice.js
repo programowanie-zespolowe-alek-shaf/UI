@@ -102,7 +102,7 @@ export const getItem = async (dispatch, destination, id) => {
     });
 
     const item = response.data;
-
+  console.log(item);
     dispatch(fetchItemSuccess(item));
   } catch (error) {
     const message = error.response.data.error;
