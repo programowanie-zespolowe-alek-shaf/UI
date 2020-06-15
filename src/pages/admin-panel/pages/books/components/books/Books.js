@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
+import { ADMIN_PAGE_BOOKS_ADD } from 'global/constants/pages';
 
 import {
   Typography,
@@ -16,12 +17,14 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import BookPreview from './components/BookPreview/BookPreview';
+import BookPreview from '../bookPreview/BookPreview';
 
-import useAdminPanelStyles from '../../AdminPanelStyles';
+import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
-const Books = ({ books, onBookDelete }) => {
+const Books = ({ items, onBookDelete }) => {
   const commonClasses = useAdminPanelStyles();
+
+  console.log('Books items', items);
 
   return (
     <Box display='flex' flexDirection='column' width={'100%'}>
@@ -35,7 +38,7 @@ const Books = ({ books, onBookDelete }) => {
           Książki
         </Typography>
 
-        <Link to='books/add'>
+        <Link to={ADMIN_PAGE_BOOKS_ADD}>
           <Button
             variant='contained'
             color='primary'
@@ -60,7 +63,7 @@ const Books = ({ books, onBookDelete }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {books.map((book, index) => (
+            {items.map((book, index) => (
               <TableRow key={`admin-book-${index}`}>
                 <BookPreview book={book} onDelete={onBookDelete} />
               </TableRow>
@@ -73,7 +76,7 @@ const Books = ({ books, onBookDelete }) => {
 };
 
 Books.propTypes = {
-  books: PropTypes.array,
+  items: PropTypes.array,
   onBookDelete: PropTypes.func,
 };
 

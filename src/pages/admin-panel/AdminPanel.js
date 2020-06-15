@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { sidebar } from 'global/constants/adminPanel';
 import {
   ADMIN_PAGE,
@@ -30,6 +30,15 @@ import useAdminPanelStyles from './AdminPanelStyles';
 
 const AdminPanel = () => {
   const classes = useAdminPanelStyles();
+  const location = useLocation();
+  const history = useHistory();
+
+  if (
+    location.pathname === ADMIN_PAGE ||
+    location.pathname === `${ADMIN_PAGE}/`
+  ) {
+    history.push(ADMIN_PAGE_ORDERS);
+  }
 
   return (
     <Box className={classes.container} mb={4}>
@@ -42,7 +51,7 @@ const AdminPanel = () => {
         <Switch>
           <Route
             exact
-            path={[`${ADMIN_PAGE}/:pageId`, `${ADMIN_PAGE_ORDERS}/:pageId?`]}
+            path={[`${ADMIN_PAGE}`, `${ADMIN_PAGE_ORDERS}/:pageId?`]}
             component={Orders}
           />
           <Route

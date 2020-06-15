@@ -26,17 +26,20 @@ const WithPagination = (WrappedComponent) => {
     ${afterClientBaseUrl !== undefined ? afterClientBaseUrl : ''}
     `;
 
+    const getPage = () =>
+      getPaginationPage(
+        dispatchLocal,
+        fetchBaseUrl,
+        parseInt(pageId),
+        itemsPerPage
+      );
+
     //IF PAGE NUMBER TOO SMALL
     useEffect(() => {
       if (parseInt(pageId) < 0) {
         history.push(firstPageUrl);
       } else {
-        getPaginationPage(
-          dispatchLocal,
-          fetchBaseUrl,
-          parseInt(pageId),
-          itemsPerPage
-        );
+        getPage();
       }
     }, [pageId, fetchBaseUrl]);
 
@@ -50,14 +53,13 @@ const WithPagination = (WrappedComponent) => {
       }
     });
 
-    console.log(state);
-
     return (
       <React.Fragment>
         <WrappedComponentWithLoading
           isLoading={state.loading}
           error={state.error}
           items={state.items}
+          updateItems={getPage}
           {...otherProps}
         />
         <PaginationBar

@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import useAdminPanelStyles from '../../AdminPanelStyles';
 import {
   Box,
-  Button,
   Paper,
   Table,
   TableBody,
@@ -15,7 +13,6 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import UserPreview from './components/UserPreview/UserPreview';
 
 const Users = ({ items }) => {

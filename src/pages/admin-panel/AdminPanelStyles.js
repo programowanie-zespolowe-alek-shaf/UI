@@ -5,6 +5,7 @@ const useAdminPanelStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     margin: theme.spacing(3),
     width: '100%',
   },
