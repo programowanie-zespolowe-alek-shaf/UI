@@ -34,17 +34,19 @@ const App = () => {
 
   const DefaultContainer = () => {
     return (
-      <Switch>
-        <Route exact path={'/'} component={Main} />
-        <Route path={'/book/:bookId'} component={BookContainer} />
-        <Route path={'/category/:categoryId/:pageId?'} component={Category} />
-        <Route path={'/search/:pageId?'} component={Search} />
-        <PrivateRoute path={'/order'} component={OrderContainer} />
-        <Route path={'/cart'} component={CartContainer} />
-        <PrivateRoute adminNeeded path={'/admin'} component={AdminPanel} />
-        <PrivateRoute path={'/profile'} component={Profile} />
-        <Route exact path={'*'} component={NotFound} />
-      </Switch>
+      <React.Fragment>
+        <Switch>
+          <Route exact path={'/'} component={Main} />
+          <Route path={'/book/:bookId'} component={BookContainer} />
+          <Route path={'/category/:categoryId/:pageId?'} component={Category} />
+          <Route path={'/search/:pageId?'} component={Search} />
+          <PrivateRoute path={'/order'} component={OrderContainer} />
+          <Route path={'/cart'} component={CartContainer} />
+          <PrivateRoute adminNeeded path={'/admin'} component={AdminPanel} />
+          <PrivateRoute path={'/profile'} component={Profile} />
+          <Route exact path={'*'} component={NotFound} />
+        </Switch>
+      </React.Fragment>
     );
   };
 

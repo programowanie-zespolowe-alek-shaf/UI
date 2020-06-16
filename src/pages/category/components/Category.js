@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import Grid from 'components/grid/Grid';
 import BookCard from 'components/bookCard/BookCard';
 
@@ -26,6 +26,7 @@ const Category = ({ items, name }) => {
               photoUrl={book.photoUrl}
               description={book.description}
               price={book.price}
+              available={book.available}
             />
           );
         })}

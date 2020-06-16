@@ -35,11 +35,12 @@ export const {
 
 export const getCategories = () => (dispatch) => {
   dispatch(requestCategories());
-  request({ url: api.categories, method: 'get' })
+  request({ url: `${api.categories}?offset=0&limit=9999`, method: 'get' })
     .then((response) => {
       dispatch(receiveCategories(response.data));
     })
     .catch((error) => {
+      console.log(error.response);
       dispatch(
         receiveCategoriesError(error.response && error.response.data.error)
       );
