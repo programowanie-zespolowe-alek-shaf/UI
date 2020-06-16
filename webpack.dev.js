@@ -16,7 +16,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'React application',
+      title: 'BookStore',
       filename: 'index.html', // where to put the file (we start from build folder)
       template: 'template.html' // link to the template
     }),
