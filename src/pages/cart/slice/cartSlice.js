@@ -9,7 +9,7 @@ export const initialState = {
   count: 0,
   loading: true,
   coupon: undefined,
-  totalCost: 0,
+  totalValue: 0.00,
   error: undefined,
 };
 
@@ -30,6 +30,7 @@ const cartSlice = createSlice({
       state.id = action.payload.id;
       state.createDate = action.payload.createDate;
       state.items = action.payload.items.list;
+      state.totalValue = action.payload.items.totalValue.toFixed(2);
       state.count = action.payload.items.count;
     },
     receiveCartError(state, action) {
@@ -67,6 +68,7 @@ const cartSlice = createSlice({
       state.id = action.payload.id;
       state.createDate = action.payload.createDate;
       state.items = action.payload.items.list;
+      state.items.totalValue = action.payload.items.totalValue.toFixed(2);
       state.count = action.payload.items.count;
     },
     createCartError(state, action) {

@@ -1,0 +1,19 @@
+.container {
+  width: 400px;
+  padding: 1rem;
+  color: gray;
+  .header {
+    margin-bottom: 1rem;
+    display: block;
+    border-bottom: solid gray 1px;
+  }
+  .price {
+    padding-bottom: 1rem;
+  }
+  .coupon-setup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+  }
+}

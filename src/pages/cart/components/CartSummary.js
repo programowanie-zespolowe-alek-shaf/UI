@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
 import styles from '../styles/cartSummary.scss';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 function CartSummary(props) {
 
   return (
     <div className={styles.container}>
-      {/*<span>{`Zniżka: ${props.coupon}`}</span>*/}
-      {/*<span>{`Do zapłaty: ${props.totalCost}`}</span>*/}
+      <span>{`Do zapłaty: ${props.totalCost}`} zł</span>
       <Button
         size='small'
         variant='contained'
@@ -19,7 +17,7 @@ function CartSummary(props) {
         <Typography
           variant='caption'
         >
-          Zapłać
+          Zamów
         </Typography>
       </Button>
     </div>

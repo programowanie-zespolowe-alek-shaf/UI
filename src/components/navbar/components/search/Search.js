@@ -73,6 +73,7 @@ const Search = (props) => {
             <MenuItem value='' disabled>
               Kategoria
             </MenuItem>
+            <MenuItem value=''>Wszystkie</MenuItem>
             {props.items.map((category) => (
               <MenuItem key={uuidv4()} value={category.id}>
                 {category.name}

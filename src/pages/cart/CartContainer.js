@@ -6,7 +6,7 @@ import WithLoading from '../../components/withLoading/WithLoading';
 import CartWrapper from './components/CartWrapper';
 
 
-const CartWrapperWithLoading = WithLoading(CartWrapper);
+export const CartWrapperWithLoading = WithLoading(CartWrapper);
 
 const CartContainer = () => {
   const cartStore = useSelector((state) => state.cart, shallowEqual);
