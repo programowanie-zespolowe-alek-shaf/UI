@@ -13,5 +13,13 @@ export const sidebar = {
       slug: 'users',
       name: 'Użytkownicy',
     },
+    {
+      slug: 'categories',
+      name: 'Kategorie',
+    },
+    {
+      slug: 'coupons',
+      name: 'Kupony',
+    },
   ],
 };

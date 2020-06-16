@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { api } from 'global/connection/backend/endpoints';
 import itemsPerPage from 'global/constants/itemsPerPage';
 import { ADMIN_PAGE_USERS } from 'global/constants/pages';

@@ -57,7 +57,7 @@ export const getPaginationPage = async (
     const data = response.data;
     const pageData = {};
 
-    if (baseUrl === `${api.orders}?`) {
+    if (baseUrl === `${api.orders}?` || baseUrl === `${api.coupons}?`) {
       pageData.items = data;
       pageData.count = data.length;
     } else {

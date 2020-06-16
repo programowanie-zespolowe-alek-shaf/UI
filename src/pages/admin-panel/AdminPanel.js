@@ -3,7 +3,6 @@ import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { sidebar } from 'global/constants/adminPanel';
 import {
   ADMIN_PAGE,
-  ADMIN_PAGE_ORDERS,
   ADMIN_PAGE_BOOK,
   ADMIN_PAGE_BOOK_EDIT,
   ADMIN_PAGE_BOOKS,
@@ -11,7 +10,15 @@ import {
   ADMIN_PAGE_USER,
   ADMIN_PAGE_USER_EDIT,
   ADMIN_PAGE_USERS,
-  ADMIN_PAGE_ORDER, ADMIN_PAGE_ORDER_EDIT,
+  ADMIN_PAGE_ORDER,
+  ADMIN_PAGE_ORDER_EDIT,
+  ADMIN_PAGE_ORDER_ADD,
+  ADMIN_PAGE_ORDERS,
+  ADMIN_PAGE_CATEGORIES,
+  ADMIN_PAGE_CATEGORY_ADD,
+  ADMIN_PAGE_COUPONS,
+  ADMIN_PAGE_COUPON_EDIT,
+  ADMIN_PAGE_COUPON_ADD,
 } from 'global/constants/pages';
 import { Box } from '@material-ui/core';
 
@@ -22,10 +29,14 @@ import EditBook from './pages/book/pages/editBook/EditBook';
 import EditOrder from "./pages/order/editOrder/EditOrder";
 import { default as Users } from './pages/users/UsersContainer';
 import { default as UserDetails } from './pages/user/userDetails/UserDetailsContainer';
+import { default as Categories } from './pages/categories/CategoriesContainer';
+import AddCategory from './pages/category/addCategory/AddCategory';
+import AddCoupon from './pages/coupon/pages/addCoupon/AddCoupon';
+import EditCoupon from './pages/coupon/pages/editCoupon/EditCoupon';
+import { default as Coupons } from './pages/coupons/CouponsContainer';
 
 import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
 import Orders from './pages/orders/OrdersContainer';
-
 import Order from './pages/order/orderDetails/OrderDetailsContainer';
 import useAdminPanelStyles from './AdminPanelStyles';
 
@@ -58,7 +69,6 @@ const AdminPanel = () => {
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
-
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
           <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
           <Route
@@ -66,6 +76,20 @@ const AdminPanel = () => {
             path={`${ADMIN_PAGE_USERS}/:pageId?`}
             component={Users}
           />
+          <Route exact path={ADMIN_PAGE_ORDER_ADD} component={AddBook} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_CATEGORIES}/:pageId?`}
+            component={Categories}
+          />
+          <Route exact path={ADMIN_PAGE_CATEGORY_ADD} component={AddCategory} />
+          <Route
+            exact
+            path={`${ADMIN_PAGE_COUPONS}/:pageId?`}
+            component={Coupons}
+          />
+          <Route exact path={ADMIN_PAGE_COUPON_ADD} component={AddCoupon} />
+          <Route exact path={ADMIN_PAGE_COUPON_EDIT} component={EditCoupon} />
         </Switch>
       </Box>
     </Box>
