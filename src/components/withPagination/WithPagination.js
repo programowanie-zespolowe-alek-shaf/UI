@@ -52,8 +52,6 @@ const WithPagination = (WrappedComponent) => {
         history.push(firstPageUrl);
       }
     });
-    console.log(state.count, itemsPerPage);
-    console.log(Math.ceil(state.count / itemsPerPage));
 
     return (
       <React.Fragment>

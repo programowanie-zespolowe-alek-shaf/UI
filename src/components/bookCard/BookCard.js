@@ -20,7 +20,16 @@ import useBookCardStyles from './BookCardStyles';
 
 const BookCard = (props) => {
   const classes = useBookCardStyles();
-  const { id, title, author, description, price, year, photoUrl } = props;
+  const {
+    id,
+    title,
+    author,
+    description,
+    price,
+    year,
+    photoUrl,
+    available,
+  } = props;
   const dispatch = useDispatch();
 
   const handleAddToCart = (id) => {
@@ -33,9 +42,9 @@ const BookCard = (props) => {
         <Link to={`${BOOK_PAGE}/${id}`} component={RouterLink}>
           <CardMedia
             component='img'
-            alt='Contemplative Reptile'
+            alt={title}
             image={photoUrl}
-            title='Contemplative Reptile'
+            title={title}
             className={classes.image}
           />
         </Link>
@@ -55,7 +64,7 @@ const BookCard = (props) => {
         </Typography>
         <Box display='flex' justifyContent='space-between' mt={'auto'}>
           <Typography variant='subtitle1' className={classes.price}>
-            {price} zł
+            {Number.parseFloat(price).toFixed(2)} zł
           </Typography>
           <Button
             size='small'
@@ -64,8 +73,11 @@ const BookCard = (props) => {
             startIcon={<AddShoppingCartIcon />}
             classes={{ root: classes.addToCart }}
             onClick={() => handleAddToCart(id)}
+            disabled={!available}
           >
-            <Typography variant='caption'>Do koszyka</Typography>
+            <Typography variant='caption'>
+              {available ? 'Do koszyka' : 'Niedostępna'}
+            </Typography>
           </Button>
         </Box>
       </CardContent>
@@ -84,4 +96,3 @@ BookCard.propTypes = {
 };
 
 export default BookCard;
-

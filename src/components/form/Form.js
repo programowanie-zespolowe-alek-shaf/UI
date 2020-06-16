@@ -184,7 +184,7 @@ const Form = (props) => {
               return null;
             }
           })}
-          <Grid item xs={12}>
+          {props.onSubmit && <Grid item xs={12}>
             <SubmitButton
               isLoading={props.isMakingRequest}
               fullWidth
@@ -194,7 +194,7 @@ const Form = (props) => {
             >
               {props.submitButtonText}
             </SubmitButton>
-          </Grid>
+          </Grid>}
         </Grid>
       </form>
     </Box>

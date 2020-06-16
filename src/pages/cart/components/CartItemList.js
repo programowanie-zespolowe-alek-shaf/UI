@@ -11,6 +11,7 @@ function CartItemList(props) {
       {...item}
       onDelete={() => props.onDelete(item.id)}
       onUpdate={(quantity) => props.onUpdate(item.id, item.book.id, quantity)}
+      disabled={props.disabled}
     />
   ));
   
@@ -28,6 +29,7 @@ CartItemList.propTypes = {
   items: PropTypes.array,
   onDelete: PropTypes.func,
   loading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default CartItemList;
