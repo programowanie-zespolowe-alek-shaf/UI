@@ -1,7 +1,23 @@
 .container {
   display: flex;
+  padding-top: 3rem;
   align-items: center;
-  justify-content: center;
   flex-flow: column;
-  flex: 1 0 auto;
+  height: 100%;
+  .title {
+    color: gray;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5rem;
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    .payment {
+      justify-content: flex-end;
+      width: 400px;
+      display: flex;
+    }
+  }
 }

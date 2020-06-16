@@ -5,7 +5,7 @@ import CartSummary from './CartSummary';
 import styles from '../styles/cartContainer.scss';
 
 function CartWrapper(props) {
-  const { cartStore, onNextStep, onDelete, onUpdate } = props;
+  const { cartStore, onNextStep, onDelete, onUpdate, disabled } = props;
   const isEmpty = cartStore.items.length === 0;
   if(isEmpty) return (<h2 className={styles.container}>TWÓJ KOSZYK JEST PUSTY</h2>);
   return (
@@ -16,8 +16,13 @@ function CartWrapper(props) {
           items={cartStore.items}
           onDelete={onDelete}
           onUpdate={onUpdate}
+          disabled={disabled}
         />
-        <CartSummary totalCost={cartStore.totalCost} coupon={cartStore.coupon} onNext={onNextStep} />
+        {!disabled &&
+        <CartSummary
+          totalCost={cartStore.totalValue}
+          onNext={onNextStep}
+        />}
       </div>
     </div>
   );
@@ -29,6 +34,7 @@ CartWrapper.propTypes = {
   onNextStep: PropTypes.func,
   onDelete: PropTypes.func,
   onUpdate: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default CartWrapper;
