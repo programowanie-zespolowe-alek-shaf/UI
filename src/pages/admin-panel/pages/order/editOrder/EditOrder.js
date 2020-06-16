@@ -14,6 +14,7 @@ import {
 import orderInputs from '../inputs/orderInputs';
 
 import WithLoading from 'components/withLoading/WithLoading';
+import {ADMIN_PAGE_ORDERS} from "../../../../../global/constants/pages";
 
 const EditFormWithLoading = WithLoading(Form);
 
@@ -81,6 +82,8 @@ const EditOrder = () => {
   };
 
   const onEditOrder = (orderData) => {
+    console.log(orderData);
+    orderData['shoppingCardId']=state.item.shoppingCardId;
     editItem(dispatchLocal, 'order', id, orderData, onSuccess);
   };
 
