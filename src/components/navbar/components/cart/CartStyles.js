@@ -26,8 +26,13 @@ const useCartStyles = makeStyles((theme) => ({
   cartLink: {
     width: '100%',
   },
-  menuPadding: {
-    padding: theme.spacing(2),
+  menuWithItems: {
+    padding: '15px !important',
+    width: '350px !important',
+  },
+  menuNoItems: {
+    padding: '15px !important',
+    width: '150px !important',
   },
   cartItemCardRoot: {
     display: 'flex',

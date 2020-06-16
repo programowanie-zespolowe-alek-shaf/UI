@@ -57,13 +57,8 @@ export const getPaginationPage = async (
     const data = response.data;
     const pageData = {};
 
-    if (baseUrl === `${api.orders}?` || baseUrl === `${api.coupons}?`) {
-      pageData.items = data;
-      pageData.count = data.length;
-    } else {
-      pageData.items = data.list;
-      pageData.count = data.count;
-    }
+    pageData.items = data.list;
+    pageData.count = data.count;
 
     dispatch(getPaginationPageSuccess(pageData));
   } catch (error) {

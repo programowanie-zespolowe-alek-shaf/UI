@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import {
-  deleteFromCart,
-} from '../../../../pages/cart/slice/cartSlice';
+import { deleteFromCart } from '../../../../pages/cart/slice/cartSlice';
 import { CART_PAGE } from '../../../../global/constants/pages';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -55,7 +53,11 @@ const Cart = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
-        classes={{ list: classes.menuPadding }}
+        classes={
+          cartItems.length > 0
+            ? { list: classes.menuWithItems }
+            : { list: classes.menuNoItems }
+        }
       >
         {cartItems.map((item) => {
           return (
@@ -103,11 +105,7 @@ const Cart = () => {
                   className={classes.cartItemCardDeleteButton}
                   onClick={() => dispatch(deleteFromCart(item.id))}
                 >
-                  <Typography
-                    variant='caption'
-                  >
-                    Usuń
-                  </Typography>
+                  <Typography variant='caption'>Usuń</Typography>
                 </Button>
               </CardActions>
             </Card>
