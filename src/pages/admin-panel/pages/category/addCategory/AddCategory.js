@@ -9,6 +9,7 @@ import {
   reducer,
   addItem,
 } from '../../../slice/AdminPanelSingleSlice';
+import { getCategories } from '../../../../category/slice/categoriesSlice';
 import { ADMIN_PAGE_CATEGORIES } from 'global/constants/pages';
 
 const categoryInputs = () => {
@@ -37,7 +38,7 @@ const AddCategory = () => {
       dispatch(
         triggerGlobalAlert(
           'error',
-          `Podczas dodawania książki wystąpił błąd: ${state.error}`
+          `Podczas dodawania kategorii wystąpił błąd: ${state.error}`
         )
       );
     }
@@ -45,13 +46,13 @@ const AddCategory = () => {
 
   const onSuccess = () => {
     dispatch(
-      triggerGlobalAlert('success', 'Książka została dodana pomyślnie!')
+      triggerGlobalAlert('success', 'Kategoria została dodana pomyślnie!')
     );
+    dispatch(getCategories());
     history.push(ADMIN_PAGE_CATEGORIES);
   };
 
   const onAddBook = (categoryData) => {
-    console.log(categoryData);
     addItem(dispatchLocal, 'category', categoryData, onSuccess);
   };
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes, { bool } from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from 'components/grid/Grid';
 import BookCard from 'components/bookCard/BookCard';
 
-import { Typography } from '@material-ui/core';
+import { Typography, Box, Button, Select, Checkbox } from '@material-ui/core';
 import useCategoryStyles from './CategoryStyles';
 
 const Category = ({ items, name }) => {
@@ -11,9 +11,12 @@ const Category = ({ items, name }) => {
 
   return (
     <React.Fragment>
-      <Typography variant='h6' className={classes.title}>
-        {name}
-      </Typography>
+      <Box display='flex'>
+        <Typography variant='h6' className={classes.title}>
+          {name}
+        </Typography>
+        <form></form>
+      </Box>
       <Grid>
         {items.map((book, index) => {
           return (

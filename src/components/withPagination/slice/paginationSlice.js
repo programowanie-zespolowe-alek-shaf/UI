@@ -44,7 +44,10 @@ export const getPaginationPage = async (
   dispatch,
   baseUrl,
   currentPage,
-  itemsPerPage
+  itemsPerPage,
+  sort,
+  sortOrder,
+  additionalParametres
 ) => {
   try {
     dispatch(getPaginationPageStart());
@@ -52,7 +55,9 @@ export const getPaginationPage = async (
     const offset = (currentPage - 1) * itemsPerPage;
     const limit = itemsPerPage;
     const response = await request({
-      url: `${baseUrl}offset=${offset}&limit=${limit}`,
+      url: `${baseUrl}offset=${offset}&limit=${limit}${
+        sort ? `&${sort};${sortOrder}` : ''
+      }${additionalParametres ? `&${additionalParametres}` : ''}`,
     });
     const data = response.data;
     const pageData = {};
