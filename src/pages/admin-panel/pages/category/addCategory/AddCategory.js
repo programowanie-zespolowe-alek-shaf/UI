@@ -61,7 +61,7 @@ const AddCategory = () => {
         title='Dodaj kategorię'
         onSubmit={onAddBook}
         submitButtonText='Dodaj kategorię'
-        isMakingRequest={state.isLoading}
+        isMakingRequest={state.isAdding}
         inputs={inputs}
       />
     </Box>

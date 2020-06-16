@@ -7,15 +7,14 @@ import {
   deleteItem,
 } from '../../../../slice/AdminPanelSingleSlice';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
-import { getCategories } from '../../../../../category/slice/categoriesSlice';
 
-import Categories from '../categories/Categories';
+import Coupons from '../coupons/Coupons';
 import ConfirmationModal from 'components/confirmationModal/ConfirmationModal';
 
-const CategoriesManager = ({ items, updateItems }) => {
+const CouponsManager = ({ items, updateItems }) => {
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-  const [deletedCategoryName, setDeletedCategoryName] = useState(undefined);
-  const [deletedCategoryId, setDeletedCategoryId] = useState(undefined);
+  const [deletedCouponName, setDeletedCouponName] = useState(undefined);
+  const [deletedCouponId, setDeletedCouponId] = useState(undefined);
   const dispatch = useDispatch();
   const [singleState, singleDispatchLocal] = useReducer(
     singleReducer,
@@ -27,34 +26,33 @@ const CategoriesManager = ({ items, updateItems }) => {
       dispatch(
         triggerGlobalAlert(
           'error',
-          `Wystąpił błąd podczas usuwania kategorii "${deletedCategoryName}:" ${singleState.error}`
+          `Wystąpił błąd podczas usuwania kuponu "${deletedCouponName}:" ${singleState.error}`
         )
       );
     }
   }, [singleState.error]);
 
-  const onCategoryDelete = (categoryId, categoryName) => {
-    setDeletedCategoryName(categoryName);
-    setDeletedCategoryId(categoryId);
+  const onCouponDelete = (couponId, couponName) => {
+    setDeletedCouponName(couponName);
+    setDeletedCouponId(couponId);
     setIsConfirmDeleteOpen(true);
   };
 
-  const deleteCategory = (categoryId) => {
+  const deleteCoupon = (couponId) => {
     const onSuccess = () => {
       dispatch(
         triggerGlobalAlert(
           'success',
-          `Kategoria "${deletedCategoryName}" została usunięta pomyślnie!`
+          `Kupon "${deletedCouponName}" został usunięty pomyślnie!`
         )
       );
       updateItems();
-      dispatch(getCategories());
     };
 
-    deleteItem(singleDispatchLocal, 'category', categoryId, onSuccess);
+    deleteItem(singleDispatchLocal, 'coupon', couponId, onSuccess);
     setIsConfirmDeleteOpen(false);
-    setDeletedCategoryName(undefined);
-    setDeletedCategoryId(undefined);
+    setDeletedCouponName(undefined);
+    setDeletedCouponId(undefined);
   };
 
   return (
@@ -63,19 +61,19 @@ const CategoriesManager = ({ items, updateItems }) => {
         isOpen={isConfirmDeleteOpen}
         setOpen={setIsConfirmDeleteOpen}
         title={'Potwierdź operację usunięcia'}
-        text={`Czy na pewno chcesz usunąć kategorię "${deletedCategoryName}"?`}
+        text={`Czy na pewno chcesz usunąć kupon "${deletedCouponName}"?`}
         aggreeText={'Usuń'}
         cancelText={'Anuluj'}
-        aggreeCallback={() => deleteCategory(deletedCategoryId)}
+        aggreeCallback={() => deleteCoupon(deletedCouponId)}
       />
-      <Categories items={items} onBookDelete={onCategoryDelete} />
+      <Coupons items={items} onCouponDelete={onCouponDelete} />
     </React.Fragment>
   );
 };
 
-CategoriesManager.propTypes = {
+CouponsManager.propTypes = {
   items: PropTypes.array.isRequired,
   updateItems: PropTypes.func.isRequired,
 };
 
-export default CategoriesManager;
+export default CouponsManager;
