@@ -17,7 +17,7 @@ import UserPreview from './components/UserPreview/UserPreview';
 
 const Users = ({ items }) => {
   const commonClasses = useAdminPanelStyles();
-
+  console.log('users: ', items);
   return (
     <Box display='flex' flexDirection='column' width={'100%'}>
       <Box

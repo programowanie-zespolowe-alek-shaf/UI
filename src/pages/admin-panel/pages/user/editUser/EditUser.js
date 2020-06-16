@@ -11,16 +11,16 @@ import {
   editItem,
   getItem,
 } from '../../../slice/AdminPanelSingleSlice';
-import orderInputs from '../inputs/orderInputs';
+import userInputs from '../inputs/UserInputs';
 
 import WithLoading from 'components/withLoading/WithLoading';
-import {ADMIN_PAGE_ORDERS} from "../../../../../global/constants/pages";
+import { ADMIN_PAGE_USERS } from "../../../../../global/constants/pages";
 
 const EditFormWithLoading = WithLoading(Form);
 
-const inputs = orderInputs();
+const inputs = userInputs();
 
-const EditOrder = () => {
+const EditUser = () => {
   const [defaults, setDefaults] = useState(false);
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   const history = useHistory();
@@ -33,9 +33,9 @@ const EditOrder = () => {
     {name: 'DISAPPROVED', value: 'DISAPPROVED'},
   ];
 
-  //FETCH ORDER DATA FOR ENTRY INPUT VALUES
+  //FETCH USER DATA FOR ENTRY INPUT VALUES
   useEffect(() => {
-    getItem(dispatchLocal, 'order', id);
+    getItem(dispatchLocal, 'user', id);
   }, [id]);
 
   //ADD DEFAULT VALUES TO INPUTS FILE FOR FORM COMPONENT AFTER FETCHING THEM
@@ -43,13 +43,14 @@ const EditOrder = () => {
     const item = state.item;
     if (item) {
       for (let input in item) {
-        if ( input !== 'id' && input !== 'shoppingCardId' && input !== 'status') {
+        if ( input !== 'id' && input !== 'lastShoppingCardId' && input !== 'roles' && input !== 'enabled') {
+          console.log('setting ', input, ' to ', item[input]);
           inputs[input].defaultValue = item[input];
         }
 
-        if (input === 'status') {
-          inputs['status'].defaultValue = statusOptions.find(el => el.name === item[input]).value;
-          inputs['status'].defaultName = item[input];
+        if (input === 'roles') {
+          inputs['roles'].defaultValue =item[input].value;
+          inputs['roles'].defaultName = item[input];
         }
       }
       setDefaults(true);
@@ -58,7 +59,7 @@ const EditOrder = () => {
 
   //ADD STATUSES OPTIONS TO INPUTS FILE
   useEffect(() => {
-    inputs['status'].options = statusOptions;
+    // inputs['status'].options = statusOptions;
   });
 
   //TRIGGER ERROR WHEN ERROR WITH REQUEST
@@ -67,7 +68,7 @@ const EditOrder = () => {
       dispatch(
         triggerGlobalAlert(
           'error',
-          `Podczas edytowania zamówienia wystąpił błąd: ${state.error}`
+          `Podczas edytowania danych użytkownika wystąpił błąd: ${state.error}`
         )
       );
     }
@@ -76,15 +77,15 @@ const EditOrder = () => {
   //FUNCTION TRIGGERING IF EDIT REQUEST WAS SUCCESFUL
   const onSuccess = () => {
     dispatch(
-      triggerGlobalAlert('success', 'Zamówienie zostało edytowane pomyślnie!')
+      triggerGlobalAlert('success', 'Dane użytkownika zostały edytowane pomyślnie!')
     );
-    history.push(ADMIN_PAGE_ORDERS);
+    history.push(ADMIN_PAGE_USERS);
   };
 
-  const onEditOrder = (orderData) => {
-    console.log("new order: ", orderData);
-    orderData['shoppingCardId']=state.item.shoppingCardId;
-    editItem(dispatchLocal, 'order', id, orderData, onSuccess);
+  const onEditUser = (userData) => {
+    console.log("new user: ", userData);
+    // userData['shoppingCardId']=state.item.shoppingCardId;
+    editItem(dispatchLocal, 'user', id, userData, onSuccess);
   };
 
   return (
@@ -92,8 +93,8 @@ const EditOrder = () => {
       <EditFormWithLoading
         isLoading={state.isLoading || !defaults}
         error={state.error}
-        title={`Edytuj zamówienie  ${state.item ? `"${state.item.id}"` : null}`}
-        onSubmit={onEditOrder}
+        title={`Edytuj dane użytkownika  ${state.item ? `"${state.item.id}"` : null}`}
+        onSubmit={onEditUser}
         submitButtonText='Zapisz'
         isMakingRequest={state.isEditing}
         inputs={inputs}
@@ -102,4 +103,4 @@ const EditOrder = () => {
   );
 };
 
-export default EditOrder;
+export default EditUser;

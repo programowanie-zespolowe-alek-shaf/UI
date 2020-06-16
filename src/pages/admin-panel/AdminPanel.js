@@ -27,6 +27,7 @@ import { default as Books } from './pages/books/BooksContainer';
 import AddBook from './pages/book/pages/addBook/AddBook';
 import EditBook from './pages/book/pages/editBook/EditBook';
 import EditOrder from "./pages/order/editOrder/EditOrder";
+import EditUser from "./pages/user/editUser/EditUser";
 import { default as Users } from './pages/users/UsersContainer';
 import { default as UserDetails } from './pages/user/userDetails/UserDetailsContainer';
 import { default as Categories } from './pages/categories/CategoriesContainer';
@@ -69,8 +70,8 @@ const AdminPanel = () => {
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
+          <Route exact path={ADMIN_PAGE_USER_EDIT} component={EditUser} />
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
-          <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
           <Route
             exact
             path={`${ADMIN_PAGE_USERS}/:pageId?`}
