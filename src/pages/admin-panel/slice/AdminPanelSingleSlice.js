@@ -21,7 +21,7 @@ const adminPanelSingleSlice = createSlice({
       state.error = undefined;
     },
     addItemStart(state) {
-      state.isLoading = true;
+      state.isAdding = true;
       state.error = undefined;
     },
     editItemStart(state) {
@@ -90,6 +90,8 @@ const urlsMap = {
   book: api.books,
   user: api.customersUsers,
   order: api.orders,
+  category: api.categories,
+  coupon: api.coupons,
 };
 
 export const getItem = async (dispatch, destination, id) => {
@@ -113,7 +115,7 @@ export const getItem = async (dispatch, destination, id) => {
 export const addItem = async (dispatch, destination, data, callback) => {
   try {
     dispatch(addItemStart());
-    await request({
+    const response = await request({
       url: `${urlsMap[destination]}`,
       method: 'post',
       data: {
@@ -123,7 +125,13 @@ export const addItem = async (dispatch, destination, data, callback) => {
     dispatch(addItemSuccess());
     callback();
   } catch (error) {
-    const message = error.response.data.error;
+    let message;
+
+    if (destination === 'coupon') {
+      message = error.response.data;
+    } else {
+      message = error.response.data.error;
+    }
     dispatch(addItemFailure(message));
   }
 };
