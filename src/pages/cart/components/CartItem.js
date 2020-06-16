@@ -5,26 +5,28 @@ import styles from '../styles/cartItem.scss';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 function CartItem(props) {
+  const editable = !props.disabled;
+
   return (
     <div className={styles.container}>
       <div className={styles.itemDetails}>
         <img alt={props.book.photoUrl} src={props.book.photoUrl} height={200} width={150}  />
         <section className={styles.info}>
-          <header className={styles.title}>{props.title}</header>
-          <span>{props.book.author}</span>
-          <span>{props.book.year}</span>
-          <span>{props.book.price}</span>
+          <header className={styles.title}>{props.book.title}</header>
+          <span>{`Autor: ${props.book.author}`}</span>
+          <span>{`Rok produkcji: ${props.book.year}`}</span>
+          <span>{`Cena: ${props.book.price} zł`}</span>
         </section>
       </div>
-      <Input type="number" value={props.quantity} onChange={(e) => {
+      {editable && <Input type="number" value={props.quantity} onChange={(e) => {
         props.onUpdate(Number(e.target.value));
-      }} />
-      <div className={styles.deleteButton}>
+      }}/>}
+      {editable && <div className={styles.deleteButton}>
         <Button
           size='small'
           variant='contained'
           color='secondary'
-          startIcon={<DeleteIcon />}
+          startIcon={<DeleteIcon/>}
           onClick={() => props.onDelete(props.id)}
         >
           <Typography
@@ -33,7 +35,7 @@ function CartItem(props) {
             Usuń
           </Typography>
         </Button>
-      </div>
+      </div>}
     </div>
   );
 }

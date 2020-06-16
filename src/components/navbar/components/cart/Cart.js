@@ -31,7 +31,7 @@ const Cart = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const cartCount = useSelector((state) => state.cart.count, shallowEqual);
   const cartItems = useSelector((state) => state.cart.items, shallowEqual);
-  const totalCost = useSelector((state) => state.cart.totalCost, shallowEqual);
+  const totalCost = useSelector((state) => state.cart.totalValue, shallowEqual);
   const dispatch = useDispatch();
 
   return (
@@ -92,7 +92,7 @@ const Cart = () => {
                     Ilość: {item.quantity}
                   </Typography>
                   <Typography variant='caption' component='p'>
-                    Cena: {item.book.price * item.quantity} zł
+                    Cena: {item.book.price.toFixed(2)} zł
                   </Typography>
                 </CardContent>
               </CardActionArea>

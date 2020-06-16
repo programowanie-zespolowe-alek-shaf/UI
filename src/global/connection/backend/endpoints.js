@@ -12,6 +12,7 @@ const endpoint = (baseUrl) => {
     categories: baseUrl + '/product-catalog-ms/categories',
     orders: baseUrl + '/order-management-ms/orders',
     coupons: baseUrl + '/payment-ms/coupon',
+    finalizeOrder: baseUrl + '/finalizeOrder',
   };
 };
 
