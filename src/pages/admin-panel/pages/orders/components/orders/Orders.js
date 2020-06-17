@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import useAdminPanelStyles from '../../AdminPanelStyles';
+import useAdminPanelStyles from '../../../../AdminPanelStyles';
 import {
   Box,
   Paper,
@@ -13,9 +13,9 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import OrderPreview from './components/OrderPreview/OrderPreview';
+import OrderPreview from '../OrderPreview/OrderPreview';
 
-const Orders = ({ items }) => {
+const Orders = ({ items, onOrderDelete }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -45,7 +45,7 @@ const Orders = ({ items }) => {
           <TableBody>
             {items.map((order, index) => (
               <TableRow key={`admin-order-${index}`}>
-                <OrderPreview order={order} />
+                <OrderPreview order={order} onOrderDelete={onOrderDelete} />
               </TableRow>
             ))}
           </TableBody>
