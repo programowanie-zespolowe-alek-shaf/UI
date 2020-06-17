@@ -15,7 +15,7 @@ function Payment(props) {
   const isCouponValid = couponStore.isValid;
   const couponMultiplier = couponStore.details.discountMultiplayer;
   const price = cartStore.totalValue;
-  const discount = (1 - couponMultiplier.toFixed(2)) * 100;
+  const discount = (1 - couponMultiplier) * 100;
   const finalPrice = price * couponMultiplier;
   
   const validateCouponCode = (code) => {
@@ -49,7 +49,7 @@ function Payment(props) {
       {isCouponValid &&
       <React.Fragment>
         <div className={styles.price}>{`Cena: ${price} zł`}</div>
-        <div className={styles.price}>{`Zniżka: ${discount} %`}</div>
+        <div className={styles.price}>{`Zniżka: ${discount.toFixed(0)} %`}</div>
       </React.Fragment>}
       <div className={styles.price}>{`Do zapłaty: ${finalPrice.toFixed(2)} zł`}</div>
       <StripeCheckoutButton
