@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Grid from 'components/grid/Grid';
 import BookCard from 'components/bookCard/BookCard';
 import { CATEGORY_PAGE } from 'global/constants/pages';
+import selectInputOptions from '../utils/selectInputOptions';
+import useQueryParams from '../utils/useQueryParams';
 
 import {
   Typography,
@@ -18,56 +20,16 @@ import {
 } from '@material-ui/core';
 import useCategoryStyles from './CategoryStyles';
 
-const selectInputOptions = [
-  {
-    name: 'Data dodania',
-    value: 'dateAdded',
-  },
-  {
-    name: 'Tytuł',
-    value: 'title',
-  },
-  {
-    name: 'Autor',
-    value: 'author',
-  },
-  {
-    name: 'Rok premiery',
-    value: 'year',
-  },
-  {
-    name: 'Cena',
-    value: 'price',
-  },
-  {
-    name: 'Liczba stron',
-    value: 'numPages',
-  },
-];
-
 const Category = ({ items, name }) => {
   const classes = useCategoryStyles();
 
-  let location = useLocation();
-  let queryParams = new URLSearchParams(location.search);
-  let sortParam = queryParams.get('sort');
-  let orderParam = 'desc';
-  if (sortParam.endsWith('asc')) {
-    orderParam = 'asc';
-  }
-  let featuredParam = queryParams.get('recommended');
-  if (featuredParam === 'true') {
-    featuredParam = true;
-  }
-  if (featuredParam === 'false') {
-    featuredParam = false;
-  }
+  const queryParams = useQueryParams(useLocation());
 
   const [sortMode, setSortMode] = useState(
-    sortParam.substring(0, sortParam.indexOf(';')) || 'dateAdded'
+    queryParams.sortParam ? queryParams.sortParam : false || 'dateAdded'
   );
-  const [featured, setFeatured] = useState(featuredParam || false);
-  const [order, setOrder] = useState(orderParam);
+  const [featured, setFeatured] = useState(queryParams.featuredParam || false);
+  const [order, setOrder] = useState(queryParams.orderParam);
   const history = useHistory();
   const { categoryId } = useParams();
 

@@ -7,6 +7,7 @@ import MainLayout from 'components/mainLayout/MainLayout';
 import { CATEGORY_PAGE } from 'global/constants/pages';
 import { api } from 'global/connection/backend/endpoints';
 import itemsPerPage from 'global/constants/itemsPerPage';
+import useQueryParams from './utils/useQueryParams';
 
 import WithPagination from 'components/withPagination/WithPagination';
 
@@ -17,25 +18,7 @@ const CategoryContainer = () => {
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
-
-  let location = useLocation();
-  let queryParams = new URLSearchParams(location.search);
-  let sortParam = queryParams.get('sort');
-  let orderParam = 'desc';
-  let featuredParam = queryParams.get('recommended');
-
-  if (featuredParam === 'true') {
-    featuredParam = true;
-  }
-  if (featuredParam === 'false') {
-    featuredParam = false;
-  }
-  if (sortParam.endsWith('asc')) {
-    orderParam = 'asc';
-  }
-  sortParam = sortParam.substring(0, sortParam.indexOf(';'));
-
-  console.log(orderParam);
+  const queryParams = useQueryParams(useLocation());
 
   useEffect(() => {
     if (!categoryId) {
@@ -67,9 +50,11 @@ const CategoryContainer = () => {
         fetchBaseUrl={fetchBaseUrl}
         clientBaseUrl={clientBaseUrl}
         itemsPerPage={itemsPerPage.CATEGORY}
-        sort={sortParam}
-        sortOrder={orderParam}
-        additionalParametres={featuredParam ? `recommended=${true}` : false}
+        sort={queryParams.sortParam}
+        sortOrder={queryParams.orderParam}
+        additionalParametres={
+          queryParams.featuredParam ? `recommended=${true}` : false
+        }
       />
     </MainLayout>
   );
