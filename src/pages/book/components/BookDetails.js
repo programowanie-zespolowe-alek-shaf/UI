@@ -12,10 +12,10 @@ import {
   Box,
 } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
-import { BOOK_PAGE } from 'global/constants/pages';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { addItemToCart } from 'pages/cart/slice/cartSlice';
 import MainLayout from 'components/mainLayout/MainLayout';
+import { BOOK_PAGE } from 'global/constants/pages';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import useBookDetailsStyles from './BookDetailsStyles';
 
