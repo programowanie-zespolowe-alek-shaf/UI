@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React, { useState } from 'react';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
->>>>>>> 3c2cd3df11dfb85462d5d1e38120b2e7f6eed6d5
 import PropTypes from 'prop-types';
 import Grid from 'components/grid/Grid';
 import BookCard from 'components/bookCard/BookCard';
@@ -11,9 +7,6 @@ import { CATEGORY_PAGE } from 'global/constants/pages';
 import selectInputOptions from '../utils/selectInputOptions';
 import useQueryParams from '../utils/useQueryParams';
 
-<<<<<<< HEAD
-import { Typography, Box, Button, Select, Checkbox } from '@material-ui/core';
-=======
 import {
   Typography,
   Box,
@@ -25,7 +18,6 @@ import {
   MenuItem,
   FormControlLabel,
 } from '@material-ui/core';
->>>>>>> 3c2cd3df11dfb85462d5d1e38120b2e7f6eed6d5
 import useCategoryStyles from './CategoryStyles';
 
 const Category = ({ items, name }) => {
@@ -68,13 +60,6 @@ const Category = ({ items, name }) => {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-      <Box display='flex'>
-        <Typography variant='h6' className={classes.title}>
-          {name}
-        </Typography>
-        <form></form>
-=======
       <Typography variant='h6'>{name}</Typography>
       <Box
         component='form'
@@ -139,7 +124,6 @@ const Category = ({ items, name }) => {
         >
           Filtruj
         </Button>
->>>>>>> 3c2cd3df11dfb85462d5d1e38120b2e7f6eed6d5
       </Box>
       <Grid>
         {items.map((book, index) => {
