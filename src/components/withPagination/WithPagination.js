@@ -59,6 +59,8 @@ const WithPagination = (WrappedComponent) => {
       }
     });
 
+    console.log(state);
+
     return (
       <React.Fragment>
         <WrappedComponentWithLoading
