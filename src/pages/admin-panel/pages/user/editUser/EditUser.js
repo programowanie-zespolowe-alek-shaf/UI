@@ -26,12 +26,6 @@ const EditUser = () => {
   const history = useHistory();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const statusOptions = [
-    {name: 'PLACED', value: 'PLACED'},
-    {name: 'APPROVED', value: 'APPROVED'},
-    {name: 'DELIVERED', value: 'DELIVERED'},
-    {name: 'DISAPPROVED', value: 'DISAPPROVED'},
-  ];
 
   //FETCH USER DATA FOR ENTRY INPUT VALUES
   useEffect(() => {

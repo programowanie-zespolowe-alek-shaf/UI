@@ -3,7 +3,7 @@ export const sidebar = {
   items: [
     {
       slug: 'edit-data',
-      name: 'Dane konta',
+      name: 'Zarządzaj danymi konta',
     },
     {
       slug: 'orders',
