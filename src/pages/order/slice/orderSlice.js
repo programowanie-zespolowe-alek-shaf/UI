@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
 import { triggerGlobalAlert } from '../../../components/globalAlert/slice/globalAlertSlice';
-import { setCartInStorage } from '../../cart/slice/cartSlice';
+import {createCartSuccess, setCartInStorage} from '../../cart/slice/cartSlice';
 import { getUserInfoAction } from '../../login/actions/loginActions';
+import moment from 'moment';
 
 
 export const initialState = {
@@ -45,11 +46,13 @@ export const {
 
 export const orderPlacement = (address, couponCode) => (dispatch, getState) => {
   const shoppingCartId = getState().customer.details.lastShoppingCardId;
-  
+
+  const date = moment().add(3, 'days').format('YYYY-MM-DD');
+
   const payload = {
     'shoppingCardID': shoppingCartId,
     'address': address,
-    'shipDate': '2020-06-16',
+    'shipDate': date,
     'couponCode': couponCode
   };
   
@@ -63,10 +66,10 @@ export const orderPlacement = (address, couponCode) => (dispatch, getState) => {
 
   dispatch(requestOrder());
   return order().then((response) => {
-    const newCartId = response.data.lastShoppingCardId;
-    setCartInStorage(newCartId);
     getUserInfoAction();
     dispatch(orderSuccess());
+    dispatch(createCartSuccess(response.data));
+    setCartInStorage(response.data.id);
     dispatch(triggerGlobalAlert('success', 'Zamówienie przyjęto do realizacji!'));
   }).catch((error) => {
     dispatch(triggerGlobalAlert('error', 'Błąd podczas składania zamówienia, spróbuj ponownie'));

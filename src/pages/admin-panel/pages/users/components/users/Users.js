@@ -13,7 +13,7 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import UserPreview from '../userPreview/UserPreview';
+import UserPreview from '../UserPreview/UserPreview';
 
 const Users = ({ items, onUserDelete }) => {
   const commonClasses = useAdminPanelStyles();

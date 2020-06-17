@@ -10,7 +10,6 @@ const StripeCheckoutButton = ({ price, couponCode }) => {
   const publishableKey = 'pk_test_dKJqK9ot67ciIROxXUfKBF3k00Q30DGBGL';
 
   const onToken = (token) => {
-    console.log(token);
 
     const address = token.card.address_line1 + ', ' + token.card.address_zip + ', ' + token.card.address_city + ', ' + token.card.address_country;
     dispatch(orderPlacement(address, couponCode));
