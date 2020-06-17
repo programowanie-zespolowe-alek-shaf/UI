@@ -5,16 +5,16 @@ import { ADMIN_PAGE_USERS } from 'global/constants/pages';
 
 import WithPagination from 'components/withPagination/WithPagination';
 
-import Users from './Users';
+import UsersManager from './components/manager/UsersManager';
 
-const UsersWithPagination = WithPagination(Users);
+const UsersManagerWithPagination = WithPagination(UsersManager);
 
 const fetchBaseUrl = `${api.customersUsers}?`;
 const clientBaseUrl = `${ADMIN_PAGE_USERS}`;
 
 const UsersContainer = () => {
   return (
-    <UsersWithPagination
+    <UsersManagerWithPagination
       fetchBaseUrl={fetchBaseUrl}
       clientBaseUrl={clientBaseUrl}
       itemsPerPage={itemsPerPage.ADMIN_LIST}
