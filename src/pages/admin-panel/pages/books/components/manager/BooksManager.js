@@ -10,7 +10,10 @@ import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlic
 
 import Books from '../books/Books';
 import ConfirmationModal from 'components/confirmationModal/ConfirmationModal';
-import {getCartFromStorage, getUsersCart} from "../../../../../cart/slice/cartSlice";
+import {
+  getCartFromStorage,
+  getUsersCart,
+} from '../../../../../cart/slice/cartSlice';
 
 const BookManager = ({ items, updateItems }) => {
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
