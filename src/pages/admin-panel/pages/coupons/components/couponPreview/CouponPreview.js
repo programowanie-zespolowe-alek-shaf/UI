@@ -18,7 +18,9 @@ const CouponPreview = ({ coupon, onDelete }) => {
       <TableCell scope='row' align='center'>
         {coupon.code}
       </TableCell>
-      <TableCell align='center'>{coupon.discountMultiplayer * 100}</TableCell>
+      <TableCell align='center'>
+        {100 - coupon.discountMultiplayer * 100}
+      </TableCell>
       <TableCell align='center'>{coupon.amountLeft}</TableCell>
       <TableCell align='center'>
         <ButtonGroup

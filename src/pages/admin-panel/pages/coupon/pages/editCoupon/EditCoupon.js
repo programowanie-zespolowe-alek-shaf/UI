@@ -68,7 +68,8 @@ const EditCoupon = () => {
   };
 
   const onEditCoupon = (couponData) => {
-    couponData.discountMultiplayer /= 100;
+    couponData.discountMultiplayer =
+      (100 - couponData.discountMultiplayer) / 100;
     editItem(dispatchLocal, 'coupon', id, couponData, onSuccess);
   };
 

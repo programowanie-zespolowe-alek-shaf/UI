@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector, shallowEqual } from 'react-redux';
 import Category from './components/Category';
 import { MAIN_PAGE } from 'global/constants/pages';
@@ -7,6 +7,7 @@ import MainLayout from 'components/mainLayout/MainLayout';
 import { CATEGORY_PAGE } from 'global/constants/pages';
 import { api } from 'global/connection/backend/endpoints';
 import itemsPerPage from 'global/constants/itemsPerPage';
+import useQueryParams from './utils/useQueryParams';
 
 import WithPagination from 'components/withPagination/WithPagination';
 
@@ -17,6 +18,7 @@ const CategoryContainer = () => {
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
+  const queryParams = useQueryParams(useLocation());
 
   useEffect(() => {
     if (!categoryId) {
@@ -48,6 +50,11 @@ const CategoryContainer = () => {
         fetchBaseUrl={fetchBaseUrl}
         clientBaseUrl={clientBaseUrl}
         itemsPerPage={itemsPerPage.CATEGORY}
+        sort={queryParams.sortParam}
+        sortOrder={queryParams.orderParam}
+        additionalParametres={
+          queryParams.featuredParam ? `recommended=${true}` : false
+        }
       />
     </MainLayout>
   );
