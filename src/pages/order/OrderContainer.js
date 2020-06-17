@@ -5,6 +5,7 @@ import OrderData from './components/OrderData';
 import styles from './styles/orderStyles.scss';
 import Payment from './components/Payment';
 import { restartOrder } from './slice/orderSlice';
+import { resetCoupon } from './slice/couponSlice';
 import { CircularProgress } from '@material-ui/core';
 
 function OrderContainer() {
@@ -21,6 +22,7 @@ function OrderContainer() {
     
     return () => {
       dispatch(restartOrder());
+      dispatch(resetCoupon());
     };
   }, [cart.items.length]);
 
