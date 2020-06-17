@@ -43,7 +43,12 @@ const EditOrder = () => {
     const item = state.item;
     if (item) {
       for (let input in item) {
-        if ( input !== 'id' && input !== 'shoppingCardId' && input !== 'status') {
+        if ( input !== 'id' &&
+             input !== 'shoppingCardId' &&
+             input !== 'status' &&
+             input !== 'shoppingCard' &&
+             input !== 'transaction') {
+          console.log(input, ': ', item[input]);
           inputs[input].defaultValue = item[input];
         }
 

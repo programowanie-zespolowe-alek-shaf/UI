@@ -32,16 +32,17 @@ function OrderContainer() {
 
   return (
     <div className={styles.container}>
-        order.isSuccess ? <h2 className={styles.title}>ZAMÓWIENIE ZOSTAŁO ZŁOŻONE</h2> :
-        <React.Fragment>
-          <h2 className={styles.title}>PODSUMOWANIE</h2>
-          <div className={styles.content}>
-            <OrderData />
-            <div className={styles.payment}>
-              <Payment />
+      {order.isSuccess ? <h2 className={styles.title}>ZAMÓWIENIE ZOSTAŁO ZŁOŻONE</h2> :
+          <React.Fragment>
+            <h2 className={styles.title}>PODSUMOWANIE</h2>
+            <div className={styles.content}>
+              <OrderData/>
+              <div className={styles.payment}>
+                <Payment/>
+              </div>
             </div>
-          </div>
-        </React.Fragment>
+          </React.Fragment>
+      }
     </div>
   );
 }
