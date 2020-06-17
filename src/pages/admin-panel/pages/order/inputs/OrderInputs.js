@@ -1,4 +1,4 @@
-const orderInputs = () => {
+const OrderInputs = () => {
   return {
     address: {
       type: 'text',
@@ -32,4 +32,4 @@ const orderInputs = () => {
   };
 };
 
-export default orderInputs;
+export default OrderInputs;

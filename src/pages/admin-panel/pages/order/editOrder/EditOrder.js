@@ -11,14 +11,14 @@ import {
   editItem,
   getItem,
 } from '../../../slice/AdminPanelSingleSlice';
-import orderInputs from '../inputs/orderInputs';
+import OrderInputs from '../inputs/orderInputs';
 
 import WithLoading from 'components/withLoading/WithLoading';
 import {ADMIN_PAGE_ORDERS} from "../../../../../global/constants/pages";
 
 const EditFormWithLoading = WithLoading(Form);
 
-const inputs = orderInputs();
+const inputs = OrderInputs();
 
 const EditOrder = () => {
   const [defaults, setDefaults] = useState(false);
