@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import useAdminPanelStyles from '../../AdminPanelStyles';
+import useAdminPanelStyles from '../../../../AdminPanelStyles';
 import {
   Box,
   Paper,
@@ -13,9 +13,9 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import UserPreview from './components/UserPreview/UserPreview';
+import UserPreview from '../userPreview/UserPreview';
 
-const Users = ({ items }) => {
+const Users = ({ items, onUserDelete }) => {
   const commonClasses = useAdminPanelStyles();
 
   return (
@@ -46,7 +46,7 @@ const Users = ({ items }) => {
           <TableBody>
             {items.map((user, index) => (
               <TableRow key={`admin-user-${index}`}>
-                <UserPreview user={user} />
+                <UserPreview user={user} onUserDelete={onUserDelete} />
               </TableRow>
             ))}
           </TableBody>

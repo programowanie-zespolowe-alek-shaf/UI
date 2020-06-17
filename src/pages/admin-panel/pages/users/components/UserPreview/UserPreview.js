@@ -8,7 +8,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
-const UserPreview = ({ user }) => {
+const UserPreview = ({ user, onUserDelete }) => {
   const classes = useAdminPanelStyles();
 
   return (
@@ -54,7 +54,10 @@ const UserPreview = ({ user }) => {
             </Link>
           </Button>
           <Button>
-            <DeleteIcon color='action' />
+            <DeleteIcon
+              color='action'
+              onClick={() => onUserDelete(user.username)}
+            />
           </Button>
         </ButtonGroup>
       </TableCell>
