@@ -1,62 +1,118 @@
 import React from 'react';
-import { PropTypes as pt, bool } from 'prop-types';
-import {   
-  Typography,
-  Grid,
-  Card,
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
   CardActionArea,
-  CardMedia,
   CardContent,
+  CardMedia,
+  Card,
+  Link,
+  Typography,
   Button,
-  Link, } 
-  from '@material-ui/core';
-import styles from '../styles/BookDetails.scss';
-import useFeaturedStyles from '../../main/components/featured/FeaturedStyles';
+  Box,
+} from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { BOOK_PAGE } from 'global/constants/pages';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { addItemToCart } from 'pages/cart/slice/cartSlice';
+import MainLayout from 'components/mainLayout/MainLayout';
 
+import useBookDetailsStyles from './BookDetailsStyles';
 
 const BookDetails = ({ book }) => {
-  const classes = useFeaturedStyles();
+  const classes = useBookDetailsStyles();
+  const {
+    id,
+    title,
+    author,
+    description,
+    price,
+    year,
+    photoUrl,
+    available,
+    coverType,
+    numPages,
+  } = book;
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (id) => {
+    dispatch(addItemToCart(id));
+  };
+
+  const InfoElement = ({ label, content }) => {
+    return (
+      <Box display='flex' flexDirection={'column'} mr={3}>
+        <Typography variant='caption' gutterBottom>
+          {label}
+        </Typography>
+        <Typography variant='subtitle2'>{content}</Typography>
+      </Box>
+    );
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.itemDetails}>
-        <img alt={book.imageURL} src={book.photoUrl} height={200} width={150}  />
-        <section className={styles.info}>
-          <header className={styles.title}>{book.title}</header>
-          <span>Loading: {book.loading}</span>
-          <span>Autor: {book.author}</span>
-          <span>Rok: {book.year}</span>
-          <span>Opis: {book.description}</span>
-          <span>Dostępna: {book.available}</span>
-          <span>Kategoria: {book.category.name}</span>
-          <span><strong>Cena: {book.price}</strong></span>
-        </section>
-      </div>
-      <div className={styles.deleteButton}>
-        <Button 
-        // onClick={() => props.onAdd(props.id)}
-        >
-          Dodaj do koszyka
-          </Button>
-      </div>
-    </div>
+    <MainLayout>
+      <Box display='flex' justifyContent='center' alignSelf='center' mt={1}>
+        <Card variant='outlined' classes={{ root: classes.root }}>
+          <CardActionArea classes={{ root: classes.actionArea }}>
+            <Link to={`${BOOK_PAGE}/${id}`} component={RouterLink}>
+              <CardMedia
+                component='img'
+                alt={title}
+                image={photoUrl}
+                title={title}
+                className={classes.image}
+              />
+            </Link>
+          </CardActionArea>
+          <CardContent classes={{ root: classes.content }}>
+            <Typography variant='h6' className={classes.title}>
+              {title}
+            </Typography>
+
+            <Box display='flex' mt={1.5}>
+              <InfoElement label='Autor' content={author} />
+              <InfoElement label='Rok wydania' content={year} />
+            </Box>
+            <Box mt={1}>
+              <InfoElement label='Opis' content={description} />
+            </Box>
+            <Box display='flex' mt={1.5}>
+              <InfoElement label='Liczba stron' content={numPages} />
+              <InfoElement label='Typ okładki' content={coverType} />
+            </Box>
+            <Box mt={1.5}>
+              <InfoElement
+                label='Cena'
+                content={`${Number.parseFloat(price).toFixed(2)} zł`}
+              />
+            </Box>
+            <Button
+              size='small'
+              variant='contained'
+              color='primary'
+              startIcon={<AddShoppingCartIcon />}
+              classes={
+                available
+                  ? { root: classes.addToCartAvailable }
+                  : { root: classes.addToCartUnavailable }
+              }
+              onClick={() => handleAddToCart(id)}
+              disabled={!available}
+            >
+              <Typography variant='caption'>
+                {available ? 'Do koszyka' : 'Niedostępna'}
+              </Typography>
+            </Button>
+          </CardContent>
+        </Card>
+      </Box>
+    </MainLayout>
   );
 };
 
 BookDetails.propTypes = {
-  loading: bool,
-  id: pt.number,
-  title: pt.string,
-  category: pt.shape({
-    id: pt.number, 
-    name: pt.string
-  }),
-  author: pt.string,
-  description: pt.string,
-  amount: pt.number,
-  price: pt.number,
-  available: pt.bool,
-  photoUrl: pt.string,
-  onAdd: pt.func,
+  book: PropTypes.object,
 };
 
 export default BookDetails;
