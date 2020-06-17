@@ -24,7 +24,7 @@ function OrderContainer() {
 
   return (
     <div className={styles.container}>
-      {order.isSuccess ? <h2 className={styles.title}>ZAMÓWIENIE ZOSTAŁO ZŁOŻONE</h2> :
+        order.isSuccess ? <h2 className={styles.title}>ZAMÓWIENIE ZOSTAŁO ZŁOŻONE</h2> :
         <React.Fragment>
           <h2 className={styles.title}>PODSUMOWANIE</h2>
           <div className={styles.content}>
@@ -33,7 +33,7 @@ function OrderContainer() {
               <Payment />
             </div>
           </div>
-        </React.Fragment>}
+        </React.Fragment>
     </div>
   );
 }
