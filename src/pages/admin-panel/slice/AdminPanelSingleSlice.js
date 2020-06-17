@@ -104,7 +104,7 @@ export const getItem = async (dispatch, destination, id) => {
     });
 
     const item = response.data;
-
+  console.log(item);
     dispatch(fetchItemSuccess(item));
   } catch (error) {
     const message = error.response.data.error;
@@ -149,6 +149,7 @@ export const editItem = async (dispatch, destination, id, data, callback) => {
     dispatch(editItemSuccess);
     callback();
   } catch (error) {
+    console.log(error);
     const message = error.response.data.error;
     dispatch(editItemFailure(message));
   }

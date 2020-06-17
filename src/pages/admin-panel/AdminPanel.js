@@ -25,8 +25,9 @@ import { Box } from '@material-ui/core';
 import Sidebar from 'components/sidebar/Sidebar';
 import { default as Books } from './pages/books/BooksContainer';
 import AddBook from './pages/book/pages/addBook/AddBook';
-import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
 import EditBook from './pages/book/pages/editBook/EditBook';
+import EditOrder from "./pages/order/editOrder/EditOrder";
+import EditUser from "./pages/user/editUser/EditUser";
 import { default as Users } from './pages/users/UsersContainer';
 import { default as UserDetails } from './pages/user/userDetails/UserDetailsContainer';
 import { default as Categories } from './pages/categories/CategoriesContainer';
@@ -35,9 +36,9 @@ import AddCoupon from './pages/coupon/pages/addCoupon/AddCoupon';
 import EditCoupon from './pages/coupon/pages/editCoupon/EditCoupon';
 import { default as Coupons } from './pages/coupons/CouponsContainer';
 
+import { default as BookDetails } from './pages/book/pages/bookDetails/BookDetailsContainer';
 import Orders from './pages/orders/OrdersContainer';
 import Order from './pages/order/orderDetails/OrderDetailsContainer';
-
 import useAdminPanelStyles from './AdminPanelStyles';
 
 const AdminPanel = () => {
@@ -61,38 +62,21 @@ const AdminPanel = () => {
       />
       <Box className={classes.content}>
         <Switch>
-          <Route
-            exact
-            path={[`${ADMIN_PAGE}`, `${ADMIN_PAGE_ORDERS}/:pageId?`]}
-            component={Orders}
-          />
-          <Route
-            exact
-            path={`${ADMIN_PAGE_ORDER}/:pageId?`}
-            component={Order}
-          />
-          <Route
-            exact
-            path={`${ADMIN_PAGE_BOOKS}/:pageId?`}
-            component={Books}
-          />
+          <Route exact path={[`${ADMIN_PAGE}`, `${ADMIN_PAGE_ORDERS}/:pageId?`]} component={Orders}/>
+          <Route exact path={ADMIN_PAGE_ORDER_EDIT} component={EditOrder} />
+          <Route exact path={`${ADMIN_PAGE_ORDER}/:pageId?`} component={Order}/>
+
+          <Route exact path={`${ADMIN_PAGE_BOOKS}/:pageId?`} component={Books}/>
           <Route exact path={ADMIN_PAGE_BOOK} component={BookDetails} />
           <Route exact path={ADMIN_PAGE_BOOK_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_BOOKS_ADD} component={AddBook} />
+          <Route exact path={ADMIN_PAGE_USER_EDIT} component={EditUser} />
           <Route exact path={ADMIN_PAGE_USER} component={UserDetails} />
-          <Route exact path={ADMIN_PAGE_USER_EDIT} component={UserDetails} />
           <Route
             exact
             path={`${ADMIN_PAGE_USERS}/:pageId?`}
             component={Users}
           />
-          <Route
-            exact
-            path={`${ADMIN_PAGE_ORDERS}/:pageId?`}
-            component={Books}
-          />
-          <Route exact path={ADMIN_PAGE_ORDER} component={BookDetails} />
-          <Route exact path={ADMIN_PAGE_ORDER_EDIT} component={EditBook} />
           <Route exact path={ADMIN_PAGE_ORDER_ADD} component={AddBook} />
           <Route
             exact

@@ -8,6 +8,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 
 
 import {default as Details} from './profileDetails/ProfileDetailsContainer';
+import {default as Orders} from './profileOrders/ProfileOrdersContainer';
+
 import {Box} from "@material-ui/core";
 import useAdminPanelStyles from "../admin-panel/AdminPanelStyles";
 
@@ -23,7 +25,7 @@ const Profile = () => {
       />
       <Box className={classes.content}>
         <Switch>
-          <Route exact path={"/profile/orders"} component={<div>Orders</div>}/>
+          <Route exact path={"/profile/orders"} component={Orders}/>
           <Route exact path={"/profile/edit-data"} component={Details}/>
           <Route exact path={"/profile/change-password"} component={<div>Change Password</div>}/>
         </Switch>

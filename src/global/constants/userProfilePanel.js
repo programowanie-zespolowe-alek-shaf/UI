@@ -3,15 +3,15 @@ export const sidebar = {
   items: [
     {
       slug: 'edit-data',
-      name: 'Dane konta',
+      name: 'Zarządzaj danymi konta',
     },
     {
       slug: 'orders',
       name: 'Zamówienia',
     },
-    {
-      slug: 'change-password',
-      name: 'Zmiana hasła',
-    },
+    // {
+    //   slug: 'change-password',
+    //   name: 'Zmiana hasła',
+    // },
   ],
 };
