@@ -7,7 +7,7 @@ function CartSummary(props) {
 
   return (
     <div className={styles.container}>
-      <span>{`Do zapłaty: ${props.totalCost}`} zł</span>
+      <span className={styles.pay}>{`Do zapłaty: ${props.totalCost}`} zł</span>
       <Button
         size='small'
         variant='contained'
