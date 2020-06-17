@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
-import { api } from 'global/connection/backend/endpoints';
 
 export const initialState = {
   items: [],
