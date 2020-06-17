@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
 import { api } from '../../../global/connection/backend/endpoints';
 import { triggerGlobalAlert } from '../../../components/globalAlert/slice/globalAlertSlice';
-import {createCartSuccess, setCartInStorage} from '../../cart/slice/cartSlice';
+import { createCartSuccess, setCartInStorage } from '../../cart/slice/cartSlice';
+import { resetCoupon } from './couponSlice';
 import { getUserInfoAction } from '../../login/actions/loginActions';
 import moment from 'moment';
+import {getUserDetailsAction} from "../../customers/slice/customersSlice";
 
 
 export const initialState = {
@@ -66,10 +68,10 @@ export const orderPlacement = (address, couponCode) => (dispatch, getState) => {
 
   dispatch(requestOrder());
   return order().then((response) => {
-    getUserInfoAction();
-    dispatch(orderSuccess());
-    dispatch(createCartSuccess(response.data));
     setCartInStorage(response.data.id);
+    dispatch(getUserInfoAction());
+    dispatch(orderSuccess());
+    dispatch(resetCoupon());
     dispatch(triggerGlobalAlert('success', 'Zamówienie przyjęto do realizacji!'));
   }).catch((error) => {
     dispatch(triggerGlobalAlert('error', 'Błąd podczas składania zamówienia, spróbuj ponownie'));
