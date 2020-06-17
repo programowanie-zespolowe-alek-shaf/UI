@@ -48,7 +48,6 @@ const EditOrder = () => {
              input !== 'status' &&
              input !== 'shoppingCard' &&
              input !== 'transaction') {
-          console.log(input, ': ', item[input]);
           inputs[input].defaultValue = item[input];
         }
 
@@ -87,7 +86,6 @@ const EditOrder = () => {
   };
 
   const onEditOrder = (orderData) => {
-    console.log("new order: ", orderData);
     orderData['shoppingCardId']=state.item.shoppingCardId;
     editItem(dispatchLocal, 'order', id, orderData, onSuccess);
   };

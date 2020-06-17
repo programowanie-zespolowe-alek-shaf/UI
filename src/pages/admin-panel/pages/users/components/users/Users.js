@@ -17,7 +17,6 @@ import UserPreview from '../UserPreview/UserPreview';
 
 const Users = ({ items, onUserDelete }) => {
   const commonClasses = useAdminPanelStyles();
-  console.log('users: ', items);
   return (
     <Box display='flex' flexDirection='column' width={'100%'}>
       <Box
