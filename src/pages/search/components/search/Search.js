@@ -32,6 +32,7 @@ const Search = ({ items, phrase, category }) => {
               photoUrl={item.photoUrl}
               description={item.description}
               price={item.price}
+              available={item.available}
             />
           );
         })}
