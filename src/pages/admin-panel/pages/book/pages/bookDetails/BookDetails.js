@@ -30,7 +30,7 @@ const BookDetails = ({book}) => {
   const InfoElement = ({ label, content }) => {
     return (
         <Box display='flex' flexDirection={'column'} mr={3}>
-          <Typography variant='caption' gutterBottom>
+          <Typography variant='caption'  gutterBottom>
             {label}
           </Typography>
           <Typography variant='subtitle2'>{content}</Typography>

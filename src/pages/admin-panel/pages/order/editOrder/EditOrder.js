@@ -75,7 +75,15 @@ const EditOrder = () => {
         )
       );
     }
-  }, [state.error]);
+    if (state.editingError) {
+      dispatch(
+          triggerGlobalAlert(
+              'error',
+              `Podczas edytowania zamówienia wystąpił błąd: ${state.editingError}`
+          )
+      );
+    }
+  }, [state.error, state.editingError]);
 
   //FUNCTION TRIGGERING IF EDIT REQUEST WAS SUCCESFUL
   const onSuccess = () => {
