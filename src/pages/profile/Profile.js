@@ -3,9 +3,8 @@ import {Switch, Route} from "react-router-dom";
 
 import styles from "./Profile.scss";
 import {sidebar} from "../../global/constants/userProfilePanel";
-import {ADMIN_PAGE, ADMIN_PAGE_ORDERS, PROFILE_PAGE} from "../../global/constants/pages";
+import { PROFILE_PAGE } from "../../global/constants/pages";
 import Sidebar from "../../components/sidebar/Sidebar";
-
 
 import {default as Details} from './profileDetails/ProfileDetailsContainer';
 import {default as Orders} from './profileOrders/ProfileOrdersContainer';
@@ -23,7 +22,6 @@ const Profile = () => {
           title={sidebar.title}
           items={sidebar.items}
           baseItemUrl={PROFILE_PAGE}
-
       />
       <Box className={classes.content}>
         <Switch>

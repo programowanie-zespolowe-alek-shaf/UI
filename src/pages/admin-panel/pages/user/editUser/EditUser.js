@@ -76,7 +76,6 @@ const EditUser = () => {
   };
 
   const onEditUser = (userData) => {
-    // userData['shoppingCardId']=state.item.shoppingCardId;
     editItem(dispatchLocal, 'user', id, userData, onSuccess);
   };
 
