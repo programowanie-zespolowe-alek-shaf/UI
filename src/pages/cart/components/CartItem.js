@@ -8,11 +8,10 @@ import {
   Link,
   Typography,
   Button,
-  Box,
   Input,
 } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
-import { BOOK_PAGE } from 'global/constants/pages';
+import { BOOK_PAGE } from '../../../global/constants/pages';
 import styles from '../styles/cartItem.scss';
 import DeleteIcon from '@material-ui/icons/Delete';
 
