@@ -7,7 +7,7 @@ import Grid from 'components/grid/Grid';
 
 const useLastAddedStyles = makeStyles((theme) => ({
   title: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
 }));

@@ -56,7 +56,7 @@ export const getPaginationPage = async (
     const limit = itemsPerPage;
     const response = await request({
       url: `${baseUrl}offset=${offset}&limit=${limit}${
-        sort ? `&${sort};${sortOrder}` : ''
+        sort ? `&sort=${sort};${sortOrder}` : ''
       }${additionalParametres ? `&${additionalParametres}` : ''}`,
     });
     const data = response.data;

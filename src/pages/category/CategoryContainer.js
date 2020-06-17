@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector, shallowEqual } from 'react-redux';
 import Category from './components/Category';
 import { MAIN_PAGE } from 'global/constants/pages';
@@ -17,6 +17,25 @@ const CategoryContainer = () => {
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.categories, shallowEqual);
   const history = useHistory();
+
+  let location = useLocation();
+  let queryParams = new URLSearchParams(location.search);
+  let sortParam = queryParams.get('sort');
+  let orderParam = 'desc';
+  let featuredParam = queryParams.get('recommended');
+
+  if (featuredParam === 'true') {
+    featuredParam = true;
+  }
+  if (featuredParam === 'false') {
+    featuredParam = false;
+  }
+  if (sortParam.endsWith('asc')) {
+    orderParam = 'asc';
+  }
+  sortParam = sortParam.substring(0, sortParam.indexOf(';'));
+
+  console.log(orderParam);
 
   useEffect(() => {
     if (!categoryId) {
@@ -48,6 +67,9 @@ const CategoryContainer = () => {
         fetchBaseUrl={fetchBaseUrl}
         clientBaseUrl={clientBaseUrl}
         itemsPerPage={itemsPerPage.CATEGORY}
+        sort={sortParam}
+        sortOrder={orderParam}
+        additionalParametres={featuredParam ? `recommended=${true}` : false}
       />
     </MainLayout>
   );
