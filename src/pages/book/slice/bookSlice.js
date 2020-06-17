@@ -3,23 +3,22 @@ import request from '../../../global/connection/backend/request';
 import { api } from 'global/connection/backend/endpoints';
 import { response, deleteResponse } from '../../../global/mock/book';
 import axios from 'axios';
-import {number} from "prop-types";
-
+import { number } from 'prop-types';
 
 export const initialState = {
   isLoading: false,
   isLoaded: false,
   error: undefined,
-  book:  {
+  book: {
     id: null,
-    title:  '',
-    author:  '',
-    category:  '',
-    year:  '',
-    photoUrl:  '',
-    description:  '',
-    available:  '',
-    price:  '',
+    title: '',
+    author: '',
+    category: '',
+    year: '',
+    photoUrl: '',
+    description: '',
+    available: '',
+    price: '',
   },
 };
 
@@ -42,24 +41,18 @@ const bookSlice = createSlice({
       state.isLoaded = false;
       state.book = {};
       state.error = action.payload;
-    }
+    },
   },
 });
 export const { reducer, actions } = bookSlice;
-const {
-  fetchBook,
-  fetchBookSuccess,
-  fetchBookError
-} = actions;
+const { fetchBook, fetchBookSuccess, fetchBookError } = actions;
 
 export const getBookById = async (dispatch, bookId) => {
   // const bookId = 2;
-  
+
   try {
     dispatch(fetchBook());
-    const response = await axios.get(
-      `${api.books}/${bookId}`
-    );
+    const response = await axios.get(`${api.books}/${bookId}`);
     const book = await response.data;
     dispatch(fetchBookSuccess(book));
   } catch (error) {
@@ -67,6 +60,5 @@ export const getBookById = async (dispatch, bookId) => {
     dispatch(fetchBookError(message));
   }
 };
-
 
 export default reducer;
