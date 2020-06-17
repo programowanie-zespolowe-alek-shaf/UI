@@ -17,6 +17,9 @@ const WithPagination = (WrappedComponent) => {
     clientBaseUrl,
     afterClientBaseUrl,
     itemsPerPage,
+    sort = false,
+    sortOrder = 'desc',
+    additionalParametres = false,
     ...otherProps
   }) => {
     const [state, dispatchLocal] = useReducer(reducer, initialState);
@@ -31,7 +34,10 @@ const WithPagination = (WrappedComponent) => {
         dispatchLocal,
         fetchBaseUrl,
         parseInt(pageId),
-        itemsPerPage
+        itemsPerPage,
+        sort,
+        sortOrder,
+        additionalParametres
       );
 
     //IF PAGE NUMBER TOO SMALL
@@ -41,7 +47,7 @@ const WithPagination = (WrappedComponent) => {
       } else {
         getPage();
       }
-    }, [pageId, fetchBaseUrl]);
+    }, [pageId, fetchBaseUrl, sort, sortOrder, additionalParametres]);
 
     //IF PAGE NUMBER TOO BIG
     useEffect(() => {

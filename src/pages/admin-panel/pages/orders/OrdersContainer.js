@@ -5,16 +5,16 @@ import { ADMIN_PAGE_ORDERS } from 'global/constants/pages';
 
 import WithPagination from 'components/withPagination/WithPagination';
 
-import Orders from './Orders';
+import OrdersManager from './components/manager/OrdersManager';
 
-const OrdersWithPagination = WithPagination(Orders);
+const OrdersManagerWithPagination = WithPagination(OrdersManager);
 
 const OrdersContainer = () => {
   const fetchBaseUrl = `${api.orders}?`;
   const clientBaseUrl = `${ADMIN_PAGE_ORDERS}`;
 
   return (
-    <OrdersWithPagination
+    <OrdersManagerWithPagination
       fetchBaseUrl={fetchBaseUrl}
       clientBaseUrl={clientBaseUrl}
       itemsPerPage={itemsPerPage.ADMIN_LIST}

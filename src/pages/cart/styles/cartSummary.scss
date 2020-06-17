@@ -1,11 +1,13 @@
 .container {
   flex-flow: column;
+  .pay {
+    margin: 1rem 0;
+  }
   span {
     display: block;
     font-size: 2rem;
   }
   .button {
-    color: gray;
   }
   flex-flow: column;
   align-items: flex-end;

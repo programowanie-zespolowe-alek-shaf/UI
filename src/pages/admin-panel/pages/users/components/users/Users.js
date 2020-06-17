@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import useAdminPanelStyles from '../../AdminPanelStyles';
+import useAdminPanelStyles from '../../../../AdminPanelStyles';
 import {
   Box,
   Paper,
@@ -13,11 +13,11 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import OrderPreview from './components/OrderPreview/OrderPreview';
+import UserPreview from '../UserPreview/UserPreview';
 
-const Orders = ({ items }) => {
+const Users = ({ items, onUserDelete }) => {
   const commonClasses = useAdminPanelStyles();
-
+  console.log('users: ', items);
   return (
     <Box display='flex' flexDirection='column' width={'100%'}>
       <Box
@@ -27,25 +27,26 @@ const Orders = ({ items }) => {
         className={commonClasses.header}
       >
         <Typography variant='h5' component='h1' className={commonClasses.title}>
-          Zamówienia
+          Użytkownicy
         </Typography>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label='simple table'>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>ID</TableCell>
-              <TableCell align='center'>ID Koszyka</TableCell>
-              <TableCell align='center'>Adres dostawy</TableCell>
-              <TableCell align='center'>Data dostawy</TableCell>
-              <TableCell align='center'>Status</TableCell>
+              <TableCell align='center'>Login</TableCell>
+              <TableCell align='center'>Imię</TableCell>
+              <TableCell align='center'>Nazwisko</TableCell>
+              <TableCell align='center'>Adres e-mail</TableCell>
+              <TableCell align='center'>Numer telefonu</TableCell>
+              <TableCell align='center'>Uprawnienia</TableCell>
               <TableCell align='center'>Akcje</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((order, index) => (
-              <TableRow key={`admin-order-${index}`}>
-                <OrderPreview order={order} />
+            {items.map((user, index) => (
+              <TableRow key={`admin-user-${index}`}>
+                <UserPreview user={user} onUserDelete={onUserDelete} />
               </TableRow>
             ))}
           </TableBody>
@@ -55,4 +56,4 @@ const Orders = ({ items }) => {
   );
 };
 
-export default withRouter(Orders);
+export default withRouter(Users);

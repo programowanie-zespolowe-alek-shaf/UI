@@ -3,7 +3,7 @@ export const featured = {
   limit: 3,
 };
 
-export const adminBooks = {
+export const lastAdded = {
   offset: 0,
-  limit: 10,
+  limit: 6,
 };

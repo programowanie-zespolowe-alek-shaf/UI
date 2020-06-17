@@ -8,7 +8,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import useAdminPanelStyles from '../../../../AdminPanelStyles';
 
-const OrderPreview = ({ order }) => {
+const OrderPreview = ({ order, onOrderDelete }) => {
   const classes = useAdminPanelStyles();
 
   return (
@@ -41,7 +41,10 @@ const OrderPreview = ({ order }) => {
             </Link>
           </Button>
           <Button>
-            <DeleteIcon color='action' />
+            <DeleteIcon
+              color='action'
+              onClick={() => onOrderDelete(order.id)}
+            />
           </Button>
         </ButtonGroup>
       </TableCell>

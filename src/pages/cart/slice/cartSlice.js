@@ -68,7 +68,7 @@ const cartSlice = createSlice({
       state.id = action.payload.id;
       state.createDate = action.payload.createDate;
       state.items = action.payload.items.list;
-      state.items.totalValue = action.payload.items.totalValue.toFixed(2);
+      state.totalValue = action.payload.items.totalValue.toFixed(2);
       state.count = action.payload.items.count;
     },
     createCartError(state, action) {

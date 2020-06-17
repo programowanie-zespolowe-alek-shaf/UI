@@ -8,14 +8,12 @@ import {
 } from '../../../../slice/AdminPanelSingleSlice';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 
-import Books from '../books/Books';
+import Orders from '../orders/Orders';
 import ConfirmationModal from 'components/confirmationModal/ConfirmationModal';
-import {getCartFromStorage, getUsersCart} from "../../../../../cart/slice/cartSlice";
 
-const BookManager = ({ items, updateItems }) => {
+const OrdersManager = ({ items, updateItems }) => {
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-  const [deletedBookTitle, setDeletedBookTitle] = useState(undefined);
-  const [deletedBookId, setDeletedBookId] = useState(undefined);
+  const [deletedOrderId, setDeletedOrderId] = useState(undefined);
   const dispatch = useDispatch();
   const [singleState, singleDispatchLocal] = useReducer(
     singleReducer,
@@ -27,34 +25,31 @@ const BookManager = ({ items, updateItems }) => {
       dispatch(
         triggerGlobalAlert(
           'error',
-          `Wystąpił błąd podczas usuwania książki "${deletedBookTitle}:" ${singleState.error}`
+          `Wystąpił błąd podczas usuwania zamówienia "${deletedOrderId}:" ${singleState.error}`
         )
       );
     }
   }, [singleState.error]);
 
-  const onBookDelete = (bookId, bookTitle) => {
-    setDeletedBookTitle(bookTitle);
-    setDeletedBookId(bookId);
+  const onOrderDelete = (orderId) => {
+    setDeletedOrderId(orderId);
     setIsConfirmDeleteOpen(true);
   };
 
-  const deleteBook = (bookId) => {
+  const deleteOrder = (orderId) => {
     const onSuccess = () => {
       dispatch(
         triggerGlobalAlert(
           'success',
-          `Książka "${deletedBookTitle}" została usunięta pomyślnie!`
+          `Zamówienie "${orderId}" zostało usunięte pomyślnie!`
         )
       );
       updateItems();
-      dispatch(getUsersCart(getCartFromStorage()));
     };
 
-    deleteItem(singleDispatchLocal, 'book', bookId, onSuccess);
+    deleteItem(singleDispatchLocal, 'order', orderId, onSuccess);
     setIsConfirmDeleteOpen(false);
-    setDeletedBookTitle(undefined);
-    setDeletedBookId(undefined);
+    setDeletedOrderId(undefined);
   };
 
   return (
@@ -63,19 +58,19 @@ const BookManager = ({ items, updateItems }) => {
         isOpen={isConfirmDeleteOpen}
         setOpen={setIsConfirmDeleteOpen}
         title={'Potwierdź operację usunięcia'}
-        text={`Czy na pewno chcesz usunąć książkę "${deletedBookTitle}"?`}
+        text={`Czy na pewno chcesz usunąć zamówienie "${deletedOrderId}"?`}
         aggreeText={'Usuń'}
         cancelText={'Anuluj'}
-        aggreeCallback={() => deleteBook(deletedBookId)}
+        aggreeCallback={() => deleteOrder(deletedOrderId)}
       />
-      <Books items={items} onBookDelete={onBookDelete} />
+      <Orders items={items} onOrderDelete={onOrderDelete} />
     </React.Fragment>
   );
 };
 
-BookManager.propTypes = {
+OrdersManager.propTypes = {
   items: PropTypes.array.isRequired,
   updateItems: PropTypes.func.isRequired,
 };
 
-export default BookManager;
+export default OrdersManager;

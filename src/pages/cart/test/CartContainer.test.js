@@ -15,7 +15,7 @@ const mockStore = configureMockStore(middleware);
 
 const getActionTypes = (actions) => actions.map(action => action.type);
 
-describe('CartContainer test', () => {
+describe.skip('CartContainer test', () => {
   let store;
   let wrapper;
 

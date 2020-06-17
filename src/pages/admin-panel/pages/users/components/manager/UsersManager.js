@@ -8,14 +8,12 @@ import {
 } from '../../../../slice/AdminPanelSingleSlice';
 import { triggerGlobalAlert } from 'components/globalAlert/slice/globalAlertSlice';
 
-import Books from '../books/Books';
+import Users from '../users/Users';
 import ConfirmationModal from 'components/confirmationModal/ConfirmationModal';
-import {getCartFromStorage, getUsersCart} from "../../../../../cart/slice/cartSlice";
 
-const BookManager = ({ items, updateItems }) => {
+const UsersManager = ({ items, updateItems }) => {
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-  const [deletedBookTitle, setDeletedBookTitle] = useState(undefined);
-  const [deletedBookId, setDeletedBookId] = useState(undefined);
+  const [deletedUserName, setDeletedUserName] = useState(undefined);
   const dispatch = useDispatch();
   const [singleState, singleDispatchLocal] = useReducer(
     singleReducer,
@@ -27,34 +25,31 @@ const BookManager = ({ items, updateItems }) => {
       dispatch(
         triggerGlobalAlert(
           'error',
-          `Wystąpił błąd podczas usuwania książki "${deletedBookTitle}:" ${singleState.error}`
+          `Wystąpił błąd podczas usuwania użytkownika "${deletedUserName}:" ${singleState.error}`
         )
       );
     }
   }, [singleState.error]);
 
-  const onBookDelete = (bookId, bookTitle) => {
-    setDeletedBookTitle(bookTitle);
-    setDeletedBookId(bookId);
+  const onUserDelete = (userName) => {
+    setDeletedUserName(userName);
     setIsConfirmDeleteOpen(true);
   };
 
-  const deleteBook = (bookId) => {
+  const deleteUser = (userName) => {
     const onSuccess = () => {
       dispatch(
         triggerGlobalAlert(
           'success',
-          `Książka "${deletedBookTitle}" została usunięta pomyślnie!`
+          `Użytkownik "${deletedUserName}" została usunięty pomyślnie`
         )
       );
       updateItems();
-      dispatch(getUsersCart(getCartFromStorage()));
     };
 
-    deleteItem(singleDispatchLocal, 'book', bookId, onSuccess);
+    deleteItem(singleDispatchLocal, 'user', userName, onSuccess);
     setIsConfirmDeleteOpen(false);
-    setDeletedBookTitle(undefined);
-    setDeletedBookId(undefined);
+    setDeletedUserName(undefined);
   };
 
   return (
@@ -63,19 +58,19 @@ const BookManager = ({ items, updateItems }) => {
         isOpen={isConfirmDeleteOpen}
         setOpen={setIsConfirmDeleteOpen}
         title={'Potwierdź operację usunięcia'}
-        text={`Czy na pewno chcesz usunąć książkę "${deletedBookTitle}"?`}
+        text={`Czy na pewno chcesz usunąć użytkownika "${deletedUserName}"?`}
         aggreeText={'Usuń'}
         cancelText={'Anuluj'}
-        aggreeCallback={() => deleteBook(deletedBookId)}
+        aggreeCallback={() => deleteUser(deletedUserName)}
       />
-      <Books items={items} onBookDelete={onBookDelete} />
+      <Users items={items} onUserDelete={onUserDelete} />
     </React.Fragment>
   );
 };
 
-BookManager.propTypes = {
+UsersManager.propTypes = {
   items: PropTypes.array.isRequired,
   updateItems: PropTypes.func.isRequired,
 };
 
-export default BookManager;
+export default UsersManager;

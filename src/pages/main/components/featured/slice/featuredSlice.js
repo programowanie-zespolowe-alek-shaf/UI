@@ -44,7 +44,7 @@ export const getFeatured = async (dispatch) => {
     const { offset, limit } = featured;
 
     const response = await axios.get(
-      `${api.books}?offset=${offset}&limit=${limit}`
+      `${api.books}?offset=${offset}&limit=${limit}&recommended=true&sort=dateAdded;desc`
     );
     const books = response.data;
 

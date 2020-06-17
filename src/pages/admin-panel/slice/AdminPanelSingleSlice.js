@@ -115,7 +115,7 @@ export const getItem = async (dispatch, destination, id) => {
 export const addItem = async (dispatch, destination, data, callback) => {
   try {
     dispatch(addItemStart());
-    const response = await request({
+    await request({
       url: `${urlsMap[destination]}`,
       method: 'post',
       data: {
