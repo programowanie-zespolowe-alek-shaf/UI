@@ -4,7 +4,11 @@
   padding: 1rem;
   justify-content: space-between;
   align-items: center;
-
+ > div {
+   width: -webkit-fill-available;
+   width: -moz-available;
+   width: fill-available;
+ }
   input {
     width: 50px;
   }
