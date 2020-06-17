@@ -38,7 +38,6 @@ const EditUser = () => {
     if (item) {
       for (let input in item) {
         if ( input !== 'id' && input !== 'lastShoppingCardId' && input !== 'roles' && input !== 'enabled') {
-          console.log('setting ', input, ' to ', item[input]);
           inputs[input].defaultValue = item[input];
         }
 
@@ -77,8 +76,6 @@ const EditUser = () => {
   };
 
   const onEditUser = (userData) => {
-    console.log("new user: ", userData);
-    // userData['shoppingCardId']=state.item.shoppingCardId;
     editItem(dispatchLocal, 'user', id, userData, onSuccess);
   };
 

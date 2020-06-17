@@ -48,7 +48,6 @@ const EditOrder = () => {
              input !== 'status' &&
              input !== 'shoppingCard' &&
              input !== 'transaction') {
-          console.log(input, ': ', item[input]);
           inputs[input].defaultValue = item[input];
         }
 
@@ -76,7 +75,15 @@ const EditOrder = () => {
         )
       );
     }
-  }, [state.error]);
+    if (state.editingError) {
+      dispatch(
+          triggerGlobalAlert(
+              'error',
+              `Podczas edytowania zamówienia wystąpił błąd: ${state.editingError}`
+          )
+      );
+    }
+  }, [state.error, state.editingError]);
 
   //FUNCTION TRIGGERING IF EDIT REQUEST WAS SUCCESFUL
   const onSuccess = () => {
@@ -87,7 +94,6 @@ const EditOrder = () => {
   };
 
   const onEditOrder = (orderData) => {
-    console.log("new order: ", orderData);
     orderData['shoppingCardId']=state.item.shoppingCardId;
     editItem(dispatchLocal, 'order', id, orderData, onSuccess);
   };

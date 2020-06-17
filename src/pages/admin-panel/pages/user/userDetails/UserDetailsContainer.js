@@ -23,7 +23,7 @@ const UserDetailsContainer = (props) => {
   return (
     <div className={styles.container}>
       <h3>User Page</h3>
-      <span>Id użytkownika: {props.match.params.id}</span>
+      <span>Dane użytkownika: {props.match.params.id}</span>
 
       <DetailsWithLoading
         user={state.user}
