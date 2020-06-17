@@ -5,13 +5,15 @@ import OrderData from './components/OrderData';
 import styles from './styles/orderStyles.scss';
 import Payment from './components/Payment';
 import { restartOrder } from './slice/orderSlice';
-import { CART_PAGE } from '../../global/constants/pages';
+import { CircularProgress } from '@material-ui/core';
 
 function OrderContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart, shallowEqual);
   const order = useSelector((state) => state.order, shallowEqual);
+  const customer = useSelector((state) => state.customer, shallowEqual);
+  const loading = cart.loading || order.loading || customer.loading;
   
   React.useEffect(() => {
     
@@ -21,6 +23,10 @@ function OrderContainer() {
       dispatch(restartOrder());
     };
   }, [cart.items.length]);
+
+  if(loading) return <div className={styles.loader}>
+    <CircularProgress color='secondary' />
+  </div>;
 
   return (
     <div className={styles.container}>
