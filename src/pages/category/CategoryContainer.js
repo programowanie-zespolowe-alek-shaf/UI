@@ -50,8 +50,8 @@ const CategoryContainer = () => {
         fetchBaseUrl={fetchBaseUrl}
         clientBaseUrl={clientBaseUrl}
         itemsPerPage={itemsPerPage.CATEGORY}
-        sort={queryParams.sortParam}
-        sortOrder={queryParams.orderParam}
+        sort={queryParams.sortParam || 'dateAdded'}
+        sortOrder={queryParams.orderParam || 'desc'}
         additionalParametres={
           queryParams.featuredParam ? `recommended=${true}` : false
         }
