@@ -6,6 +6,7 @@
   align-items: center;
  > div {
    width: -webkit-fill-available;
+   width: -moz-available;
  }
   input {
     width: 50px;
