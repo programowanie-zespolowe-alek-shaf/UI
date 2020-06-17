@@ -9,9 +9,9 @@ export const sidebar = {
       slug: 'orders',
       name: 'Zamówienia',
     },
-    {
-      slug: 'change-password',
-      name: 'Zmiana hasła',
-    },
+    // {
+    //   slug: 'change-password',
+    //   name: 'Zmiana hasła',
+    // },
   ],
 };
