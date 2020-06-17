@@ -12,7 +12,7 @@ const useSearchStyles = makeStyles((theme) => ({
 
 import { Typography } from '@material-ui/core';
 
-const Search = ({ items, phrase, category }) => {
+const Search = ({ items, phrase }) => {
   const classes = useSearchStyles();
 
   return (
