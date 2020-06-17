@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import request from '../../../global/connection/backend/request';
-import { api } from 'global/connection/backend/endpoints';
 
 export const initialState = {
   items: [],
@@ -56,7 +55,11 @@ export const getPaginationPage = async (
     const limit = itemsPerPage;
     const response = await request({
       url: `${baseUrl}offset=${offset}&limit=${limit}${
+<<<<<<< HEAD
         sort ? `&${sort};${sortOrder}` : ''
+=======
+        sort ? `&sort=${sort};${sortOrder}` : ''
+>>>>>>> 3c2cd3df11dfb85462d5d1e38120b2e7f6eed6d5
       }${additionalParametres ? `&${additionalParametres}` : ''}`,
     });
     const data = response.data;

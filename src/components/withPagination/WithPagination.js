@@ -47,7 +47,7 @@ const WithPagination = (WrappedComponent) => {
       } else {
         getPage();
       }
-    }, [pageId, fetchBaseUrl]);
+    }, [pageId, fetchBaseUrl, sort, sortOrder, additionalParametres]);
 
     //IF PAGE NUMBER TOO BIG
     useEffect(() => {
