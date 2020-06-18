@@ -11,10 +11,10 @@ import {
   editItem,
   getItem,
 } from '../../../slice/AdminPanelSingleSlice';
-import OrderInputs from '../inputs/orderInputs';
+import OrderInputs from '../inputs/OrderInputs';
 
 import WithLoading from 'components/withLoading/WithLoading';
-import {ADMIN_PAGE_ORDERS} from "../../../../../global/constants/pages";
+import { ADMIN_PAGE_ORDERS } from '../../../../../global/constants/pages';
 
 const EditFormWithLoading = WithLoading(Form);
 
@@ -27,10 +27,10 @@ const EditOrder = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const statusOptions = [
-    {name: 'PLACED', value: 'PLACED'},
-    {name: 'APPROVED', value: 'APPROVED'},
-    {name: 'DELIVERED', value: 'DELIVERED'},
-    {name: 'DISAPPROVED', value: 'DISAPPROVED'},
+    { name: 'PLACED', value: 'PLACED' },
+    { name: 'APPROVED', value: 'APPROVED' },
+    { name: 'DELIVERED', value: 'DELIVERED' },
+    { name: 'DISAPPROVED', value: 'DISAPPROVED' },
   ];
 
   //FETCH ORDER DATA FOR ENTRY INPUT VALUES
@@ -77,10 +77,10 @@ const EditOrder = () => {
     }
     if (state.editingError) {
       dispatch(
-          triggerGlobalAlert(
-              'error',
-              `Podczas edytowania zamówienia wystąpił błąd: ${state.editingError}`
-          )
+        triggerGlobalAlert(
+          'error',
+          `Podczas edytowania zamówienia wystąpił błąd: ${state.editingError}`
+        )
       );
     }
   }, [state.error, state.editingError]);
