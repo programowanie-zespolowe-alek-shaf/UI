@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom';
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {getUserInfoAction} from "../../login/actions/loginActions";
 import {api} from "../../../global/connection/backend/endpoints";
-import {ADMIN_PAGE_ORDERS} from "../../../global/constants/pages";
+import {ADMIN_PAGE_ORDERS, PROFILE_PAGE} from "../../../global/constants/pages";
 import itemsPerPage from "../../../global/constants/itemsPerPage";
 import WithPagination from "../../../components/withPagination/WithPagination";
 
@@ -21,7 +21,7 @@ const ProfileOrdersContainer = (props) => {
   const userName = useSelector((state) => state.login.userName, shallowEqual);
 
   const fetchBaseUrl = `${api.orders}?username=${userName}&`;
-  const clientBaseUrl = `${ADMIN_PAGE_ORDERS}`;
+  const clientBaseUrl = `${PROFILE_PAGE}/orders`;
 
   return (
       // <Orders items={items} onOrderDelete={onOrderDelete}/>
