@@ -12,11 +12,13 @@ function Payment(props) {
 
   const cartStore = useSelector((state) => state.cart, shallowEqual);
   const couponStore = useSelector((state) => state.coupon, shallowEqual);
+  const customerStore = useSelector((state) => state.customer, shallowEqual);
   const isCouponValid = couponStore.isValid;
   const couponMultiplier = couponStore.details.discountMultiplayer;
   const price = cartStore.totalValue;
   const discount = (1 - couponMultiplier) * 100;
   const finalPrice = price * couponMultiplier;
+  const email = customerStore.details.email;
   
   const validateCouponCode = (code) => {
     dispatch(validateCoupon(code));
@@ -55,6 +57,7 @@ function Payment(props) {
       <StripeCheckoutButton
         price={finalPrice}
         couponCode={couponStore.details.code}
+        email={email}
       />
     </div>
   );

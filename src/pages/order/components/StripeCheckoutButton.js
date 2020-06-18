@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { orderPlacement } from '../slice/orderSlice';
 
-const StripeCheckoutButton = ({ price, couponCode }) => {
+const StripeCheckoutButton = ({ price, couponCode, email }) => {
   const dispatch = useDispatch();
 
   const publishableKey = 'pk_test_dKJqK9ot67ciIROxXUfKBF3k00Q30DGBGL';
@@ -20,6 +20,7 @@ const StripeCheckoutButton = ({ price, couponCode }) => {
       label='Zapłać'
       billingAddress
       name={'Zamówienie'}
+      email={email}
       description={`Do zapłaty: ${price}zł`}
       amount={price * 100}
       currency='PLN'
