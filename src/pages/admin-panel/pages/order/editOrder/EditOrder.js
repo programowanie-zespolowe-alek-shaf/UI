@@ -11,7 +11,7 @@ import {
   editItem,
   getItem,
 } from '../../../slice/AdminPanelSingleSlice';
-import OrderInputs from '../inputs/orderInputs';
+import OrderInputs from '../inputs/OrderInputs';
 
 import WithLoading from 'components/withLoading/WithLoading';
 import {ADMIN_PAGE_ORDERS} from "../../../../../global/constants/pages";
